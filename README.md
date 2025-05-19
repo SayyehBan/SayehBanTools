@@ -1,6 +1,6 @@
 # SayehBanTools - راهنمای استفاده
 
-![SayehBanTools Logo](https://github.com/SayyehBan/SayyehBanTools/raw/main/logo.png)
+![SayehBanTools Logo](https://github.com/SayyehBan/SayyehBanTools/logo.png)
 
 یک کتابخانه چندمنظوره برای توسعه‌دهندگان دات‌نت با قابلیت‌های متنوع
 
@@ -244,4 +244,4 @@ public async Task<IActionResult> Upload(IFormFile file)
 
 📧 برای ارتباط: sdvp1991david@gmail.com  
 🌍 وبسایت: [https://sayehban.ir](https://sayehban.ir)  
-💻 مخزن کد: [https://github.com/SayyehBan/SayyehBanTools](https://github.com/SayyehBan/SayyehBanTools)
+💻 مخزن کد: [https://github.com/SayyehBan/SayehBanTools](https://github.com/SayyehBan/SayehBanTools)
