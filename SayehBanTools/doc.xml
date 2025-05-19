@@ -1,0 +1,1139 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SayehBanTools</name>
+    </assembly>
+    <members>
+        <member name="T:SayehBanTools.AccessDenied.IPAccess">
+            <summary>
+            دسترسی به سیستم
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AccessDenied.IPAccess.IsInRange(System.String,System.String,System.String)">
+            <summary>
+            بررسی معتبر بودن Range IP
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="rangeStart"></param>
+            <param name="rangeEnd"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:SayehBanTools.Calc.Calculator">
+            <summary>
+            انجام عملیات ریاضی مانند ضرب جمع و ...
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Multiply(System.Double[])">
+            <summary>
+            انجام عملیات ضرب
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Add(System.Double[])">
+            <summary>
+            انجام عملیات جمع
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Subtract(System.Double[])">
+            <summary>
+            انجام عملیات منفی
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Divide(System.Double[])">
+            <summary>
+            انجام عملیات تقسیم
+            </summary>
+            <param name="numbers"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.DivideByZeroException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Discount(System.Decimal,System.Int16)">
+            <summary>
+            محاسبه مبلغ درصد تخفیف
+            </summary>
+            <param name="Amount"></param>
+            <param name="percent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.GetPercent(System.Decimal,System.Decimal)">
+            <summary>
+            دریافت درصد تخفیف یا مالیات
+            </summary>
+            <param name="Amount">مبلغ تخفیف یا مالیات</param>
+            <param name="Price">قیمت اصلی</param>
+            <returns>درصد تخفیف یا مالیات</returns>
+        </member>
+        <member name="M:SayehBanTools.Calc.Calculator.Taxation(System.Decimal,System.Int16)">
+            <summary>
+            محاسبه مبلغ درصد مالیات
+            </summary>
+            <param name="Amount"></param>
+            <param name="percent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.ConfigureService.Configure.ConfigureServicesRabbitMQ">
+            <summary>
+            این کلاس برای سرویس های رابیت مق استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ConfigureService.Configure.ConfigureServicesRabbitMQ.ConfigureService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            این متد برای سرویس های رابیت مق استفاده میشود
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:SayehBanTools.ConfigureService.Configure.ConfigureServicesRabbitMQNormal">
+            <summary>
+            این کلاس برای سرویس های رابیت مق استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ConfigureService.Configure.ConfigureServicesRabbitMQNormal.ConfigureService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            این متد برای سرویس های رابیت مق استفاده میشود
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:SayehBanTools.ConfigureService.Exceptions.NotFoundException">
+            <summary>
+            استثنای سفارشی برای زمانی که اطلاعات یافت نشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ConfigureService.Exceptions.NotFoundException.#ctor(System.String)">
+            <summary>
+            ایجاد نمونه جدید از استثنای عدم یافتن اطلاعات
+            </summary>
+            <param name="message">پیام خطا</param>
+        </member>
+        <member name="T:SayehBanTools.ConnectionDB.RabbitMQConnection">
+            <summary>
+            این کلاس برای سرویس های رابیت مق استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.RabbitMQConnection.DefaultConnection">
+            <summary>
+            آدرس پیش فرض RabbitMQ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.RabbitMQConnection.RabbitMQAsync(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            آدرس‌دهی به RabbitMQ با اطلاعات رمزگشایی‌شده
+            </summary>
+            <param name="encryptedUsername">نام کاربری رمزنگاری‌شده</param>
+            <param name="encryptedPassword">رمز عبور رمزنگاری‌شده</param>
+            <param name="encryptedUrl">آدرس سرور رمزنگاری‌شده</param>
+            <param name="encryptedPort">پورت رمزنگاری‌شده</param>
+            <param name="initVector">وکتور اولیه</param>
+            <param name="passPhrase">عبارت عبور</param>
+            <returns>Uri برای اتصال به RabbitMQ</returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.RabbitMQConnection.RabbitMQ(System.String,System.String,System.String,System.String)">
+            <summary>
+            آدرس دهی به صورت معمولی
+            </summary>
+            <param name="Username"></param>
+            <param name="Password"></param>
+            <param name="Url"></param>
+            <param name="Port"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.RabbitMQConnection.CloudAMQPAsync(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            آدرس دهی به صورت کد گذاری و CloadAMQP
+            </summary>
+            <param name="Username"></param>
+            <param name="Password"></param>
+            <param name="Url"></param>
+            <param name="InitVector"></param>
+            <param name="PassPhrase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.RabbitMQConnection.CloudAMQP(System.String,System.String,System.String)">
+            <summary>
+            آدرس دهی به صورت معمولی و CloadAMQP
+            </summary>
+            <param name="Username"></param>
+            <param name="Password"></param>
+            <param name="Url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.ConnectionDB.SqlServerConnection">
+            <summary>
+            این کلاس برای اتصال به دیتابیس اسکیوال سرور استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            این متد برای ساخت اتصال به دیتابیس اسکیوال سرور استفاده میشود به صورت کدگذاری
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <param name="initVector"></param>
+            <param name="passPhrase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String)">
+            <summary>
+            این متد برای ساخت اتصال به دیتابیس اسکیوال سرور استفاده میشود معمولی
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String,System.Int16,System.Int32,System.Boolean,System.String,System.String)">
+            <summary>
+            این متد برای ساخت اتصال به دیتابیس اسکیوال سرور استفاده میشود به صورت کدگذاری
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <param name="ConnectTimeout"></param>
+            <param name="MaxPoolSize"></param>
+            <param name="IntegratedSecurity"></param>
+            <param name="initVector"></param>
+            <param name="passPhrase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String,System.Int16,System.Int32,System.Boolean)">
+            <summary>
+            این متد برای ساخت اتصال به دیتابیس اسکیوال سرور استفاده میشود معمولی
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <param name="ConnectTimeout"></param>
+            <param name="MaxPoolSize"></param>
+            <param name="IntegratedSecurity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String,System.Int16,System.Int32,System.Boolean,System.Boolean,System.String,System.String)">
+            <summary>
+            این متد برای ساخت اتصال به دیتابیس اسکیوال سرور استفاده میشود به صورت کدگذاری
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <param name="ConnectTimeout"></param>
+            <param name="MaxPoolSize"></param>
+            <param name="IntegratedSecurity"></param>
+            <param name="TrustServerCertificate"></param>
+            <param name="initVector"></param>
+            <param name="passPhrase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ConnectionDB.SqlServerConnection.ConnectionString(System.String,System.String,System.String,System.String,System.Int16,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            رشته اتصال به صورت معمولی برای ارتباط با اسکیوال سرور
+            </summary>
+            <param name="DataSource"></param>
+            <param name="InitialCatalog"></param>
+            <param name="UserId"></param>
+            <param name="Password"></param>
+            <param name="ConnectTimeout"></param>
+            <param name="MaxPoolSize"></param>
+            <param name="IntegratedSecurity"></param>
+            <param name="TrustServerCertificate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Converter.ConvertNumbertToString">
+            <summary>
+            تبدیل عدد به رشته
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof(System.Int64)">
+            <summary>
+            عدد رادریافت وبه حروف تبدیل می کند 
+            </summary>
+            <param name="Ragham">رقم </param>
+            <returns>به حروف عدد را برمی گرداند</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof(System.String)">
+            <summary>
+            یک عدد به صورت سه رقم جدا را دریافت وبه حروف تبدیل می کند
+            </summary>
+            <param name="Ragham"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to19(System.Int32)">
+            <summary>
+            اعداد از صفر تا 19 را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 0 تا 19</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof20to99(System.Int32)">
+            <summary>
+            اعداد از بیست   تا نود نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 20 تا 99</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to99(System.Int32)">
+            <summary>
+            اعداد از 0   تا نود نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 0 تا 99</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof100to999(System.Int32)">
+            <summary>
+            اعداد از صد  تانهصدو نودو نه را به حروف تبدیل میکند
+            </summary>
+            <param name="Ragham">عدد بین 100 تا 999</param>
+            <returns>حروف را برمی گرداند در صورت خطا -1  و درصورت عدد نامعتبر تهی برمی گرداند</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToHorof0to999(System.Int32)">
+            <summary>
+            اعداد از صفر تا 999 را به حروف تبدیل می کند
+            </summary>
+            <param name="Ragham"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.pishConvertRaghamToHorof3(System.Int32,System.Int32)">
+            <summary>
+            یک عدد سه رقمی و موقعیت انرا دریافت و به حروف تبدیل می کند
+            </summary>
+            <param name="Ragham">عدد سه رقمی</param>
+            <param name="LocationRagham"> موقیت عدد 2 =هزار 3== میلیون 4= میلیارد</param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumbertToString.ConvertRaghamToJodaJoda(System.Int64)">
+            <summary>
+            یک رقم را سه رقم سه رقم جدا می کند
+            </summary>
+            <param name="Ragham">رقم که باید حداکثر دوازده رقم باشد</param>
+            <returns>جداشده سه رقم سه رقم را برمی گرداند</returns>
+        </member>
+        <member name="T:SayehBanTools.Converter.ConvertNumToString">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.convert(System.String)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="number"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.Hundreds(System.String,System.Int32,System.Boolean)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="Literal"></param>
+            <param name="digit_sadgan"></param>
+            <param name="haveup"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.Leveler(System.Int32,System.Boolean)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="level"></param>
+            <param name="flag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.Ones(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="Literal"></param>
+            <param name="digit_yekan"></param>
+            <param name="digit_dahgan"></param>
+            <param name="haveup"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.Tens(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="Literal"></param>
+            <param name="digit_yekan"></param>
+            <param name="digit_dahgan"></param>
+            <param name="haveup"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ConvertNumToString.Thousand(System.Int32)">
+            <summary>
+            تبدیل عدد به حروف
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Converter.StringExtensions">
+            <summary>
+            افزونه مدیریت رشته ها
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.NormalizeByLanguage(System.String,System.String,System.Boolean)">
+            <summary>
+            نرمال‌سازی رشته بر اساس کد زبان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.CleanString(System.String,System.String)">
+            <summary>
+            پاک‌سازی رشته با توجه به زبان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToInt(System.String,System.String)">
+            <summary>
+            تبدیل رشته به عدد صحیح
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToDecimal(System.String,System.String)">
+            <summary>
+            تبدیل رشته به عدد اعشاری
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToNumeric(System.Int32,System.String)">
+            <summary>
+            فرمت‌بندی عدد صحیح به‌صورت عددی با جداکننده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToNumeric(System.Decimal,System.String)">
+            <summary>
+            فرمت‌بندی عدد اعشاری به‌صورت عددی با جداکننده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToCurrency(System.Int32,System.String)">
+            <summary>
+            فرمت‌بندی عدد صحیح به‌صورت ارز
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToCurrency(System.Decimal,System.String)">
+            <summary>
+            فرمت‌بندی عدد اعشاری به‌صورت ارز
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.RemovePoint(System.String)">
+            <summary>
+            حذف جداکننده‌ها از رشته
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.Msg(System.String,System.String)">
+            <summary>
+            پاک‌سازی پیام خطا
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.HasValue(System.String,System.Boolean)">
+            <summary>
+            بررسی وجود مقدار
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.NullIfEmpty(System.String)">
+            <summary>
+            تبدیل رشته خالی به null
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.HtmlTags(System.String)">
+            <summary>
+            حذف تگ‌های HTML
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ASCII(System.String)">
+            <summary>
+            جایگزینی خطوط جدید با فاصله
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.Slug(System.String)">
+            <summary>
+            تبدیل فاصله به خط‌تیره
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.RemoveSlug(System.String)">
+            <summary>
+            حذف خط‌تیره و تبدیل به فاصله
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.RemoveDirectWWWROOT(System.String)">
+            <summary>
+            حذف پیشوند wwwroot/
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.AnonymousIP(System.String)">
+            <summary>
+            جایگزینی ::1 با 127.0.0.1
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.En2Fa(System.String)">
+            <summary>
+            متدهای قدیمی برای سازگاری
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.Fa2En(System.String)">
+            <summary>
+            تبدیل عدد فارسی به انگلیسی
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.FixPersianChars(System.String)">
+            <summary>
+            فیکس کردن به زبان فارسی
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.GetCultureInfo(System.String)">
+            <summary>
+            دریافت CultureInfo بر اساس کد زبان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.GetDefaultDigit(System.String)">
+            <summary>
+            دریافت رقم پیش‌فرض برای زبان
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Encryptor.StringEncryptor">
+            <summary>
+            کلاس مدیریت رمزگذاری
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Encryptor.StringEncryptor.EncryptAsync(System.String,System.String,System.String)">
+            <summary>
+            رمزگذاری رشته
+            </summary>
+            <param name="plainText">متن ورودی</param>
+            <param name="initVector">وکتور اولیه (باید 16 بایت باشد)</param>
+            <param name="passPhrase">عبارت عبور</param>
+            <returns>رشته رمزنگاری‌شده به‌صورت Base64</returns>
+        </member>
+        <member name="M:SayehBanTools.Encryptor.StringEncryptor.DecryptAsync(System.String,System.String,System.String)">
+            <summary>
+            رمزگشایی رشته
+            </summary>
+            <param name="cipherText">رشته رمزنگاری‌شده (Base64)</param>
+            <param name="initVector">وکتور اولیه</param>
+            <param name="passPhrase">عبارت عبور</param>
+            <returns>رشته رمزگشایی‌شده</returns>
+        </member>
+        <member name="M:SayehBanTools.Encryptor.StringEncryptor.DecryptConnectionStringAsync(System.String,System.String,System.String)">
+            <summary>
+            رمزگشایی رشته اتصال
+            </summary>
+            <param name="plainText">رشته ورودی</param>
+            <param name="initVector">وکتور اولیه</param>
+            <param name="passPhrase">عبارت عبور</param>
+            <returns>رشته رمزگشایی‌شده</returns>
+        </member>
+        <member name="M:SayehBanTools.Encryptor.StringEncryptor.GetValidIV(System.String)">
+            <summary>
+            تولید IV معتبر از رشته ورودی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Encryptor.StringEncryptor.DeriveKeyFromPassPhrase(System.String)">
+            <summary>
+            تولید کلید امن از عبارت عبور با PBKDF2
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Extensions.PagingExtensions">
+            <summary>
+            کلاس مدیریت صفحه بندی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Extensions.PagingExtensions.ToPaged``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            تبدیل به صفحه بندی
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="page"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Extensions.PagingExtensions.ToPaged``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>
+            تبدیل به صفحه بندی
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="page"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Extensions.PagingExtensions.ToPaged``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            تبدیل به صفحه بندی
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="page"></param>
+            <param name="pageSize"></param>
+            <param name="rowsCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Extensions.PagingExtensions.PagedResult``2(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean,System.Int32@)">
+            <summary>
+            صفحه بندی کوئری
+            </summary>
+            <param name="query">کوئری مورد نظر شما</param>
+            <param name="pageNum">شماره صفحه</param>
+            <param name="pageSize">سایز صفحه</param>
+            <param name="orderByProperty">ترتیب خواص</param>
+            <param name="isAscendingOrder">اگر برابر با <c>true</c> باشد صعودی است</param>
+            <param name="rowsCount">تعداد کل ردیف ها</param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Extensions.PagingExtensions.PagedResult``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            صفحه بندی کوئری
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="query"></param>
+            <param name="pageNum"></param>
+            <param name="pageSize"></param>
+            <param name="rowsCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.GenerateValue.GenerateValues">
+            <summary>
+            این کلاس برای تولید مقادیر تصادفی استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.GenerateValues.Generate_Unique_Number">
+            <summary>
+            تولید عدد تصادفی 8 رقمی
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.GenerateValues.Generate16ValueRandome">
+            <summary>
+            تولید عدد و حروف تصادفی به تعداد 16 تا
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.GenerateValue.NationalCode">
+            <summary>
+            کلاس تولید و بررسی کد ملی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRandom">
+            <summary>
+            تولید کد ملی تصادفی معتبر
+            </summary>
+            <returns>کد ملی 10 رقمی معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRound">
+            <summary>
+            تولید کد ملی رند و معتبر
+            </summary>
+            <returns>کد ملی 10 رقمی رند و معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.CalculateControlDigit(System.String)">
+            <summary>
+            محاسبه رقم کنترل کد ملی
+            </summary>
+            <param name="code">9 رقم اول کد ملی</param>
+            <returns>رقم کنترل (0 تا 9) یا -1 اگر نامعتبر باشد</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.IsValidNationalCode(System.String)">
+            <summary>
+            بررسی صحت کد ملی
+            </summary>
+            <param name="nationalCode">کد ملی</param>
+            <returns>درست یا نادرست</returns>
+            <exception cref="T:System.Exception">در صورت ورودی نامعتبر</exception>
+        </member>
+        <member name="T:SayehBanTools.GenerateValue.SayyehBan">
+            <summary>
+            کلاس بررسی و تولید کد سایه‌بان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.SayyehBan.IsValidCode(System.String)">
+            <summary>
+            بررسی صحت کد سایه‌بان
+            </summary>
+            <param name="nationalCode">کد سایه‌بان 13 رقمی</param>
+            <returns>درستی یا نادرستی کد</returns>
+            <exception cref="T:System.Exception">در صورت نادرست بودن فرمت کد</exception>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.SayyehBan.GenerateRandom">
+            <summary>
+            تولید کد سایه‌بان تصادفی و معتبر
+            </summary>
+            <returns>یک کد سایه‌بان 13 رقمی معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.SayyehBan.GenerateRound">
+            <summary>
+            تولید کد سایه‌بان رند و معتبر
+            </summary>
+            <returns>یک کد سایه‌بان 13 رقمی معتبر با الگوی رند</returns>
+        </member>
+        <member name="T:SayehBanTools.ManageFile.ManageFiles">
+            <summary>
+            این کلاس برای مدیریت فایل‌ها استفاده می‌شود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.#ctor(System.IO.Abstractions.IFileSystem)">
+            <summary>
+            این کلاس برای مدیریت فایل‌ها استفاده می‌شود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.DeleteFileServer(System.String)">
+            <summary>
+            حذف فایل از سرور
+            </summary>
+            <param name="baseFilePath">مسیر فایل</param>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.UploadFileAsync(System.String,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            آپلود فایل به‌صورت کامل و async
+            </summary>
+            <param name="basePath">مسیر پایه</param>
+            <param name="file">فایل ورودی</param>
+            <returns>مسیر فایل آپلودشده</returns>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.UploadFileChunkedAsync(System.String,Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
+            <summary>
+            آپلود فایل به‌صورت تکه‌ای (Chunked) و async
+            </summary>
+            <param name="basePath">مسیر پایه</param>
+            <param name="file">فایل ورودی</param>
+            <param name="chunkSize">اندازه هر تکه (بایت)</param>
+            <returns>مسیر فایل آپلودشده</returns>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection">
+            <summary>
+            کلاس مدیریت اتصال به RabbitMQ با تنظیمات رمزنگاری‌شده
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.Connection">
+            <summary>
+            پراپرتی اتصال به RabbitMQ
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.Channel">
+            <summary>
+            پراپرتی کانال RabbitMQ
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.#ctor(Microsoft.Extensions.Options.IOptions{SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings})">
+            <summary>
+            سازنده با تنظیمات RabbitMQ
+            </summary>
+            <param name="rabbitMqConnectionSettings">تنظیمات اتصال</param>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.CreateRabbitMQConnectionAsync">
+            <summary>
+            ایجاد اتصال به RabbitMQ به‌صورت async
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.CheckRabbitMQConnectionAsync">
+            <summary>
+            بررسی اتصال به RabbitMQ به‌صورت async
+            </summary>
+            <returns>وضعیت اتصال</returns>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection.Dispose">
+            <summary>
+            آزادسازی منابع
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal">
+            <summary>
+            کلاس مدیریت اتصال به RabbitMQ بدون رمزنگاری
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.Connection">
+            <summary>
+            پراپرتی اتصال به RabbitMQ
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.Channel">
+            <summary>
+            پراپرتی کانال RabbitMQ
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.#ctor(Microsoft.Extensions.Options.IOptions{SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal})">
+            <summary>
+            سازنده با تنظیمات RabbitMQ
+            </summary>
+            <param name="rabbitMqConnectionSettingsNormal">تنظیمات اتصال</param>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.CreateRabbitMQConnectionAsync">
+            <summary>
+            ایجاد اتصال به RabbitMQ به‌صورت async
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.CheckRabbitMQConnectionAsync">
+            <summary>
+            بررسی اتصال به RabbitMQ به‌صورت async
+            </summary>
+            <returns>وضعیت اتصال</returns>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal.Dispose">
+            <summary>
+            آزادسازی منابع
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage">
+            <summary>
+            این کلاس مدل پغام RabbitMQ
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage.MessageId">
+            <summary>
+            شناسه پیام
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage.Creationtime">
+            <summary>
+            زمان ایجاد پیغام
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings">
+            <summary>
+            این کلاس مدل تنظیمات اتصال به RabbitMQ
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.Hostname">
+            <summary>
+            نام میزبان
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.Port">
+            <summary>
+            پورت
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.Username">
+            <summary>
+            نام کاربری
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.Password">
+            <summary>
+            رمز عبور
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.InitVector">
+            <summary>
+            مقدار اولیه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettings.PassPhrase">
+            <summary>
+            رمز عبور
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal">
+            <summary>
+            تنظمیات معمولی rabbitmq برای اتصال
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal.Hostname">
+            <summary>
+            نام هاست
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal.Port">
+            <summary>
+            پورت
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal.Username">
+            <summary>
+            نام کاربری
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.MessagingBus.RabbitMQ.Model.RabbitMqConnectionSettingsNormal.Password">
+            <summary>
+            رمز عبور
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.ISendMessages">
+            <summary>
+            رابط برای ارسال پیام به RabbitMQ
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.ISendMessages.SendMessageAsync(SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage,System.String,System.String)">
+            <summary>
+            ارسال پیام به RabbitMQ به‌صورت async
+            </summary>
+            <param name="message">پیام</param>
+            <param name="exchange">نام اکسچنج</param>
+            <param name="queueName">نام صف</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBus">
+            <summary>
+            کلاس ارسال پیام به RabbitMQ با تنظیمات رمزنگاری‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBus.#ctor(SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection)">
+            <summary>
+            سازنده برای تزریق وابستگی
+            </summary>
+            <param name="rabbitMqConnection">اتصال به RabbitMQ</param>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBus.SendMessageAsync(SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage,System.String,System.String)">
+            <summary>
+            ارسال پیام به RabbitMQ به‌صورت async
+            </summary>
+            <param name="message">پیام</param>
+            <param name="exchange">نام اکسچنج</param>
+            <param name="queueName">نام صف</param>
+        </member>
+        <member name="T:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBusNormal">
+            <summary>
+            کلاس ارسال پیام به RabbitMQ بدون رمزنگاری
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBusNormal.#ctor(SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnectionNormal)">
+            <summary>
+            سازنده برای تزریق وابستگی
+            </summary>
+            <param name="rabbitMqConnectionNormal">اتصال به RabbitMQ</param>
+        </member>
+        <member name="M:SayehBanTools.MessagingBus.RabbitMQ.SendMessage.RabbitMQMessageBusNormal.SendMessageAsync(SayehBanTools.MessagingBus.RabbitMQ.Model.BaseMessage,System.String,System.String)">
+            <summary>
+            ارسال پیام به RabbitMQ به‌صورت async
+            </summary>
+            <param name="message">پیام</param>
+            <param name="exchange">نام اکسچنج</param>
+            <param name="queueName">نام صف</param>
+        </member>
+        <member name="T:SayehBanTools.Password.WorstPasswords">
+            <summary>  
+            این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
+            </summary>  
+        </member>
+        <member name="P:SayehBanTools.Password.WorstPasswords.CommonPassword">
+            <summary>  
+            این متد برای محاسبه هش استفاده میشود  
+            </summary>  
+        </member>
+        <member name="M:SayehBanTools.Password.WorstPasswords.#ctor">
+            <summary>  
+            این متد برای محاسبه هش استفاده میشود  
+            </summary>  
+        </member>
+        <member name="M:SayehBanTools.Password.WorstPasswords.LoadCommonPasswords(System.String)">
+            <summary>  
+            این متد برای محاسبه هش استفاده میشود  
+            </summary>  
+            <param name="directFile"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:SayehBanTools.Password.WorstPasswords.ComputeSha256Hash(System.String)">
+            <summary>  
+            این متد برای محاسبه هش استفاده میشود  
+            </summary>  
+            <param name="input"></param>  
+            <returns></returns>  
+        </member>
+        <member name="T:SayehBanTools.Sender.SMS_System">
+            <summary>
+            این کلاس برای ارسال پیامک به صورت پترن استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.SendPatternAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>
+            ارسال به صورت پترن
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.SendNormalSingleAsync(System.String,System.String,System.String,System.String[],System.String,System.Nullable{System.DateTime})">
+            <summary>
+            ارسال به صورت معمولی
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="from"></param>
+            <param name="to"></param>
+            <param name="Message"></param>
+            <param name="DateTimeSender"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.SendNormalFileAsync(System.String,System.String,System.String,Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            ارسال به صورت فایل
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="FromNumber"></param>
+            <param name="To"></param>
+            <param name="Message"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.GetDateTimeUTCWithOffset(System.Nullable{System.DateTime},System.TimeSpan)">
+            <summary>
+            ارسال به صورت معمولی
+            </summary>
+            <param name="DateTimeSender"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.SendPeerToPeerAsync(System.String,System.String,System.Collections.Generic.List{System.Collections.Generic.List{System.String}},System.String,System.String[])">
+            <summary>
+            این کد یک تابع C# به نام SendPeerToPeerAsync است که به صورت همزمان برای ارسال پیامک‌های چند گیرنده به یک API با روش POST عمل می‌کند.
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="Recipients"></param>
+            <param name="FromNumber"></param>
+            <param name="Messages"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.SendPeerToPeerByFileAsync(System.String,System.String,System.String,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            ارسال پیامک به صورت Peer To Peer توسط فایل
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="FromNumber"></param>
+            <param name="File"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.GetCreditAsync(System.String,System.String)">
+            <summary>
+            نمایش هزینه پانل
+            </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.SMS_System.GetSendListAsync(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            نمایش پیام های ارسال شده   
+            /// </summary>
+            <param name="APILink"></param>
+            <param name="APIKey"></param>
+            <param name="page"></param>
+            <param name="per_page"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">
+            <summary>
+            این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ShowDateTime.ConvertDateTime.miladi2shamsi(System.DateTime)">
+            <summary>
+            کد مربوط به تاریخ به صورت ماه و روز
+            </summary>
+            <param name="_date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ShowDateTime.ConvertDateTime.ConvertToLocalDateTime(System.DateTime)">
+            <summary>
+            تبدیل تاریخ و زمان UTC به تاریخ و زمان کشور مورد نظر
+            </summary>
+            <param name="utcDateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ShowDateTime.ConvertDateTime.MiladiToShamsi(System.DateTime)">
+            <summary>
+            تبدیل تاریخ میلادی به شمسی
+            </summary>
+            <param name="MiladiDate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.ShowDateTime.ConvertDateTime.ShamsiToMiladi(System.String)">
+            <summary>
+            تبدیل تاریخ شمسی به میلادی
+            </summary>
+            <param name="ShDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Translation.Google.Model.TranslationRequest">
+            <summary>
+            مدل برای درخواست ترجمه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Translation.Google.Model.TranslationRequest.OriginalText">
+            <summary>
+            متن اصلی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Translation.Google.Model.TranslationRequest.InputLanguage">
+            <summary>
+            زبان ورودی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Translation.Google.Model.TranslationRequest.OutputLanguage">
+            <summary>
+            زبان خروجی
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Translation.Google.Model.TranslationResponse">
+            <summary>
+            مدل برای پاسخ ترجمه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Translation.Google.Model.TranslationResponse.Translations">
+            <summary>
+            ترجمه
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Translation.Google.TranslateTexts">
+            <summary>
+            این کلاس برای ترجمه متن به زبان های مختلف استفاده میشود.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Translation.Google.TranslateTexts.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            این متد برای ترجمه متن به زبان های مختلف استفاده میشود.
+            </summary>
+            <param name="httpClient"></param>
+        </member>
+        <member name="M:SayehBanTools.Translation.Google.TranslateTexts.TranslateTextAsync(SayehBanTools.Translation.Google.Model.TranslationRequest)">
+            <summary>
+            این متد برای ترجمه متن به زبان های مختلف استفاده میشود.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:SayehBanTools.Utilities.Pager">
+            <summary>
+            صفحه بندی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Pager.#ctor(System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            این کلاس برای صفحه بندی استفاده میشود
+            </summary>
+            <param name="totalItems"></param>
+            <param name="currentPage"></param>
+            <param name="pageSize"></param>
+            <param name="maxPages"></param>
+        </member>
+        <member name="P:SayehBanTools.Utilities.Pager.Pages">
+            <summary>
+            صفحه هات
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.Pager.TotalPages">
+            <summary>
+            تعداد کل صفحه
+            </summary>
+        </member>
+    </members>
+</doc>

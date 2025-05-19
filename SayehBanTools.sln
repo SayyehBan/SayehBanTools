@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SayehBanTools", "SayehBanTools\SayehBanTools.csproj", "{8E707A2F-2367-4DB5-A952-A594896D1A66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SayehBanToolsTest", "SayehBanToolsTest\SayehBanToolsTest.csproj", "{214AC9D0-2229-4261-B764-8838C8ED5D17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E707A2F-2367-4DB5-A952-A594896D1A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E707A2F-2367-4DB5-A952-A594896D1A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E707A2F-2367-4DB5-A952-A594896D1A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E707A2F-2367-4DB5-A952-A594896D1A66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214AC9D0-2229-4261-B764-8838C8ED5D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214AC9D0-2229-4261-B764-8838C8ED5D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214AC9D0-2229-4261-B764-8838C8ED5D17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214AC9D0-2229-4261-B764-8838C8ED5D17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC1B0DDC-7D98-4320-B765-16DF801B4CC4}
+	EndGlobalSection
+EndGlobal
