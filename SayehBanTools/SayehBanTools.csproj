@@ -6,21 +6,22 @@
 		<Nullable>enable</Nullable>
 		<AssemblyVersion>1.0.1.1</AssemblyVersion>
 		<FileVersion>1.0.1.1</FileVersion>
-		<Version>1.4.7</Version>
+		<Version>1.4.9</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Company>SayyehBan.ir</Company>
 		<Description>سورس کمکی برای افزایش سرعت کد نویسی</Description>
 		<PackageIcon>Logo.png</PackageIcon>
 		<Authors>سایه بان</Authors>
 		<Title>سورس کمکی سایه بان</Title>
-		<PackageProjectUrl>https://www.nuget.org/packages/SayyehBanTools</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/SayyehBan/SayyehBanTools</RepositoryUrl>
-		<RepositoryType>https://github.com/SayyehBan/SayyehBanTools</RepositoryType>
+		<PackageProjectUrl>https://www.nuget.org/packages/SayehBanTools</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SayyehBan/SayehBanTools</RepositoryUrl>
+		<RepositoryType>https://github.com/SayyehBan/SayehBanTools</RepositoryType>
 		<Copyright>Sayyehban.ir</Copyright>
 		<PackageTags>dotnet utilities  helper</PackageTags>
 		<PackAsTool>False</PackAsTool>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>doc.xml</DocumentationFile>
+		<ApplicationIcon>Logo.ico</ApplicationIcon>
 	</PropertyGroup>
 
   <ItemGroup>
