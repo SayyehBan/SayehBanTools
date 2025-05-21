@@ -1196,12 +1196,13 @@
             <param name="languageCode">کد زبان برای بررسی (باید دو کاراکتر حروفی باشد).</param>
             <exception cref="T:System.ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>
         </member>
-        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeViaApiAsync(System.String,System.String)">
+        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeViaApiAsync(System.String,System.String,RestSharp.IRestClient)">
             <summary>
             اعتبارسنجی کد زبان از طریق درخواست به API.
             </summary>
             <param name="apiLink">آدرس API برای دریافت کدهای زبان (پیش‌فرض: http://localhost:90).</param>
             <param name="languageCode">کد زبان مورد نظر برای اعتبارسنجی.</param>
+            <param name="client">یک نمونه RestClient اختیاری برای اهداف تستی.</param>
             <returns>یک Task که نشان‌دهنده تکمیل عملیات است.</returns>
             <exception cref="T:System.InvalidOperationException">در صورت خطا در دریافت داده از API.</exception>
             <exception cref="T:System.ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>

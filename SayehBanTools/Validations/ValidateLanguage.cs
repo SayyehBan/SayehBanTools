@@ -25,21 +25,35 @@ public class ValidateLanguage
     /// </summary>
     /// <param name="apiLink">آدرس API برای دریافت کدهای زبان (پیش‌فرض: http://localhost:90).</param>
     /// <param name="languageCode">کد زبان مورد نظر برای اعتبارسنجی.</param>
+    /// <param name="client">یک نمونه RestClient اختیاری برای اهداف تستی.</param>
     /// <returns>یک Task که نشان‌دهنده تکمیل عملیات است.</returns>
     /// <exception cref="InvalidOperationException">در صورت خطا در دریافت داده از API.</exception>
     /// <exception cref="ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>
-    public static async Task ValidateLanguageCodeViaApiAsync(string apiLink, string languageCode)
+    public static async Task ValidateLanguageCodeViaApiAsync(string apiLink, string languageCode, IRestClient? client = null)
     {
-        var client = new RestClient(new RestClientOptions(apiLink ?? "http://localhost:90")
+        // اگر client null باشد، یک RestClient جدید ایجاد می‌کند
+        // در غیر این صورت، از client ارسالی استفاده می‌کند (که برای تست‌ها مفید است)
+        client ??= new RestClient(new RestClientOptions(apiLink ?? "http://localhost:90")
         {
             Timeout = TimeSpan.FromSeconds(10)
         });
+
         var request = new RestRequest("api/LanguagesCode/LanguagesCodeGetAll", Method.Get);
         try
         {
             var response = await client.ExecuteAsync<List<Language>>(request);
+
+            // !!! تغییر در این قسمت !!!
+            // اگر درخواست ناموفق بود یا داده‌ای برنگشت، ErrorMessage از RestResponse را هم لحاظ می‌کنیم.
             if (!response.IsSuccessful || response.Data == null || !response.Data.Any())
-                throw new InvalidOperationException($"خطا در دریافت داده از API کدهای زبان. کد وضعیت: {response.StatusCode}");
+            {
+                string errorMessage = $"خطا در دریافت داده از API کدهای زبان. کد وضعیت: {response.StatusCode}";
+                if (!string.IsNullOrEmpty(response.ErrorMessage))
+                {
+                    errorMessage += $" - پیام خطا: {response.ErrorMessage}";
+                }
+                throw new InvalidOperationException(errorMessage);
+            }
 
             if (!response.Data.Any(l => l.LanguageCode != null &&
                 l.LanguageCode.Equals(languageCode, StringComparison.OrdinalIgnoreCase)))
@@ -51,7 +65,14 @@ public class ValidateLanguage
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException($"خطا در دریافت داده از API: {ex.Message}", ex);
+            // این بلوک catch برای خطاهای غیرمنتظره مانند مشکلات شبکه قبل از دریافت پاسخ از RestSharp است.
+            // در این حالت، ex.Message حاوی پیام خطای اصلی خواهد بود.
+            string errorMessage = $"خطا در دریافت داده از API: {ex.Message}";
+            if (ex.InnerException != null)
+            {
+                errorMessage += $" - Inner Exception: {ex.InnerException.Message}";
+            }
+            throw new InvalidOperationException(errorMessage, ex);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using RestSharp;
+using RestSharp; // مطمئن شوید که این namespace وجود دارد
 using SayehBanTools.Model.Entities;
 using SayehBanTools.Validations;
 using Xunit;
@@ -160,14 +160,16 @@ namespace SayehBanTools.Tests
             string apiLink = "http://localhost:90"; // آدرس پایه API
             var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
             var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200 و داده‌های معتبر
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(apiLink)
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز برای پاسخ‌های HTTP
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار برای درخواست
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
-            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode); // فراخوانی متد برای بررسی کد زبان
+            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client); // فراخوانی متد برای بررسی کد زبان و ارسال client
             // اگر استثنایی پرتاب نشود، تست موفق است
         }
 
@@ -180,14 +182,16 @@ namespace SayehBanTools.Tests
             string? apiLink = null; // آدرس API نال
             var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
             var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200
-            var client = new RestClient(new RestClientOptions("http://localhost:90")
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
+            var client = new RestClient(new RestClientOptions("http://localhost:90") // از لینک پیش‌فرض استفاده می‌کنیم
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
-            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode); // فراخوانی متد با آدرس نال
+            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client); // فراخوانی متد با آدرس نال و ارسال client
             // اگر استثنایی پرتاب نشود، تست موفق است
         }
 
@@ -198,17 +202,20 @@ namespace SayehBanTools.Tests
             // Arrange: آماده‌سازی داده‌ها و تنظیمات
             string languageCode = "en"; // کد زبان
             string apiLink = "http://localhost:90"; // آدرس پایه API
-            var handler = new MockHttpMessageHandler(HttpStatusCode.NotFound, null); // شبیه‌ساز پاسخ HTTP با کد 404 (ناموفق)
+            var handler = new MockHttpMessageHandler(HttpStatusCode.NotFound); // شبیه‌ساز پاسخ HTTP با کد 404 (ناموفق)
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(apiLink)
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode)); // فراخوانی متد
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client)); // فراخوانی متد
             Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message); // بررسی پیام استثنا
+            Assert.Contains("کد وضعیت: NotFound", exception.Message); // بررسی دقیق‌تر پیام استثنا
         }
 
         [Fact]
@@ -219,16 +226,19 @@ namespace SayehBanTools.Tests
             string languageCode = "en"; // کد زبان
             string apiLink = "http://localhost:90"; // آدرس پایه API
             var handler = new MockHttpMessageHandler(HttpStatusCode.OK, "[]"); // شبیه‌ساز پاسخ HTTP با کد 200 و لیست خالی
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(apiLink)
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode)); // فراخوانی متد
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client)); // فراخوانی متد
             Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message); // بررسی پیام استثنا
+            // با توجه به تغییرات در کد اصلی، پیام خطای "کد وضعیت: OK" نیز در اینجا ظاهر می‌شود که درست است
         }
 
         [Fact]
@@ -240,15 +250,17 @@ namespace SayehBanTools.Tests
             string apiLink = "http://localhost:90"; // آدرس پایه API
             var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
             var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(apiLink)
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
             var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode)); // فراخوانی متد
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client)); // فراخوانی متد
             Assert.Contains("کد زبان معتبر نیست.", exception.Message); // بررسی پیام استثنا
         }
 
@@ -259,17 +271,26 @@ namespace SayehBanTools.Tests
             // Arrange: آماده‌سازی داده‌ها و تنظیمات
             string languageCode = "en"; // کد زبان
             string apiLink = "http://localhost:90"; // آدرس پایه API
-            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, null, true, "API Error"); // شبیه‌ساز پرتاب استثنای HttpRequestException
+            // پیام استثنای HttpRequestException
+            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, null, true, "API Error during request");
+
+            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(apiLink)
             {
-                ConfigureMessageHandler = _ => handler, // استفاده از شبیه‌ساز
-                Timeout = TimeSpan.FromSeconds(10) // تنظیم زمان انتظار
+                ConfigureMessageHandler = _ => handler,
+                Timeout = TimeSpan.FromSeconds(10)
             });
 
             // Act & Assert: اجرا و بررسی
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode)); // فراخوانی متد
-            Assert.Contains("API Error", exception.Message); // بررسی پیام استثنا
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(apiLink, languageCode, client)); // فراخوانی متد
+
+            // !!! مهم: این خط را اضافه کنید تا پیام واقعی استثنا را در خروجی تست ببینید !!!
+            Console.WriteLine($"Actual Exception Message: {exception.Message}");
+
+            // حالا Assert.Contains باید کار کند، زیرا تغییرات در کد اصلی پیام را شامل می‌شود
+            // اگر همچنان شکست خورد، به خروجی Console.WriteLine نگاه کنید و رشته صحیح را جایگزین کنید.
+            Assert.Contains("API Error during request", exception.Message); // بررسی پیام استثنا
         }
 
         #endregion
