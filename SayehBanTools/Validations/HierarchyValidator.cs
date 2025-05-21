@@ -29,7 +29,7 @@ public static class HierarchyValidator
     /// </summary>
     /// <param name="parentHierarchyPath">رشته مسیر سلسله مراتب (مثال: "/" یا "/1/")</param>
     /// <exception cref="ArgumentException">در صورتی که فرمت مسیر سلسله مراتب نامعتبر باشد.</exception>
-    private static void ValidateHierarchyPath(string parentHierarchyPath)
+    public static void ValidateHierarchyPath(string parentHierarchyPath)
     {
         if (!string.IsNullOrEmpty(parentHierarchyPath) &&
             !IsValidHierarchyPath(parentHierarchyPath))
