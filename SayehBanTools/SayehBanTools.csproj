@@ -36,6 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
     <PackageReference Include="System.IO.Abstractions" Version="22.0.14" />
   </ItemGroup>
 

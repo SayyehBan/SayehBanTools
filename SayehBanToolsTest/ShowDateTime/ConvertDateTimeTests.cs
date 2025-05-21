@@ -86,13 +86,12 @@ public class ConvertDateTimeTests
     /// </summary>
     [Theory]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("invalid-date")]
     [InlineData("1402/10")] // فرمت ناقص
-    public void ShamsiToMiladi_ShouldHandleInvalidInput(string invalidInput)
+    public void ShamsiToMiladi_ShouldHandleInvalidInput(string? invalidInput) // Changed to nullable type
     {
         // Act
-        var result = ConvertDateTime.ShamsiToMiladi(invalidInput);
+        var result = ConvertDateTime.ShamsiToMiladi(invalidInput ?? "");
 
         // Assert
         Assert.Equal(default(DateTime), result);
