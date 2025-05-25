@@ -20,6 +20,34 @@
             <exception cref="T:System.ArgumentNullException"></exception>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
+        <member name="T:SayehBanTools.API.Language.LanguagesCode">
+            <summary>
+            کلاس برای دریافت کدهای زبان از API.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.API.Language.LanguagesCode.CreateApiRequest(System.String,System.String,RestSharp.IRestClient)">
+            <summary>
+            ایجاد RestClient و RestRequest برای درخواست به API.
+            </summary>
+            <param name="apiLink">آدرس API (اختیاری، پیش‌فرض: http://localhost:90).</param>
+            <param name="apiAddress">مسیر API (اختیاری، پیش‌فرض: api/LanguagesCode/LanguagesCodeGetAll).</param>
+            <param name="client">یک نمونه RestClient اختیاری برای اهداف تستی.</param>
+            <returns>یک تاپل شامل RestClient و RestRequest.</returns>
+        </member>
+        <member name="T:SayehBanTools.API.Language.LanguageSettings">
+            <summary>
+            کلاس برای تنظیمات زبان.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.API.Language.LanguageSettings.CreateApiRequest(System.String,System.String,RestSharp.IRestClient)">
+            <summary>
+            ایجاد RestClient و RestRequest برای درخواست به API.
+            </summary>
+            <param name="apiLink">آدرس API (اختیاری، پیش‌فرض: http://localhost:90).</param>
+            <param name="apiAddress">مسیر API (اختیاری، پیش‌فرض: api/LanguageSettings/LanguageSettingsGetAll).</param>
+            <param name="client">یک نمونه RestClient اختیاری برای اهداف تستی.</param>
+            <returns>یک تاپل شامل RestClient و RestRequest.</returns>
+        </member>
         <member name="T:SayehBanTools.Calc.Calculator">
             <summary>
             انجام عملیات ریاضی مانند ضرب جمع و ...
@@ -918,34 +946,84 @@
             <param name="exchange">نام اکسچنج</param>
             <param name="queueName">نام صف</param>
         </member>
-        <member name="T:SayehBanTools.Model.Entities.Language">
+        <member name="T:SayehBanTools.Model.Entities.VM_Language">
             <summary>
             دسته‌بندی‌ زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.Language.LanguageID">
+        <member name="T:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll">
+            <summary>
+            کلاس برای نمایش زبان‌ها.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageID">
             <summary>
             شناسه زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.Language.LanguageCode">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageCode">
             <summary>
             کد زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.Language.LanguageName">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageCodeRegion">
+            <summary>
+            کد زبان منطقی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageName">
             <summary>
             نام زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.Language.LanguageNameFarsi">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageNameFarsi">
             <summary>
             نام فارسی زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.Language.TextDirection">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.TextDirection">
             <summary>
             جهت نمایش
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_LanguageSettings">
+            <summary>
+            View Model برای تنظیمات زبان
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll">
+            <summary>
+            View Model دریافت تمامی تنظیمات زبان
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.LanguageSettingID">
+            <summary>
+            شناسه تنظیمات زبان
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.LanguageCode">
+            <summary>
+            کد زبان
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.LanguageCodeRegion">
+            <summary>
+            کد زبان منطقی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.AnalyzerName">
+            <summary>
+            نام تحلیل گر
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.Tokenizer">
+            <summary>
+            توکن سازی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.Filters">
+            <summary>
+            فیلترکردن
             </summary>
         </member>
         <member name="T:SayehBanTools.Password.WorstPasswords">
@@ -1141,6 +1219,26 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
+            <summary>
+            ثابت های API
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.DefaultApiLink">
+            <summary>
+            مقدار پیش‌فرض برای آدرس API.
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.ApiAddressLanguagesCodeGetAll">
+            <summary>
+            مقدار پیش‌فرض برای مسیر API دریافت تمام زبانها
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.ApiAddressLanguageSettingsGetAll">
+            <summary>
+            آدرس API دریافت تمام تنظیمات زبان
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Utilities.Pager">
             <summary>
             صفحه بندی
@@ -1196,11 +1294,12 @@
             <param name="languageCode">کد زبان برای بررسی (باید دو کاراکتر حروفی باشد).</param>
             <exception cref="T:System.ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>
         </member>
-        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeViaApiAsync(System.String,System.String,RestSharp.IRestClient)">
+        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeViaApiAsync(System.String,System.String,System.String,RestSharp.IRestClient)">
             <summary>
             اعتبارسنجی کد زبان از طریق درخواست به API.
             </summary>
-            <param name="apiLink">آدرس API برای دریافت کدهای زبان (پیش‌فرض: http://localhost:90).</param>
+            <param name="apiLink">آدرس API برای دریافت کدهای زبان (اختیاری).</param>
+            <param name="apiAddress">مسیر API برای دریافت کدهای زبان (اختیاری).</param>
             <param name="languageCode">کد زبان مورد نظر برای اعتبارسنجی.</param>
             <param name="client">یک نمونه RestClient اختیاری برای اهداف تستی.</param>
             <returns>یک Task که نشان‌دهنده تکمیل عملیات است.</returns>
