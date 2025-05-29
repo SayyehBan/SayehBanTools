@@ -702,6 +702,34 @@
             </summary>
             <returns>یک کد سایه‌بان 13 رقمی معتبر با الگوی رند</returns>
         </member>
+        <member name="T:SayehBanTools.Infrastructure.Elasticsearch.ElasticsearchIndexManager">
+            <summary>
+            مدیری برای مدیریت ایندکس‌های Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Infrastructure.Elasticsearch.ElasticsearchIndexManager.#ctor(Elastic.Clients.Elasticsearch.ElasticsearchClient)">
+            <summary>
+            سازنده کلاس با تزریق کلاینت Elasticsearch
+            </summary>
+            <param name="elasticClient">کلاینت Elasticsearch</param>
+        </member>
+        <member name="M:SayehBanTools.Infrastructure.Elasticsearch.ElasticsearchIndexManager.InitializelanguageIndicesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+            <summary>
+            مقداردهی اولیه ایندکس‌های Elasticsearch به‌صورت داینامیک با پشتیبانی از کدهای زبان
+            </summary>
+            <param name="indexNamePrefix">پیشوند نام ایندکس</param>
+            <param name="propertyMappings">دیکشنری پراپرتی‌ها و نوع داده‌هایشان</param>
+            <param name="languageCodes">لیست کدهای زبان</param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Infrastructure.Elasticsearch.ElasticsearchIndexManager.InitializeIndexAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            مقداردهی اولیه یک ایندکس Elasticsearch به‌صورت داینامیک بدون کد زبان
+            </summary>
+            <param name="indexName">نام ایندکس</param>
+            <param name="propertyMappings">دیکشنری پراپرتی‌ها و نوع داده‌هایشان</param>
+            <returns></returns>
+        </member>
         <member name="T:SayehBanTools.ManageFile.ManageFiles">
             <summary>
             این کلاس برای مدیریت فایل‌ها استفاده می‌شود
@@ -1218,6 +1246,52 @@
             <param name="request"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:SayehBanTools.Utilities.Caching.CacheManager">
+            <summary>
+            مدیریت کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary>
+            سازنده کلاس
+            </summary>
+            <param name="memoryCache"></param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+            <summary>
+            سازنده کلاس
+            </summary>
+            <param name="distributedCache"></param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.TryGetValueAsync``1(System.String)">
+            <summary>
+            دریافت مقدار کش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetAsync``1(System.String,``0,System.Object)">
+            <summary>
+            ثبت مقدار کش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.ResetCacheAsync(System.String,System.String[])">
+            <summary>
+            ریست کش
+            </summary>
+            <param name="prefix"></param>
+            <param name="keyParts"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>
