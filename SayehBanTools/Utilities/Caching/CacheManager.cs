@@ -3,40 +3,50 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 
 namespace SayehBanTools.Utilities.Caching;
+
 /// <summary>
-/// مدیریت کش
+/// مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه یا کش توزیع‌شده
 /// </summary>
 public class CacheManager
 {
     private readonly IMemoryCache? _memoryCache;
     private readonly IDistributedCache? _distributedCache;
+
     /// <summary>
-    /// سازنده کلاس
+    /// سازنده کلاس برای استفاده از کش حافظه
     /// </summary>
-    /// <param name="memoryCache"></param>
+    /// <param name="memoryCache">نمونه کش حافظه</param>
+    /// <exception cref="ArgumentNullException">در صورت null بودن memoryCache</exception>
     public CacheManager(IMemoryCache memoryCache)
     {
-        _memoryCache = memoryCache;
+        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         _distributedCache = null;
     }
+
     /// <summary>
-    /// سازنده کلاس
+    /// سازنده کلاس برای استفاده از کش توزیع‌شده
     /// </summary>
-    /// <param name="distributedCache"></param>
+    /// <param name="distributedCache">نمونه کش توزیع‌شده</param>
+    /// <exception cref="ArgumentNullException">در صورت null بودن distributedCache</exception>
     public CacheManager(IDistributedCache distributedCache)
     {
-        _distributedCache = distributedCache;
+        _distributedCache = distributedCache ?? throw new ArgumentNullException(nameof(distributedCache));
         _memoryCache = null;
     }
+
     /// <summary>
-    /// دریافت مقدار کش
+    /// دریافت مقدار از کش
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <typeparam name="T">نوع داده کش</typeparam>
+    /// <param name="key">کلید کش</param>
+    /// <returns>مقدار کش‌شده یا null در صورت عدم وجود</returns>
+    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن key</exception>
+    /// <exception cref="InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
     public async Task<T?> TryGetValueAsync<T>(string key)
     {
+        if (string.IsNullOrEmpty(key))
+            throw new ArgumentNullException(nameof(key));
+
         if (_memoryCache != null)
         {
             return _memoryCache.TryGetValue(key, out T? value) ? value : default;
@@ -48,17 +58,22 @@ public class CacheManager
         }
         throw new InvalidOperationException("No cache provider configured.");
     }
+
     /// <summary>
-    /// ثبت مقدار کش
+    /// ثبت مقدار در کش
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <typeparam name="T">نوع داده کش</typeparam>
+    /// <param name="key">کلید کش</param>
+    /// <param name="value">مقدار برای کش کردن</param>
+    /// <param name="options">تنظیمات کش (MemoryCacheEntryOptions یا DistributedCacheEntryOptions)</param>
+    /// <returns>وظیفه ناهمگام</returns>
+    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن key</exception>
+    /// <exception cref="InvalidOperationException">در صورت نادرست بودن تنظیمات یا عدم پیکربندی ارائه‌دهنده کش</exception>
     public async Task SetAsync<T>(string key, T value, object options)
     {
+        if (string.IsNullOrEmpty(key))
+            throw new ArgumentNullException(nameof(key));
+
         if (_memoryCache != null && options is MemoryCacheEntryOptions memOptions)
         {
             _memoryCache.Set(key, value, memOptions);
@@ -73,20 +88,26 @@ public class CacheManager
             throw new InvalidOperationException("Invalid cache options or no cache provider configured.");
         }
     }
+
     /// <summary>
-    /// ریست کش
+    /// حذف مقدار از کش
     /// </summary>
-    /// <param name="prefix"></param>
-    /// <param name="keyParts"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <param name="prefix">پیشوند کلید کش</param>
+    /// <param name="keyParts">بخش‌های اضافی کلید کش (اختیاری)</param>
+    /// <returns>وظیفه ناهمگام</returns>
+    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن prefix</exception>
+    /// <exception cref="InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
     public async Task ResetCacheAsync(string prefix, params string?[] keyParts)
     {
-        if (keyParts == null || keyParts.All(part => string.IsNullOrEmpty(part)))
+        if (string.IsNullOrEmpty(prefix))
+            throw new ArgumentNullException(nameof(prefix));
+
+        var cacheKey = prefix;
+        if (keyParts != null && keyParts.Any(p => !string.IsNullOrEmpty(p)))
         {
-            throw new InvalidOperationException("برای ریست کش، حداقل یک پارامتر باید مشخص شود.");
+            cacheKey += string.Join("_", keyParts.Where(p => !string.IsNullOrEmpty(p)));
         }
-        var cacheKey = $"{prefix}{string.Join("_", keyParts.Where(p => !string.IsNullOrEmpty(p)))}";
+
         if (_memoryCache != null)
         {
             _memoryCache.Remove(cacheKey);
@@ -94,6 +115,10 @@ public class CacheManager
         else if (_distributedCache != null)
         {
             await _distributedCache.RemoveAsync(cacheKey);
+        }
+        else
+        {
+            throw new InvalidOperationException("No cache provider configured.");
         }
     }
 }

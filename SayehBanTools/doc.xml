@@ -1249,49 +1249,54 @@
         </member>
         <member name="T:SayehBanTools.Utilities.Caching.CacheManager">
             <summary>
-            مدیریت کش
+            مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه یا کش توزیع‌شده
             </summary>
         </member>
         <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
             <summary>
-            سازنده کلاس
+            سازنده کلاس برای استفاده از کش حافظه
             </summary>
-            <param name="memoryCache"></param>
+            <param name="memoryCache">نمونه کش حافظه</param>
+            <exception cref="T:System.ArgumentNullException">در صورت null بودن memoryCache</exception>
         </member>
         <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
             <summary>
-            سازنده کلاس
+            سازنده کلاس برای استفاده از کش توزیع‌شده
             </summary>
-            <param name="distributedCache"></param>
+            <param name="distributedCache">نمونه کش توزیع‌شده</param>
+            <exception cref="T:System.ArgumentNullException">در صورت null بودن distributedCache</exception>
         </member>
         <member name="M:SayehBanTools.Utilities.Caching.CacheManager.TryGetValueAsync``1(System.String)">
             <summary>
-            دریافت مقدار کش
+            دریافت مقدار از کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <typeparam name="T">نوع داده کش</typeparam>
+            <param name="key">کلید کش</param>
+            <returns>مقدار کش‌شده یا null در صورت عدم وجود</returns>
+            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن key</exception>
+            <exception cref="T:System.InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
         </member>
         <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetAsync``1(System.String,``0,System.Object)">
             <summary>
-            ثبت مقدار کش
+            ثبت مقدار در کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="value"></param>
-            <param name="options"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <typeparam name="T">نوع داده کش</typeparam>
+            <param name="key">کلید کش</param>
+            <param name="value">مقدار برای کش کردن</param>
+            <param name="options">تنظیمات کش (MemoryCacheEntryOptions یا DistributedCacheEntryOptions)</param>
+            <returns>وظیفه ناهمگام</returns>
+            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن key</exception>
+            <exception cref="T:System.InvalidOperationException">در صورت نادرست بودن تنظیمات یا عدم پیکربندی ارائه‌دهنده کش</exception>
         </member>
         <member name="M:SayehBanTools.Utilities.Caching.CacheManager.ResetCacheAsync(System.String,System.String[])">
             <summary>
-            ریست کش
+            حذف مقدار از کش
             </summary>
-            <param name="prefix"></param>
-            <param name="keyParts"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <param name="prefix">پیشوند کلید کش</param>
+            <param name="keyParts">بخش‌های اضافی کلید کش (اختیاری)</param>
+            <returns>وظیفه ناهمگام</returns>
+            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن prefix</exception>
+            <exception cref="T:System.InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>

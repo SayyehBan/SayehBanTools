@@ -172,27 +172,50 @@ public class CacheManagerTests
         _distributedCacheMock.Verify(x => x.RemoveAsync(cacheKey, default), Times.Once());
     }
 
-    // تست 9: بررسی رفتار در صورت استفاده از کلیدهای نامعتبر (null)
-    // هدف: اطمینان از اینکه متد ResetCacheAsync در صورت دریافت کلید null خطای مناسب تولید می‌کند.
+    // تست 9: بررسی رفتار ResetCacheAsync با keyParts خالی یا null
+    // هدف: اطمینان از اینکه متد ResetCacheAsync با keyParts خالی یا null، کش را با prefix پاک می‌کند.
     [Fact]
-    public async Task ResetCacheAsync_NullKeyParts_ThrowsException()
+    public async Task ResetCacheAsync_NullOrEmptyKeyParts_RemovesCacheWithPrefix()
     {
-        // Act & Assert: بررسی اینکه فراخوانی متد با کلید null منجر به خطای InvalidOperationException می‌شود
-        await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            _memoryCacheManager.ResetCacheAsync("prefix", null!));
+        // Arrange: آماده‌سازی پیشوند و کلید کش برای Memory Cache
+        string prefix = "prefix_";
+        string cacheKey = prefix;
+        string value = "testValue";
+        _memoryCache.Set(cacheKey, value);
+
+        // Act: فراخوانی ResetCacheAsync با keyParts null
+        await _memoryCacheManager.ResetCacheAsync(prefix, null!);
+
+        // Assert: بررسی اینکه مقدار از کش حذف شده است
+        var cachedValue = _memoryCache.Get<string>(cacheKey);
+        Assert.Null(cachedValue);
+
+        // Arrange: آماده‌سازی مجدد برای Distributed Cache
+        _distributedCacheMock
+            .Setup(x => x.RemoveAsync(cacheKey, default))
+            .Returns(Task.CompletedTask);
+
+        // Act: فراخوانی ResetCacheAsync با keyParts خالی
+        await _distributedCacheManager.ResetCacheAsync(prefix, Array.Empty<string>());
+
+        // Assert: بررسی اینکه متد RemoveAsync در کش توزیع‌شده فراخوانی شده است
+        _distributedCacheMock.Verify(x => x.RemoveAsync(cacheKey, default), Times.Once());
     }
 
     // تست 10: بررسی رفتار در صورت عدم پیکربندی کش
     // هدف: اطمینان از اینکه متد TryGetValueAsync در صورت عدم وجود کش (Memory یا Distributed) خطای مناسب تولید می‌کند.
+    // تست 10: بررسی رفتار TryGetValueAsync با کلید null یا خالی
+    // هدف: اطمینان از اینکه متد TryGetValueAsync در صورت دریافت کلید null یا خالی، خطای مناسب تولید می‌کند.
     [Fact]
-    public async Task TryGetValueAsync_NoCacheProvider_ThrowsException()
+    public async Task TryGetValueAsync_NullOrEmptyKey_ThrowsException()
     {
-        // Arrange: ایجاد یک نمونه CacheManager بدون کش معتبر
-        var cacheManager = new CacheManager((IMemoryCache)null!);
+        // Act & Assert: بررسی اینکه فراخوانی متد با کلید null منجر به ArgumentNullException می‌شود
+        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            _memoryCacheManager.TryGetValueAsync<string>(null!));
 
-        // Act & Assert: بررسی اینکه فراخوانی متد منجر به خطای InvalidOperationException می‌شود
-        await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            cacheManager.TryGetValueAsync<string>("testKey"));
+        // Act & Assert: بررسی اینکه فراخوانی متد با کلید خالی منجر به ArgumentNullException می‌شود
+        await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            _memoryCacheManager.TryGetValueAsync<string>(""));
     }
 
     // تست 11: بررسی رفتار در صورت استفاده از گزینه‌های نامعتبر
