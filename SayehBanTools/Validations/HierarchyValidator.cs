@@ -28,13 +28,14 @@ public static class HierarchyValidator
     /// بررسی صحت رشته مسیر سلسله مراتب والد.
     /// </summary>
     /// <param name="parentHierarchyPath">رشته مسیر سلسله مراتب (مثال: "/" یا "/1/")</param>
+    /// <param name="message">پیام خطا اختیاری برای استثنا</param>
     /// <exception cref="ArgumentException">در صورتی که فرمت مسیر سلسله مراتب نامعتبر باشد.</exception>
-    public static void ValidateHierarchyPath(string parentHierarchyPath)
+    public static void ValidateHierarchyPath(string parentHierarchyPath, string? message = null)
     {
         if (!string.IsNullOrEmpty(parentHierarchyPath) &&
             !IsValidHierarchyPath(parentHierarchyPath))
         {
-            throw new ArgumentException("فرمت سلسله مراتب نامعتبر است. باید به صورت / یا /1/ باشد.",
+            throw new ArgumentException(message ?? "فرمت سلسله مراتب نامعتبر است. باید به صورت / یا /1/ باشد.",
                 nameof(parentHierarchyPath));
         }
     }

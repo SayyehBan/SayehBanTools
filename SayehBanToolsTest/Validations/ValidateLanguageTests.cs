@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using RestSharp; // مطمئن شوید که این namespace وجود دارد
+using RestSharp;
 using SayehBanTools.Model.Entities;
 using SayehBanTools.Validations;
-using Xunit;
 
 namespace SayehBanTools.Tests
 {
@@ -19,68 +13,99 @@ namespace SayehBanTools.Tests
         #region ValidateLanguageCodeFormat Tests
         // این بخش شامل تست‌هایی برای متد ValidateLanguageCodeFormat است که فرمت کد زبان را بررسی می‌کند.
 
+        /// <summary>
+        /// تست بررسی کد زبان معتبر (مثل "en"): متد ValidateLanguageCodeFormat نباید استثنا پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان معتبر (مثل "en") که نباید استثنا پرتاب کند.
         public void ValidateLanguageCodeFormat_ValidCode_DoesNotThrow()
         {
-            // Arrange: آماده‌سازی داده‌های ورودی
+            // Arrange
             string languageCode = "en"; // کد زبان معتبر (دو کاراکتر حروفی)
 
-            // Act & Assert: اجرا و بررسی
-            ValidateLanguage.ValidateLanguageCodeFormat(languageCode); // فراخوانی متد برای بررسی فرمت
-            // اگر استثنایی پرتاب نشود، تست موفق است
+            // Act & Assert
+            ValidateLanguage.ValidateLanguageCodeFormat(languageCode);
+            // اگر استثنایی پرتاب نشود، تست موفق است.
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان نال: متد ValidateLanguageCodeFormat باید استثنای ArgumentException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان نال که باید استثنای ArgumentException پرتاب کند.
         public void ValidateLanguageCodeFormat_NullCode_ThrowsArgumentException()
         {
-            // Arrange: آماده‌سازی داده‌های ورودی
+            // Arrange
             string? languageCode = null; // کد زبان نال
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = Assert.Throws<ArgumentException>(() =>
-                ValidateLanguage.ValidateLanguageCodeFormat(languageCode!)); // فراخوانی متد با ورودی نال
-            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر حروفی باشد.", exception.Message); // بررسی پیام استثنا
+                ValidateLanguage.ValidateLanguageCodeFormat(languageCode!));
+            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر انگلیسی حروفی باشد.", exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان خالی: متد ValidateLanguageCodeFormat باید استثنای ArgumentException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان خالی که باید استثنای ArgumentException پرتاب کند.
         public void ValidateLanguageCodeFormat_EmptyCode_ThrowsArgumentException()
         {
-            // Arrange: آماده‌سازی داده‌های ورودی
+            // Arrange
             string languageCode = ""; // کد زبان خالی
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = Assert.Throws<ArgumentException>(() =>
-                ValidateLanguage.ValidateLanguageCodeFormat(languageCode)); // فراخوانی متد
-            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر حروفی باشد.", exception.Message); // بررسی پیام استثنا
+                ValidateLanguage.ValidateLanguageCodeFormat(languageCode));
+            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر انگلیسی حروفی باشد.", exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان با طول نادرست (مثل "eng"): متد ValidateLanguageCodeFormat باید استثنای ArgumentException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان با طول نادرست (مثل "eng") که باید استثنای ArgumentException پرتاب کند.
         public void ValidateLanguageCodeFormat_WrongLengthCode_ThrowsArgumentException()
         {
-            // Arrange: آماده‌سازی داده‌های ورودی
+            // Arrange
             string languageCode = "eng"; // کد زبان با طول نادرست (بیش از دو کاراکتر)
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = Assert.Throws<ArgumentException>(() =>
-                ValidateLanguage.ValidateLanguageCodeFormat(languageCode)); // فراخوانی متد صحیح
-            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر حروفی باشد.", exception.Message); // بررسی پیام استثنا
+                ValidateLanguage.ValidateLanguageCodeFormat(languageCode));
+            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر انگلیسی حروفی باشد.", exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان غیرحروفی (مثل "12"): متد ValidateLanguageCodeFormat باید استثنای ArgumentException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان غیرحروفی (مثل "12") که باید استثنای ArgumentException پرتاب کند.
         public void ValidateLanguageCodeFormat_NonAlphabeticCode_ThrowsArgumentException()
         {
-            // Arrange: آماده‌سازی داده‌های ورودی
+            // Arrange
             string languageCode = "12"; // کد زبان غیرحروفی
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = Assert.Throws<ArgumentException>(() =>
-                ValidateLanguage.ValidateLanguageCodeFormat(languageCode)); // فراخوانی متد
-            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر حروفی باشد.", exception.Message); // بررسی پیام استثنا
+                ValidateLanguage.ValidateLanguageCodeFormat(languageCode));
+            Assert.Contains("کد زبان باید دقیقاً دو کاراکتر انگلیسی حروفی باشد.", exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
+        }
+
+        /// <summary>
+        /// تست بررسی کد زبان با پیام خطای سفارشی: متد ValidateLanguageCodeFormat باید استثنای ArgumentException با پیام سفارشی پرتاب کند.
+        /// </summary>
+        [Fact]
+        public void ValidateLanguageCodeFormat_InvalidCodeWithCustomMessage_ThrowsArgumentExceptionWithCustomMessage()
+        {
+            // Arrange
+            string languageCode = "12"; // کد زبان غیرحروفی
+            string customMessage = "کد زبان نامعتبر است!";
+
+            // Act & Assert
+            var exception = Assert.Throws<ArgumentException>(() =>
+                ValidateLanguage.ValidateLanguageCodeFormat(languageCode, customMessage));
+            Assert.Contains(customMessage, exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
         }
 
         #endregion
@@ -120,7 +145,7 @@ namespace SayehBanTools.Tests
             // متد اصلی که پاسخ HTTP را شبیه‌سازی می‌کند
             protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
-                // لاگ برای دیباگ: نمایش اطلاعات پاسخ
+                // لاگ برای دیباگ
                 Console.WriteLine($"MockHttpMessageHandler: StatusCode={_statusCode}, Content={_responseContent}, ThrowException={_throwException}");
 
                 // اگر پرچم throwException فعال باشد، استثنای HttpRequestException پرتاب می‌کند
@@ -132,7 +157,7 @@ namespace SayehBanTools.Tests
                 // یک پاسخ HTTP جدید ایجاد می‌کند
                 var response = new HttpResponseMessage
                 {
-                    StatusCode = _statusCode // تنظیم کد وضعیت (مثل 200 یا 404)
+                    StatusCode = _statusCode
                 };
 
                 // اگر محتوای پاسخ وجود داشته باشد، آن را به پاسخ اضافه می‌کند
@@ -142,161 +167,157 @@ namespace SayehBanTools.Tests
                 }
                 else
                 {
-                    // در غیر این صورت، محتوای پاسخ را یک لیست خالی JSON تنظیم می‌کند
                     response.Content = new StringContent("[]", Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
                 }
 
-                // پاسخ را به‌صورت ناهمگام برمی‌گرداند
                 return await Task.FromResult(response);
             }
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان معتبر از طریق API: متد ValidateLanguageCodeViaApiAsync نباید استثنا پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان معتبر از طریق API که نباید استثنا پرتاب کند
         public async Task ValidateLanguageCodeViaApiAsync_ValidCode_DoesNotThrow()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "fa"; // کد زبان معتبر
-            string API_Link = "http://localhost:90"; // آدرس پایه API
-            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll"; //آدرس API
-            var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
-            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200 و داده‌های معتبر
+            // Arrange
+            string languageCode = "fa";
+            string API_Link = "http://localhost:90";
+            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";
+            var responseContent = JsonSerializer.Serialize(GetSampleLanguages());
+            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent);
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(API_Link)
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
-            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client); // فراخوانی متد برای بررسی کد زبان و ارسال client
-            // اگر استثنایی پرتاب نشود، تست موفق است
+            // Act & Assert
+            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client);
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان با آدرس API نال: متد ValidateLanguageCodeViaApiAsync باید از آدرس پیش‌فرض استفاده کند و بدون استثنا اجرا شود.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان با آدرس API نال (باید از آدرس پیش‌فرض استفاده کند)
         public async Task ValidateLanguageCodeViaApiAsync_NullApiLink_UsesDefaultLink()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "en"; // کد زبان معتبر
-            string? API_Link = null; // آدرس API نال
-            string? API_Adress = null;//آدرس Null API
-            var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
-            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200
+            // Arrange
+            string languageCode = "en";
+            string? API_Link = null;
+            string? API_Address = null;
+            var responseContent = JsonSerializer.Serialize(GetSampleLanguages());
+            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent);
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
-            var client = new RestClient(new RestClientOptions("http://localhost:90") // از لینک پیش‌فرض استفاده می‌کنیم
+            var client = new RestClient(new RestClientOptions("http://localhost:90")
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
-            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link ?? "", API_Adress ?? "", languageCode, client); // فراخوانی متد با آدرس نال و ارسال client
-            // اگر استثنایی پرتاب نشود، تست موفق است
+            // Act & Assert
+            await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link ?? "", API_Address ?? "", languageCode, client);
         }
 
+        /// <summary>
+        /// تست بررسی پاسخ ناموفق API (مثل کد 404): متد ValidateLanguageCodeViaApiAsync باید استثنای InvalidOperationException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی پاسخ ناموفق API (مثل کد 404) که باید استثنای InvalidOperationException پرتاب کند
         public async Task ValidateLanguageCodeViaApiAsync_UnsuccessfulResponse_ThrowsInvalidOperationException()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "en"; // کد زبان
-            string API_Link = "http://localhost:90"; // آدرس پایه API
-            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll"; //آدرس API
-            var handler = new MockHttpMessageHandler(HttpStatusCode.NotFound); // شبیه‌ساز پاسخ HTTP با کد 404 (ناموفق)
+            // Arrange
+            string languageCode = "en";
+            string API_Link = "http://localhost:90";
+            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";
+            var handler = new MockHttpMessageHandler(HttpStatusCode.NotFound);
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(API_Link)
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link,API_Address, languageCode, client)); // فراخوانی متد
-            Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message); // بررسی پیام استثنا
-            Assert.Contains("کد وضعیت: NotFound", exception.Message); // بررسی دقیق‌تر پیام استثنا
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client));
+            Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message);
+            Assert.Contains("کد وضعیت: NotFound", exception.Message);
         }
 
+        /// <summary>
+        /// تست بررسی پاسخ API با داده خالی (لیست خالی): متد ValidateLanguageCodeViaApiAsync باید استثنای InvalidOperationException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی پاسخ API با داده خالی (لیست خالی) که باید استثنای InvalidOperationException پرتاب کند
         public async Task ValidateLanguageCodeViaApiAsync_NullResponseData_ThrowsInvalidOperationException()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "en"; // کد زبان
-            string API_Link = "http://localhost:90"; // آدرس پایه API
-            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll"; //آدرس API
-            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, "[]"); // شبیه‌ساز پاسخ HTTP با کد 200 و لیست خالی
+            // Arrange
+            string languageCode = "en";
+            string API_Link = "http://localhost:90";
+            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";
+            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, "[]");
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(API_Link)
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link,API_Address, languageCode, client)); // فراخوانی متد
-            Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message); // بررسی پیام استثنا
-            // با توجه به تغییرات در کد اصلی، پیام خطای "کد وضعیت: OK" نیز در اینجا ظاهر می‌شود که درست است
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client));
+            Assert.Contains("خطا در دریافت داده از API کدهای زبان", exception.Message);
         }
 
+        /// <summary>
+        /// تست بررسی کد زبان نامعتبر: متد ValidateLanguageCodeViaApiAsync باید استثنای ArgumentException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی کد زبان نامعتبر که باید استثنای ArgumentException پرتاب کند
         public async Task ValidateLanguageCodeViaApiAsync_InvalidCode_ThrowsArgumentException()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "xx"; // کد زبان نامعتبر
-            string API_Link = "http://localhost:90"; // آدرس پایه API
-            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll"; //آدرس API
-            var responseContent = JsonSerializer.Serialize(GetSampleLanguages()); // تبدیل داده‌های نمونه به JSON
-            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent); // شبیه‌ساز پاسخ HTTP با کد 200
+            // Arrange
+            string languageCode = "xx";
+            string API_Link = "http://localhost:90";
+            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";
+            var responseContent = JsonSerializer.Serialize(GetSampleLanguages());
+            var handler = new MockHttpMessageHandler(HttpStatusCode.OK, responseContent);
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(API_Link)
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link,API_Address, languageCode, client)); // فراخوانی متد
-            Assert.Contains("کد زبان معتبر نیست.", exception.Message); // بررسی پیام استثنا
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client));
+            Assert.Contains("کد زبان معتبر نیست.", exception.Message);
+            Assert.Equal(nameof(languageCode), exception.ParamName);
         }
 
+        /// <summary>
+        /// تست بررسی پرتاب استثنای API: متد ValidateLanguageCodeViaApiAsync باید استثنای InvalidOperationException پرتاب کند.
+        /// </summary>
         [Fact]
-        // تست بررسی پرتاب استثنای API که باید استثنای InvalidOperationException پرتاب کند
         public async Task ValidateLanguageCodeViaApiAsync_ApiThrowsException_ThrowsInvalidOperationException()
         {
-            // Arrange: آماده‌سازی داده‌ها و تنظیمات
-            string languageCode = "en"; // کد زبان
-            string API_Link = "http://localhost:90"; // آدرس پایه API
-            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";//آدرس API
-            // پیام استثنای HttpRequestException
+            // Arrange
+            string languageCode = "en";
+            string API_Link = "http://localhost:90";
+            string API_Address = "api/LanguagesCode/LanguagesCodeGetAll";
             var handler = new MockHttpMessageHandler(HttpStatusCode.OK, null, true, "API Error during request");
 
-            // ایجاد RestClient با HttpClient شبیه‌سازی شده
             var client = new RestClient(new RestClientOptions(API_Link)
             {
                 ConfigureMessageHandler = _ => handler,
                 Timeout = TimeSpan.FromSeconds(10)
             });
 
-            // Act & Assert: اجرا و بررسی
+            // Act & Assert
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link,API_Address, languageCode, client)); // فراخوانی متد
-
-            // !!! مهم: این خط را اضافه کنید تا پیام واقعی استثنا را در خروجی تست ببینید !!!
-            Console.WriteLine($"Actual Exception Message: {exception.Message}");
-
-            // حالا Assert.Contains باید کار کند، زیرا تغییرات در کد اصلی پیام را شامل می‌شود
-            // اگر همچنان شکست خورد، به خروجی Console.WriteLine نگاه کنید و رشته صحیح را جایگزین کنید.
-            Assert.Contains("API Error during request", exception.Message); // بررسی پیام استثنا
+                await ValidateLanguage.ValidateLanguageCodeViaApiAsync(API_Link, API_Address, languageCode, client));
+            Assert.Contains("خطا در دریافت داده از API", exception.Message);
+            Assert.Contains("API Error during request", exception.Message);
         }
 
         #endregion

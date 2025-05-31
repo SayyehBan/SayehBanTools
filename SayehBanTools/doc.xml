@@ -1354,11 +1354,12 @@
             <param name="path"></param>
             <returns></returns>
         </member>
-        <member name="M:SayehBanTools.Validations.HierarchyValidator.ValidateHierarchyPath(System.String)">
+        <member name="M:SayehBanTools.Validations.HierarchyValidator.ValidateHierarchyPath(System.String,System.String)">
             <summary>
             بررسی صحت رشته مسیر سلسله مراتب والد.
             </summary>
             <param name="parentHierarchyPath">رشته مسیر سلسله مراتب (مثال: "/" یا "/1/")</param>
+            <param name="message">پیام خطا اختیاری برای استثنا</param>
             <exception cref="T:System.ArgumentException">در صورتی که فرمت مسیر سلسله مراتب نامعتبر باشد.</exception>
         </member>
         <member name="T:SayehBanTools.Validations.ValidateLanguage">
@@ -1366,11 +1367,12 @@
             کلاس بررسی صحت فرمت کد زبان.
             </summary>
         </member>
-        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeFormat(System.String)">
+        <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeFormat(System.String,System.String)">
             <summary>
             بررسی صحت فرمت کد زبان.
             </summary>
             <param name="languageCode">کد زبان برای بررسی (باید دو کاراکتر حروفی باشد).</param>
+            <param name="message">پیام خطا اختیاری برای استثنا.</param>
             <exception cref="T:System.ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>
         </member>
         <member name="M:SayehBanTools.Validations.ValidateLanguage.ValidateLanguageCodeViaApiAsync(System.String,System.String,System.String,RestSharp.IRestClient)">

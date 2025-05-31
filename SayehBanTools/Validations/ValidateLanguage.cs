@@ -13,12 +13,13 @@ public class ValidateLanguage
     /// بررسی صحت فرمت کد زبان.
     /// </summary>
     /// <param name="languageCode">کد زبان برای بررسی (باید دو کاراکتر حروفی باشد).</param>
+    /// <param name="message">پیام خطا اختیاری برای استثنا.</param>
     /// <exception cref="ArgumentException">در صورتی که کد زبان معتبر نباشد.</exception>
-    public static void ValidateLanguageCodeFormat(string languageCode)
+    public static void ValidateLanguageCodeFormat(string languageCode, string? message = null)
     {
         if (string.IsNullOrEmpty(languageCode) || languageCode.Length != 2 ||
             !Regex.IsMatch(languageCode, @"^[a-zA-Z]{2}$"))
-            throw new ArgumentException("کد زبان باید دقیقاً دو کاراکتر حروفی باشد.", nameof(languageCode));
+            throw new ArgumentException(message ?? "کد زبان باید دقیقاً دو کاراکتر انگلیسی حروفی باشد.", nameof(languageCode));
     }
 
     /// <summary>
