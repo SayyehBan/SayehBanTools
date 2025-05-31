@@ -47,16 +47,24 @@ public class CacheManager
         if (string.IsNullOrEmpty(key))
             throw new ArgumentNullException(nameof(key));
 
-        if (_memoryCache != null)
+        try
         {
-            return _memoryCache.TryGetValue(key, out T? value) ? value : default;
+            if (_memoryCache != null)
+            {
+                return _memoryCache.TryGetValue(key, out T? value) ? value : default;
+            }
+            else if (_distributedCache != null)
+            {
+                var cachedData = await _distributedCache.GetStringAsync(key);
+                return cachedData != null ? JsonSerializer.Deserialize<T>(cachedData) : default;
+            }
+            throw new InvalidOperationException("No cache provider configured.");
         }
-        else if (_distributedCache != null)
+        catch (Exception ex)
         {
-            var cachedData = await _distributedCache.GetStringAsync(key);
-            return cachedData != null ? JsonSerializer.Deserialize<T>(cachedData) : default;
+            // ثبت خطا برای دیباگ (اختیاری)
+            throw new InvalidOperationException($"Error retrieving cache for key '{key}': {ex.Message}", ex);
         }
-        throw new InvalidOperationException("No cache provider configured.");
     }
 
     /// <summary>
