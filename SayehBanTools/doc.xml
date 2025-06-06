@@ -974,6 +974,32 @@
             <param name="exchange">نام اکسچنج</param>
             <param name="queueName">نام صف</param>
         </member>
+        <member name="T:SayehBanTools.Model.Entities.ApiResponse">
+            <summary>
+            مدل پاسخ استاندارد API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.ApiResponse.Success">
+            <summary>
+            نتیجه عملیات
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.ApiResponse.Message">
+            <summary>
+            پشغام
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.ApiResponse`1">
+            <summary>
+            مدل پاسخ استاندارد API با داده
+            </summary>
+            <typeparam name="T">نوع داده</typeparam>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.ApiResponse`1.Data">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Model.Entities.VM_Language">
             <summary>
             دسته‌بندی‌ زبان
@@ -1164,6 +1190,80 @@
             <param name="page"></param>
             <param name="per_page"></param>
             <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Service.Redis.Interface.ICache">
+            <summary>
+            اینترفیس برای کش کردن
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.TryGetValueAsync``1(System.String)">
+            <summary>
+            دریافت اطلاعات از کش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SetAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            اضافه کردن اطلاعات به کش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String,System.String,System.String)">
+            <summary>
+            ریست کش
+            </summary>
+            <param name="cacheKeyPattern"></param>
+            <param name="languageCode"></param>
+            <param name="identifier"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Service.Redis.Repository.RCache">
+            <summary>
+            ریاپزیتوری کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SayehBanTools.Service.Redis.Repository.RCache"/> class.
+            </summary>
+            <param name="cache"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String,System.String,System.String)">
+            <summary>
+            ریست کش برای هر زبان و شناسه
+            </summary>
+            <param name="cacheKeyPattern"></param>
+            <param name="languageCode"></param>
+            <param name="identifier"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SetAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            ثبت کش برای هر زبان و شناسه
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.TryGetValueAsync``1(System.String)">
+            <summary>
+            دریافت مقدار از کش برای هر زبان و شناسه
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">
             <summary>
