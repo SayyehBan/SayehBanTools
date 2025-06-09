@@ -31,6 +31,16 @@ public class RCache : ICache
         await _cacheManager.ResetCacheAsync(cacheKeyPattern, languageCode, identifier);
     }
     /// <summary>
+    /// ریست کش برای هر زبان و شناسه
+    /// </summary>
+    /// <param name="cacheKeyPattern"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task ResetCacheAsync(string cacheKeyPattern)
+    {
+        await _cacheManager.ResetCacheAsync(cacheKeyPattern);
+    }
+    /// <summary>
     /// ثبت کش برای هر زبان و شناسه
     /// </summary>
     /// <typeparam name="T"></typeparam>

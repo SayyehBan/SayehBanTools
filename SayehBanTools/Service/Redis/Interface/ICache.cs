@@ -30,5 +30,11 @@ public interface ICache
     /// <param name="identifier"></param>
     /// <returns></returns>
     Task ResetCacheAsync(string cacheKeyPattern, string languageCode, string identifier);
+    /// <summary>
+    /// ریست کش
+    /// </summary>
+    /// <param name="cacheKeyPattern"></param>
+    /// <returns></returns>
+    Task ResetCacheAsync(string cacheKeyPattern);
 }
 
