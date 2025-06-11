@@ -12,7 +12,7 @@ public class ApiConstants
     /// <summary>
     /// مقدار پیش‌فرض برای مسیر API دریافت تمام زبانها
     /// </summary>
-    public const string ApiAddressLanguagesCodeGetAll = "api/LanguagesCode/LanguagesCodeGetAll";
+    public const string ApiAddressLanguageCodeList = "api/LanguagesCode/LanguageCodeList";
     /// <summary>
     /// آدرس API دریافت تمام تنظیمات زبان
     /// </summary>

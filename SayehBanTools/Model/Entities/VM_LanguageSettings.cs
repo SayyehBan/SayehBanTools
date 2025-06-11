@@ -5,7 +5,7 @@
 public class VM_LanguageSettings
 {
     /// <summary>
-    /// View Model دریافت تمامی تنظیمات زبان
+    /// کلاس برای تنظیمات زبان
     /// </summary>
     public class LanguageSettingsGetAll
     {
@@ -18,21 +18,20 @@ public class VM_LanguageSettings
         /// </summary>
         public string? LanguageCode { get; set; }
         /// <summary>
-        /// کد زبان منطقی
+        /// کد زبان منطقه
         /// </summary>
-        public string? LanguageCodeRegion { get; set; }
+        public string LanguageCodeRegion { get; set; } = string.Empty;
         /// <summary>
-        /// نام تحلیل گر
+        /// نام تحلیلگر
         /// </summary>
         public string? AnalyzerName { get; set; }
         /// <summary>
-        /// توکن سازی
+        /// نوکن ساز
         /// </summary>
         public string? Tokenizer { get; set; }
         /// <summary>
-        /// فیلترکردن
+        /// فیلترها
         /// </summary>
         public string? Filters { get; set; }
-
     }
 }

@@ -43,7 +43,7 @@ public class ValidateLanguage
 
         try
         {
-            var response = await restClient.ExecuteAsync<List<VM_Language.LanguagesCodeGetAll>>(request);
+            var response = await restClient.ExecuteAsync<List<VM_Language.LanguageCodeList>>(request);
 
             // بررسی موفقیت درخواست و وجود داده
             if (!response.IsSuccessful || response.Data == null || !response.Data.Any())

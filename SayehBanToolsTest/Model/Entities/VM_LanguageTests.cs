@@ -11,13 +11,12 @@ public class VM_LanguageTests
     public void LanguagesCodeGetAll_Properties_SetCorrectly()
     {
         // Arrange
-        var model = new VM_Language.LanguagesCodeGetAll
+        var model = new VM_Language.LanguageCodeList
         {
             LanguageID = 1,
             LanguageCode = "fa",
             LanguageCodeRegion = "fa-IR",
-            LanguageName = "فارسی",
-            LanguageNameFarsi = "فارسی",
+            LocalizedLanguageNames = "فارسی",
             TextDirection = "RTL"
         };
 
@@ -25,8 +24,7 @@ public class VM_LanguageTests
         Assert.Equal(1, model.LanguageID);
         Assert.Equal("fa", model.LanguageCode);
         Assert.Equal("fa-IR", model.LanguageCodeRegion);
-        Assert.Equal("فارسی", model.LanguageName);
-        Assert.Equal("فارسی", model.LanguageNameFarsi);
+        Assert.Equal("فارسی", model.LocalizedLanguageNames);
         Assert.Equal("RTL", model.TextDirection);
     }
 }

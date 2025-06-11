@@ -1005,40 +1005,35 @@
             دسته‌بندی‌ زبان
             </summary>
         </member>
-        <member name="T:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll">
+        <member name="T:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList">
             <summary>
-            کلاس برای نمایش زبان‌ها.
+            ویو مدل کد زبانها دریافت همه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageID">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList.LanguageID">
             <summary>
             شناسه زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageCode">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList.LanguageCode">
             <summary>
             کد زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageCodeRegion">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList.LanguageCodeRegion">
             <summary>
-            کد زبان منطقی
+            کد زبان منطقه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageName">
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList.LocalizedLanguageNames">
             <summary>
             نام زبان
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.LanguageNameFarsi">
-            <summary>
-            نام فارسی زبان
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguagesCodeGetAll.TextDirection">
-            <summary>
-            جهت نمایش
-            </summary>
+        <member name="P:SayehBanTools.Model.Entities.VM_Language.LanguageCodeList.TextDirection">
+             <summary>
+            جهت دهی زبان فارسی
+             </summary>
         </member>
         <member name="T:SayehBanTools.Model.Entities.VM_LanguageSettings">
             <summary>
@@ -1047,7 +1042,7 @@
         </member>
         <member name="T:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll">
             <summary>
-            View Model دریافت تمامی تنظیمات زبان
+            کلاس برای تنظیمات زبان
             </summary>
         </member>
         <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.LanguageSettingID">
@@ -1062,22 +1057,22 @@
         </member>
         <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.LanguageCodeRegion">
             <summary>
-            کد زبان منطقی
+            کد زبان منطقه
             </summary>
         </member>
         <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.AnalyzerName">
             <summary>
-            نام تحلیل گر
+            نام تحلیلگر
             </summary>
         </member>
         <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.Tokenizer">
             <summary>
-            توکن سازی
+            نوکن ساز
             </summary>
         </member>
         <member name="P:SayehBanTools.Model.Entities.VM_LanguageSettings.LanguageSettingsGetAll.Filters">
             <summary>
-            فیلترکردن
+            فیلترها
             </summary>
         </member>
         <member name="T:SayehBanTools.Password.WorstPasswords">
@@ -1423,7 +1418,7 @@
             مقدار پیش‌فرض برای آدرس API.
             </summary>
         </member>
-        <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.ApiAddressLanguagesCodeGetAll">
+        <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.ApiAddressLanguageCodeList">
             <summary>
             مقدار پیش‌فرض برای مسیر API دریافت تمام زبانها
             </summary>

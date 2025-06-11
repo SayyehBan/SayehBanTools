@@ -114,14 +114,14 @@ namespace SayehBanTools.Tests
         // این بخش شامل تست‌هایی برای متد ValidateLanguageCodeViaApiAsync است که کد زبان را از طریق API بررسی می‌کند.
 
         // متد کمکی برای تولید داده‌های نمونه زبان‌ها
-        private static List<VM_Language.LanguagesCodeGetAll> GetSampleLanguages()
+        private static List<VM_Language.LanguageCodeList> GetSampleLanguages()
         {
             // لیستی از اشیاء Language با داده‌های نمونه (زبان‌های فارسی، انگلیسی، امهری) برمی‌گرداند
-            return new List<VM_Language.LanguagesCodeGetAll>
+            return new List<VM_Language.LanguageCodeList>
             {
-                new VM_Language.LanguagesCodeGetAll { LanguageID = 1, LanguageCode = "fa", LanguageName = "فارسی", LanguageNameFarsi = "فارسی", TextDirection = "RTL" },
-                new VM_Language.LanguagesCodeGetAll { LanguageID = 2, LanguageCode = "en", LanguageName = "English", LanguageNameFarsi = "انگلیسی", TextDirection = "LTR" },
-                new VM_Language.LanguagesCodeGetAll { LanguageID = 32, LanguageCode = "am", LanguageName = "አማርኛ", LanguageNameFarsi = "امهری", TextDirection = "LTR" }
+                new VM_Language.LanguageCodeList { LanguageID = 1, LanguageCode = "fa", LocalizedLanguageNames = "فارسی", TextDirection = "RTL" },
+                new VM_Language.LanguageCodeList { LanguageID = 2, LanguageCode = "en", LocalizedLanguageNames = "English", TextDirection = "LTR" },
+                new VM_Language.LanguageCodeList { LanguageID = 32, LanguageCode = "am", LocalizedLanguageNames = "አማርኛ", TextDirection = "LTR" }
             };
         }
 

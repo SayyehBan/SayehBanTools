@@ -14,7 +14,7 @@ namespace SayehBanTools.Tests.API.Language
             // ترتیب (Arrange): تنظیم مقادیر مورد انتظار برای تست
             // هدف: بررسی اینکه وقتی هیچ پارامتری به متد داده نشود، از مقادیر پیش‌فرض استفاده می‌شود
             string expectedApiLink = "http://localhost:90/"; // اضافه کردن اسلش انتهایی
-            string expectedApiAddress = "api/LanguagesCode/LanguagesCodeGetAll";
+            string expectedApiAddress = "api/LanguagesCode/LanguageCodeList";
 
             // اجرا (Act): فراخوانی متد مورد تست
             var (client, request) = LanguagesCode.CreateApiRequest();
@@ -37,7 +37,7 @@ namespace SayehBanTools.Tests.API.Language
             // ترتیب (Arrange): تنظیم مقادیر برای تست با apiLink سفارشی
             // هدف: بررسی اینکه وقتی یک apiLink سفارشی ارائه می‌شود، از آن استفاده می‌شود
             string customApiLink = "http://custom.api.com/"; // اضافه کردن اسلش انتهایی
-            string expectedApiAddress = "api/LanguagesCode/LanguagesCodeGetAll";
+            string expectedApiAddress = "api/LanguagesCode/LanguageCodeList";
 
             // اجرا (Act): فراخوانی متد با apiLink سفارشی
             var (client, request) = LanguagesCode.CreateApiRequest(apiLink: customApiLink);
@@ -83,7 +83,7 @@ namespace SayehBanTools.Tests.API.Language
                 Timeout = TimeSpan.FromSeconds(5)
             };
             mockClient.Setup(c => c.Options).Returns(new ReadOnlyRestClientOptions(options));
-            string expectedApiAddress = "api/LanguagesCode/LanguagesCodeGetAll";
+            string expectedApiAddress = "api/LanguagesCode/LanguageCodeList";
 
             // اجرا (Act): فراخوانی متد با client سفارشی
             var (client, request) = LanguagesCode.CreateApiRequest(client: mockClient.Object);
@@ -128,7 +128,7 @@ namespace SayehBanTools.Tests.API.Language
                 Timeout = TimeSpan.FromSeconds(5)
             };
             mockClient.Setup(c => c.Options).Returns(new ReadOnlyRestClientOptions(options));
-            string expectedApiAddress = "api/LanguagesCode/LanguagesCodeGetAll";
+            string expectedApiAddress = "api/LanguagesCode/LanguageCodeList";
 
             // اجرا (Act): فراخوانی متد با apiLink null و client سفارشی
             var (client, request) = LanguagesCode.CreateApiRequest(apiLink: null, client: mockClient.Object);

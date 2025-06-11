@@ -27,7 +27,7 @@ public class LanguagesCode
         });
 
         // استفاده از مقدار پیش‌فرض اگر apiAddress null باشد
-        var request = new RestRequest(apiAddress ?? ApiConstants.ApiAddressLanguagesCodeGetAll, Method.Get);
+        var request = new RestRequest(apiAddress ?? ApiConstants.ApiAddressLanguageCodeList, Method.Get);
 
         return (client, request);
     }
