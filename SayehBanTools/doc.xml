@@ -1218,6 +1218,14 @@
             <param name="identifier"></param>
             <returns></returns>
         </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String,System.String)">
+            <summary>
+            ریست کش
+            </summary>
+            <param name="cacheKeyPattern"></param>
+            <param name="languageCode"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String)">
             <summary>
             ریست کش
@@ -1244,6 +1252,15 @@
             <param name="cacheKeyPattern"></param>
             <param name="languageCode"></param>
             <param name="identifier"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String,System.String)">
+            <summary>
+            ریست کش برای هر زبان و شناسه
+            </summary>
+            <param name="cacheKeyPattern"></param>
+            <param name="languageCode"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
