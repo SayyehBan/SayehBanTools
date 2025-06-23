@@ -1186,6 +1186,150 @@
             <param name="per_page"></param>
             <returns></returns>
         </member>
+        <member name="T:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch">
+            <summary>
+            اینترفیس برای ارتباط با Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.DeleteByQueryAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.QueryDsl.QueryDescriptor{``0}})">
+            <summary>
+            حذف اسناد از ایندکس Elasticsearch با استفاده از کوئری مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.IndexDocumentAsync``1(System.String,``0)">
+            <summary>
+            افزودن یک سند به ایندکس Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.IndexExistsAsync(System.String)">
+            <summary>
+            بررسی وجود یک ایندکس در Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.InitializeIndicesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.InitializeIndicesAsync(System.String,System.String[])">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.InitializeIndicesAsync(System.String)">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.SearchAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.SearchRequestDescriptor{``0}})">
+            <summary>
+            جستجوی اسناد در ایندکس Elasticsearch با استفاده از تنظیمات جستجو
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.BulkIndexAsync``1(System.String,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            ذخیره و ویرایش اسناد در ایندکس Elasticsearch به صورت Bulk
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="indexName"></param>
+            <param name="documents"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.BulkAllAsync``1(System.String,System.Collections.Generic.IEnumerable{``0},System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{``0}})">
+            <summary>
+            ذخیره و ویرایش اسناد در ایندکس Elasticsearch به صورت Bulk
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="indexName"></param>
+            <param name="documents"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.GetAllDocumentsAsync``1(System.String,System.Int32)">
+            <summary>
+            دریافت تمام اسناد یک ایندکس بدون فیلتر یا جستجوی خاص
+            </summary>
+            <typeparam name="T">نوع سند</typeparam>
+            <param name="indexName">نام ایندکس</param>
+            <param name="Size"></param>
+            <returns>لیست اسناد موجود در ایندکس</returns>
+        </member>
+        <member name="T:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch">
+            <summary>
+            ریپازیتوری برای مدیریت عملیات Elasticsearch مرتبط با دسته‌بندی‌ها و موقعیت‌های جغرافیایی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.#ctor(Elastic.Clients.Elasticsearch.ElasticsearchClient)">
+            <summary>
+            سازنده کلاس برای مقداردهی اولیه کلاینت Elasticsearch و تنظیمات آن
+            </summary>
+            <param name="elasticClient">کلاینت Elasticsearch برای ارتباط با سرور</param>
+            <exception cref="T:System.ArgumentNullException">در صورت null بودن پارامترها</exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.BulkAllAsync``1(System.String,System.Collections.Generic.IEnumerable{``0},System.Action{Elastic.Clients.Elasticsearch.BulkAllRequestDescriptor{``0}})">
+            <summary>
+            hx
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="indexName"></param>
+            <param name="documents"></param>
+            <param name="configure"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.BulkIndexAsync``1(System.String,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            ذخیره و ویراش اطلاعات به صورت Bulk در Elasticsearch
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="indexName"></param>
+            <param name="documents"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.DeleteByQueryAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.QueryDsl.QueryDescriptor{``0}})">
+            <summary>
+            حذف اسناد از ایندکس Elasticsearch با استفاده از کوئری مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.IndexDocumentAsync``1(System.String,``0)">
+            <summary>
+            افزودن یک سند به ایندکس Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.IndexExistsAsync(System.String)">
+            <summary>
+            بررسی وجود یک ایندکس در Elasticsearch
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.InitializeIndicesAsync(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String[])">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.InitializeIndicesAsync(System.String,System.String[])">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.InitializeIndicesAsync(System.String)">
+            <summary>
+            مقداردهی اولیه ایندکس‌ها در Elasticsearch برای زبان‌های مشخص
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.SearchAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.SearchRequestDescriptor{``0}})">
+            <summary>
+            جستجوی اسناد در ایندکس Elasticsearch با استفاده از تنظیمات جستجو
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.GetAllDocumentsAsync``1(System.String,System.Int32)">
+            <summary>
+            دریافت تمام اسناد یک ایندکس بدون فیلتر یا جستجوی خاص
+            </summary>
+            <typeparam name="T">نوع سند</typeparam>
+            <param name="indexName">نام ایندکس</param>
+            <param name="Size"></param>
+            <returns>لیست اسناد موجود در ایندکس</returns>
+        </member>
         <member name="T:SayehBanTools.Service.Redis.Interface.ICache">
             <summary>
             اینترفیس برای کش کردن
