@@ -1000,6 +1000,21 @@
             
             </summary>
         </member>
+        <member name="T:SayehBanTools.Model.Entities.SqlMessage">
+            <summary>
+            کلاس پیام خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlMessage.Code">
+            <summary>
+            کد خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlMessage.Message">
+            <summary>
+            پیام خطا
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Model.Entities.VM_Language">
             <summary>
             دسته‌بندی‌ زبان
