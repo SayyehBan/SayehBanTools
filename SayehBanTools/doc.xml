@@ -1000,19 +1000,49 @@
             
             </summary>
         </member>
-        <member name="T:SayehBanTools.Model.Entities.SqlMessage">
+        <member name="T:SayehBanTools.Model.Entities.SqlModel">
             <summary>
             کلاس پیام خطا
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.SqlMessage.Code">
+        <member name="T:SayehBanTools.Model.Entities.SqlModel.SqlMessage">
+            <summary>
+            کلاس پیغام خطا برای جدول مرتبط
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessage.Code">
             <summary>
             کد خطا
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.SqlMessage.Message">
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessage.Message">
             <summary>
             پیام خطا
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints">
+            <summary>
+            کلاس پیام خطا برای جدول مرتبط
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.Message">
+            <summary>
+            کد خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.RelatedTable">
+            <summary>
+            نام جدول
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.ConstraintName">
+            <summary>
+            نام ارتباط
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.SubCategoryCount">
+            <summary>
+            تعداد رکورد
             </summary>
         </member>
         <member name="T:SayehBanTools.Model.Entities.VM_Language">

@@ -75,4 +75,43 @@ public class RCache : ICache
     {
         return await _cacheManager.TryGetValueAsync<T>(cacheKey);
     }
+    /// <summary>
+    /// اضافه کردن یک آیتم به لیست کش‌شده
+    /// </summary>
+    public async Task AddItemToListAsync<T>(string cacheKey, T item, DistributedCacheEntryOptions options)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey) ?? new List<T>();
+        currentList.Add(item);
+        await _cacheManager.SetAsync(cacheKey, currentList, options);
+    }
+    /// <summary>
+    /// حذف یک آیتم از لیست کش‌شده
+    /// </summary>
+    public async Task RemoveItemFromListAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions options)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey);
+        if (currentList == null) return;
+
+        var itemToRemove = currentList.FirstOrDefault(predicate);
+        if (itemToRemove != null)
+        {
+            currentList.Remove(itemToRemove);
+            await _cacheManager.SetAsync(cacheKey, currentList, options);
+        }
+    }
+    /// <summary>
+    /// به‌روزرسانی یک آیتم در لیست کش‌شده
+    /// </summary>
+    public async Task UpdateItemInListAsync<T>(string cacheKey, Func<T, bool> predicate, T newItem, DistributedCacheEntryOptions options)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey);
+        if (currentList == null) return;
+
+        var index = currentList.FindIndex(predicate.Invoke);
+        if (index >= 0)
+        {
+            currentList[index] = newItem;
+            await _cacheManager.SetAsync(cacheKey, currentList, options);
+        }
+    }
 }

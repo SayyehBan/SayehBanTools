@@ -43,5 +43,20 @@ public interface ICache
     /// <param name="cacheKeyPattern"></param>
     /// <returns></returns>
     Task ResetCacheAsync(string cacheKeyPattern);
+
+    /// <summary>
+    /// اضافه کردن یک آیتم به لیست کش‌شده
+    /// </summary>
+    Task AddItemToListAsync<T>(string cacheKey, T item, DistributedCacheEntryOptions options);
+
+    /// <summary>
+    /// حذف یک آیتم از لیست کش‌شده
+    /// </summary>
+    Task RemoveItemFromListAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions options);
+
+    /// <summary>
+    /// به‌روزرسانی یک آیتم در لیست کش‌شده
+    /// </summary>
+    Task UpdateItemInListAsync<T>(string cacheKey, Func<T, bool> predicate, T newItem, DistributedCacheEntryOptions options);
 }
 

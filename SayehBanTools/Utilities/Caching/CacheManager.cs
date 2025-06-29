@@ -129,4 +129,26 @@ public class CacheManager
             throw new InvalidOperationException("No cache provider configured.");
         }
     }
+    /// <summary>
+    /// دریافت مقدار از کش به صورت لیست
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public async Task<List<T>?> TryGetListAsync<T>(string key)
+    {
+        return await TryGetValueAsync<List<T>>(key);
+    }
+    /// <summary>
+    /// ثبت مقدار در کش به صورت لیست
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public async Task SetListAsync<T>(string key, List<T> value, object options)
+    {
+        await SetAsync(key, value, options);
+    }
 }
