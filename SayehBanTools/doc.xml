@@ -1437,6 +1437,21 @@
             به‌روزرسانی یک آیتم در لیست کش‌شده
             </summary>
         </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SearchInListAsync``1(System.String,System.Func{``0,System.Boolean})">
+            <summary>
+            جستجو در لیست کش‌شده با استفاده از شرط
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AdvancedSearchInListAsync``1(System.String,System.Collections.Generic.List{System.Func{``0,System.Boolean}})">
+            <summary>
+            جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SearchWithPaginationAsync``1(System.String,System.Func{``0,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            جستجو و صفحه‌بندی در لیست کش‌شده
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Service.Redis.Repository.RCache">
             <summary>
             ریاپزیتوری کش
@@ -1509,6 +1524,21 @@
         <member name="M:SayehBanTools.Service.Redis.Repository.RCache.UpdateItemInListAsync``1(System.String,System.Func{``0,System.Boolean},``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
             <summary>
             به‌روزرسانی یک آیتم در لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SearchInListAsync``1(System.String,System.Func{``0,System.Boolean})">
+            <summary>
+            جستجو در لیست کش‌شده با استفاده از شرط
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AdvancedSearchInListAsync``1(System.String,System.Collections.Generic.List{System.Func{``0,System.Boolean}})">
+            <summary>
+            جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SearchWithPaginationAsync``1(System.String,System.Func{``0,System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            جستجو و صفحه‌بندی در لیست کش‌شده
             </summary>
         </member>
         <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">

@@ -114,6 +114,54 @@ public class RCache : ICache
             await _cacheManager.SetAsync(cacheKey, currentList, options);
         }
     }
+    /// <summary>
+    /// جستجو در لیست کش‌شده با استفاده از شرط
+    /// </summary>
+    public async Task<IEnumerable<T>> SearchInListAsync<T>(string cacheKey, Func<T, bool> predicate)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey);
+        if (currentList == null) return Enumerable.Empty<T>();
+
+        return currentList.Where(predicate);
+    }
+    /// <summary>
+    /// جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+    /// </summary>
+    public async Task<IEnumerable<T>> AdvancedSearchInListAsync<T>(string cacheKey, List<Func<T, bool>> predicates)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey);
+        if (currentList == null) return Enumerable.Empty<T>();
+
+        var query = currentList.AsEnumerable();
+        foreach (var predicate in predicates)
+        {
+            query = query.Where(predicate);
+        }
+
+        return query.ToList();
+    }
+    /// <summary>
+    /// جستجو و صفحه‌بندی در لیست کش‌شده
+    /// </summary>
+    public async Task<(IEnumerable<T> Results, int TotalCount)> SearchWithPaginationAsync<T>(
+        string cacheKey,
+        Func<T, bool> predicate,
+        int pageNumber,
+        int pageSize)
+    {
+        var currentList = await _cacheManager.TryGetValueAsync<List<T>>(cacheKey);
+        if (currentList == null) return (Enumerable.Empty<T>(), 0);
+
+        var filteredItems = currentList.Where(predicate).ToList();
+        var totalCount = filteredItems.Count;
+
+        var pagedItems = filteredItems
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return (pagedItems, totalCount);
+    }
 }
 /*
  طریقه استفاده از دستورات
@@ -240,4 +288,26 @@ public async Task<CategoriesNameDeleteResult> DeleteCategoryNameAsync(int Catego
     
     return result;
 }
+
+// جستجوی ساده
+var searchResults = await categoriesService.SearchCategoriesInCacheAsync(
+    "en", 
+    x => x.CategoryName.Contains("City"));
+
+// جستجوی پیشرفته با چندین شرط
+var advancedSearchResults = await categoriesService.AdvancedSearchCategoriesInCacheAsync(
+    "en", 
+    new List<Func<CategoriesFindById, bool>>
+    {
+        x => x.CategoryId > 5,
+        x => x.IsActive,
+        x => x.HierarchyPath.StartsWith("1.2.")
+    });
+
+// جستجو با صفحه‌بندی
+var (pagedResults, totalCount) = await categoriesService.SearchCategoriesWithPaginationAsync(
+    "en", 
+    x => x.CategoryName.Length > 3, 
+    pageNumber: 2, 
+    pageSize: 5);
  */

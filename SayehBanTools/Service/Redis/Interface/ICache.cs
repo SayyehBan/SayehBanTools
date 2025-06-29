@@ -58,5 +58,23 @@ public interface ICache
     /// به‌روزرسانی یک آیتم در لیست کش‌شده
     /// </summary>
     Task UpdateItemInListAsync<T>(string cacheKey, Func<T, bool> predicate, T newItem, DistributedCacheEntryOptions options);
+    /// <summary>
+    /// جستجو در لیست کش‌شده با استفاده از شرط
+    /// </summary>
+    Task<IEnumerable<T>> SearchInListAsync<T>(string cacheKey, Func<T, bool> predicate);
+
+    /// <summary>
+    /// جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+    /// </summary>
+    Task<IEnumerable<T>> AdvancedSearchInListAsync<T>(string cacheKey, List<Func<T, bool>> predicates);
+
+    /// <summary>
+    /// جستجو و صفحه‌بندی در لیست کش‌شده
+    /// </summary>
+    Task<(IEnumerable<T> Results, int TotalCount)> SearchWithPaginationAsync<T>(
+        string cacheKey,
+        Func<T, bool> predicate,
+        int pageNumber,
+        int pageSize);
 }
 
