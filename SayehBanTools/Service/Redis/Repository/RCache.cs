@@ -115,3 +115,129 @@ public class RCache : ICache
         }
     }
 }
+/*
+ طریقه استفاده از دستورات
+public class RCategoriesNameTranslations : ICategoriesNameTranslations
+{
+    // متدهای موجود...
+    
+    public async Task AddCategoryNameAsync(CategoriesNameGet newItem, string languageCode)
+    {
+        await ValidateInputAsync(languageCode);
+        var cacheKey = $"{StaticsValue.CategoriesNameGet}_{languageCode}";
+        
+        await _lock.WaitAsync();
+        try
+        {
+            // اضافه به SQL
+            await _sqlCategoriesNameTranslations.AddCategoryNameAsync(newItem);
+            
+            // اضافه به Elasticsearch
+            var indexName = $"{StaticsValue.CategoriesNameGet.ToLower()}_{languageCode}";
+            await _ieCategoriesNameTranslations.CategoriesNameGetIndexAsync(indexName, newItem);
+            
+            // اضافه به Redis
+            await _cache.AddItemToListAsync(cacheKey, newItem, _cacheOptions);
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+    
+    public async Task RemoveCategoryNameAsync(int categoryNameId, string languageCode)
+    {
+        await ValidateInputAsync(languageCode);
+        var cacheKey = $"{StaticsValue.CategoriesNameGet}_{languageCode}";
+        
+        await _lock.WaitAsync();
+        try
+        {
+            // حذف از SQL
+            await _sqlCategoriesNameTranslations.DeleteCategoryNameAsync(categoryNameId);
+            
+            // حذف از Elasticsearch
+            var indexName = $"{StaticsValue.CategoriesNameGet.ToLower()}_{languageCode}";
+            await _ieCategoriesNameTranslations.CategoriesNameDeleteAsync(categoryNameId, indexName);
+            
+            // حذف از Redis
+            await _cache.RemoveItemFromListAsync<CategoriesNameGet>(
+                cacheKey, 
+                x => x.CategoryNameId == categoryNameId, 
+                _cacheOptions);
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+    
+    public async Task UpdateCategoryNameAsync(CategoriesNameGet updatedItem, string languageCode)
+    {
+        await ValidateInputAsync(languageCode);
+        var cacheKey = $"{StaticsValue.CategoriesNameGet}_{languageCode}";
+        
+        await _lock.WaitAsync();
+        try
+        {
+            // به‌روزرسانی در SQL
+            await _sqlCategoriesNameTranslations.UpdateCategoryNameAsync(updatedItem);
+            
+            // به‌روزرسانی در Elasticsearch
+            var indexName = $"{StaticsValue.CategoriesNameGet.ToLower()}_{languageCode}";
+            await _ieCategoriesNameTranslations.CategoriesNameGetUpdateAsync(indexName, updatedItem);
+            
+            // به‌روزرسانی در Redis
+            await _cache.UpdateItemInListAsync<CategoriesNameGet>(
+                cacheKey, 
+                x => x.CategoryNameId == updatedItem.CategoryNameId, 
+                updatedItem, 
+                _cacheOptions);
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+}
+
+public async Task<CategoriesNameDeleteResult> DeleteCategoryNameAsync(int CategoryNameId)
+{
+    if (CategoryNameId < 0)
+    {
+        throw new ArgumentException("CategoryNameId must be a positive integer.");
+    }
+    
+    var result = await _sqlCategoriesNameTranslations.DeleteCategoryNameAsync(CategoryNameId);
+    
+    if (result.Message?.Code == 200)
+    {
+        await _lock.WaitAsync();
+        try
+        {
+            var languageCodes = await _API_LanguageCodes.GetLanguageCodesAsync();
+
+            foreach (var languageCode in languageCodes)
+            {
+                var cacheKey = $"{StaticsValue.CategoriesNameGet}_{languageCode}";
+                
+                // حذف از Redis
+                await _cache.RemoveItemFromListAsync<CategoriesNameGet>(
+                    cacheKey,
+                    x => x.CategoryNameId == CategoryNameId,
+                    _cacheOptions);
+
+                // حذف از Elasticsearch
+                var indexName = $"{StaticsValue.CategoriesNameGet.ToLower()}_{languageCode}";
+                await _ieCategoriesNameTranslations.CategoriesNameDeleteAsync(CategoryNameId, indexName);
+            }
+        }
+        finally
+        {
+            _lock.Release();
+        }
+    }
+    
+    return result;
+}
+ */

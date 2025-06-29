@@ -1422,6 +1422,21 @@
             <param name="cacheKeyPattern"></param>
             <returns></returns>
         </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AddItemToListAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            اضافه کردن یک آیتم به لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveItemFromListAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            حذف یک آیتم از لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.UpdateItemInListAsync``1(System.String,System.Func{``0,System.Boolean},``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            به‌روزرسانی یک آیتم در لیست کش‌شده
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Service.Redis.Repository.RCache">
             <summary>
             ریاپزیتوری کش
@@ -1480,6 +1495,21 @@
             <param name="cacheKey"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AddItemToListAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            اضافه کردن یک آیتم به لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveItemFromListAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            حذف یک آیتم از لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.UpdateItemInListAsync``1(System.String,System.Func{``0,System.Boolean},``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            به‌روزرسانی یک آیتم در لیست کش‌شده
+            </summary>
         </member>
         <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">
             <summary>
@@ -1613,6 +1643,24 @@
             <returns>وظیفه ناهمگام</returns>
             <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن prefix</exception>
             <exception cref="T:System.InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.TryGetListAsync``1(System.String)">
+            <summary>
+            دریافت مقدار از کش به صورت لیست
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetListAsync``1(System.String,System.Collections.Generic.List{``0},System.Object)">
+            <summary>
+            ثبت مقدار در کش به صورت لیست
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+            <returns></returns>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>
