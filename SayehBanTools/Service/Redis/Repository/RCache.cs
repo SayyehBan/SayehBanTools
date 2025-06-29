@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using SayehBanTools.Service.Redis.Interface;
 using SayehBanTools.Utilities.Caching;
+using System.Text.Json;
 
 namespace SayehBanTools.Service.Redis.Repository;
 /// <summary>
@@ -161,6 +162,58 @@ public class RCache : ICache
             .ToList();
 
         return (pagedItems, totalCount);
+    }
+    /// <summary>
+    /// ثبت یک مقدار در لیست کش‌شده با توجه به شرط
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="values"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public async Task SetHashAsync<T>(string key, Dictionary<string, T> values, DistributedCacheEntryOptions options)
+    {
+        await _cacheManager.SetHashAsync(key, values, options);
+    }
+    /// <summary>
+    /// دریافت مقدار از لیست کش‌شده با توجه به شرط
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    public async Task<T?> GetHashValueAsync<T>(string key, string field)
+    {
+        return await _cacheManager.GetHashValueAsync<T>(key, field);
+    }
+    /// <summary>
+    /// دریافت تمام مقادیر از لیست کش‌شده
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public async Task<Dictionary<string, T>> GetHashAllAsync<T>(string key)
+    {
+        return await _cacheManager.GetHashAllAsync<T>(key);
+    }
+    /// <summary>
+    /// حذف مقدار از لیست کش‌شده با توجه به شرط
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    public async Task DeleteHashFieldAsync(string key, string field)
+    {
+        await _cacheManager.DeleteHashFieldAsync(key, field);
+    }
+    /// <summary>
+    /// بررسی وجود یک کلید در لیست کش‌شده
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public async Task<bool> KeyExistsAsync(string key)
+    {
+        return await _cacheManager.KeyExistsAsync(key);
     }
 }
 /*

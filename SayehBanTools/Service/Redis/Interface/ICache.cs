@@ -76,5 +76,42 @@ public interface ICache
         Func<T, bool> predicate,
         int pageNumber,
         int pageSize);
+    /// <summary>
+    /// ثبت به صورت هش همزمانی
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="values"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    Task SetHashAsync<T>(string key, Dictionary<string, T> values, DistributedCacheEntryOptions options);
+    /// <summary>
+    /// دریافت مقدار یک فیلد از یک هش
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    Task<T?> GetHashValueAsync<T>(string key, string field);
+    /// <summary>
+    /// دریافت همه مقادیر یک هش
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    Task<Dictionary<string, T>> GetHashAllAsync<T>(string key);
+    /// <summary>
+    /// حذف یک فیلد از یک هش
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    Task DeleteHashFieldAsync(string key, string field);
+    /// <summary>
+    /// بررسی وجود یک کلید در کش
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    Task<bool> KeyExistsAsync(string key);
 }
 

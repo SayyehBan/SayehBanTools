@@ -1452,6 +1452,48 @@
             جستجو و صفحه‌بندی در لیست کش‌شده
             </summary>
         </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            ثبت به صورت هش همزمانی
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetHashValueAsync``1(System.String,System.String)">
+            <summary>
+            دریافت مقدار یک فیلد از یک هش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetHashAllAsync``1(System.String)">
+            <summary>
+            دریافت همه مقادیر یک هش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.DeleteHashFieldAsync(System.String,System.String)">
+            <summary>
+            حذف یک فیلد از یک هش
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.KeyExistsAsync(System.String)">
+            <summary>
+            بررسی وجود یک کلید در کش
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:SayehBanTools.Service.Redis.Repository.RCache">
             <summary>
             ریاپزیتوری کش
@@ -1540,6 +1582,48 @@
             <summary>
             جستجو و صفحه‌بندی در لیست کش‌شده
             </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            ثبت یک مقدار در لیست کش‌شده با توجه به شرط
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetHashValueAsync``1(System.String,System.String)">
+            <summary>
+            دریافت مقدار از لیست کش‌شده با توجه به شرط
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetHashAllAsync``1(System.String)">
+            <summary>
+            دریافت تمام مقادیر از لیست کش‌شده
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.DeleteHashFieldAsync(System.String,System.String)">
+            <summary>
+            حذف مقدار از لیست کش‌شده با توجه به شرط
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.KeyExistsAsync(System.String)">
+            <summary>
+            بررسی وجود یک کلید در لیست کش‌شده
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">
             <summary>
@@ -1691,6 +1775,53 @@
             <param name="value"></param>
             <param name="options"></param>
             <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <summary>
+            ثبت مقدار در کش به صورت هش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="values"></param>
+            <param name="options"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetHashValueAsync``1(System.String,System.String)">
+            <summary>
+            دریافت مقدار از کش به صورت هش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetHashAllAsync``1(System.String)">
+            <summary>
+            دریافت همه مقادیر به صورت هش
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.DeleteHashFieldAsync(System.String,System.String)">
+            <summary>
+            حذف مقدار از کش به صورت هش
+            </summary>
+            <param name="key"></param>
+            <param name="field"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.KeyExistsAsync(System.String)">
+            <summary>
+            بررسی وجود مقدار کلید در کش به صورت هش
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>

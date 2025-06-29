@@ -151,4 +151,100 @@ public class CacheManager
     {
         await SetAsync(key, value, options);
     }
+    /// <summary>
+    /// ثبت مقدار در کش به صورت هش
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="values"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task SetHashAsync<T>(string key, Dictionary<string, T> values, DistributedCacheEntryOptions options)
+    {
+        if (_distributedCache == null)
+            throw new InvalidOperationException("Distributed cache is not configured.");
+
+        var serializedDict = values.ToDictionary(
+            kvp => kvp.Key,
+            kvp => JsonSerializer.Serialize(kvp.Value));
+
+        await _distributedCache.SetAsync(key, JsonSerializer.SerializeToUtf8Bytes(serializedDict), options);
+    }
+    /// <summary>
+    /// دریافت مقدار از کش به صورت هش
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task<T?> GetHashValueAsync<T>(string key, string field)
+    {
+        if (_distributedCache == null)
+            throw new InvalidOperationException("Distributed cache is not configured.");
+
+        var data = await _distributedCache.GetAsync(key);
+        if (data == null) return default;
+
+        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
+        return dict != null && dict.ContainsKey(field)
+            ? JsonSerializer.Deserialize<T>(dict[field])
+            : default;
+    }
+    /// <summary>
+    /// دریافت همه مقادیر به صورت هش
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task<Dictionary<string, T>> GetHashAllAsync<T>(string key)
+    {
+        if (_distributedCache == null)
+            throw new InvalidOperationException("Distributed cache is not configured.");
+
+        var data = await _distributedCache.GetAsync(key);
+        if (data == null) return new Dictionary<string, T>();
+
+        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
+        return dict!.ToDictionary(
+             kvp => kvp.Key,
+             kvp => JsonSerializer.Deserialize<T>(kvp.Value)!);
+    }
+    /// <summary>
+    /// حذف مقدار از کش به صورت هش
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task DeleteHashFieldAsync(string key, string field)
+    {
+        if (_distributedCache == null)
+            throw new InvalidOperationException("Distributed cache is not configured.");
+
+        var data = await _distributedCache.GetAsync(key);
+        if (data == null) return;
+
+        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
+        if (dict == null || !dict.ContainsKey(field)) return;
+
+        dict.Remove(field);
+        await _distributedCache.SetAsync(key, JsonSerializer.SerializeToUtf8Bytes(dict), new DistributedCacheEntryOptions());
+    }
+    /// <summary>
+    /// بررسی وجود مقدار کلید در کش به صورت هش
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public async Task<bool> KeyExistsAsync(string key)
+    {
+        if (_distributedCache == null)
+            throw new InvalidOperationException("Distributed cache is not configured.");
+
+        var data = await _distributedCache.GetAsync(key);
+        return data != null;
+    }
 }
