@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Newtonsoft.Json;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 namespace SayehBanTools.Converter;
@@ -240,7 +241,36 @@ public static class StringExtensions
 
         return str.NormalizeByLanguage(languageCode, false).Trim();
     }
+    /// <summary>
+    /// تمیز کردن برحسب json یکباره
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="defaultLanguage"></param>
+    /// <returns></returns>
+    public static string CleanJsonByLanguage(this string json, string defaultLanguage = "en")
+    {
+        if (string.IsNullOrEmpty(json))
+            return json;
 
+        try
+        {
+            var translations = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            if (translations == null)
+                return json;
+
+            var cleanedTranslations = translations.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.CleanString(kvp.Key) // استفاده از کد زبان به عنوان پارامتر
+            );
+
+            return JsonConvert.SerializeObject(cleanedTranslations);
+        }
+        catch
+        {
+            // اگر پردازش JSON با خطا مواجه شد، مقدار اصلی را برگردان
+            return json;
+        }
+    }
     /// <summary>
     /// تبدیل رشته به عدد صحیح
     /// </summary>
@@ -535,3 +565,9 @@ public static class StringExtensions
         return "0";
     }
 }
+
+/*
+    // تبدیل مدل به JSON و تمیز کردن هر مقدار بر اساس کد زبانش
+    var translationsJson = JsonConvert.SerializeObject(model.Translations)
+        .CleanJsonByLanguage();
+ */
