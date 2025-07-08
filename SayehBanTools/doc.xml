@@ -418,6 +418,14 @@
             پاک‌سازی رشته با توجه به زبان
             </summary>
         </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.CleanJsonByLanguage(System.String,System.String)">
+            <summary>
+            تمیز کردن برحسب json یکباره
+            </summary>
+            <param name="json"></param>
+            <param name="defaultLanguage"></param>
+            <returns></returns>
+        </member>
         <member name="M:SayehBanTools.Converter.StringExtensions.ToInt(System.String,System.String)">
             <summary>
             تبدیل رشته به عدد صحیح
@@ -487,6 +495,13 @@
             <summary>
             حذف خط‌تیره و تبدیل به فاصله
             </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ReplaceComa(System.String)">
+            <summary>
+            جایگزین کردن Coma
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
         </member>
         <member name="M:SayehBanTools.Converter.StringExtensions.RemoveDirectWWWROOT(System.String)">
             <summary>
@@ -998,6 +1013,31 @@
         <member name="P:SayehBanTools.Model.Entities.ApiResponse`1.Data">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.OutputMessageTableType">
+            <summary>
+            پیغام خروجی جدول نوع
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Code">
+            <summary>
+            کد خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Message">
+            <summary>
+            پیغام خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Count">
+            <summary>
+            تعداد
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Ids">
+            <summary>
+             شناسه ها
             </summary>
         </member>
         <member name="T:SayehBanTools.Model.Entities.SqlModel">

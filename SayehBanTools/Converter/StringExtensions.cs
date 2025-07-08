@@ -397,7 +397,15 @@ public static class StringExtensions
     {
         return str?.Replace("-", " ") ?? "";
     }
-
+    /// <summary>
+    /// جایگزین کردن Coma
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public static string ReplaceComa(this string str)
+    {
+        return str.Replace("/", ",");
+    }
     /// <summary>
     /// حذف پیشوند wwwroot/
     /// </summary>
