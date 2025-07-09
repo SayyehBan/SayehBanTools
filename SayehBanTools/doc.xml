@@ -1015,31 +1015,6 @@
             
             </summary>
         </member>
-        <member name="T:SayehBanTools.Model.Entities.OutputMessageTableType">
-            <summary>
-            پیغام خروجی جدول نوع
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Code">
-            <summary>
-            کد خطا
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Message">
-            <summary>
-            پیغام خطا
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Count">
-            <summary>
-            تعداد
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Model.Entities.OutputMessageTableType.Ids">
-            <summary>
-             شناسه ها
-            </summary>
-        </member>
         <member name="T:SayehBanTools.Model.Entities.SqlModel">
             <summary>
             کلاس پیام خطا
@@ -1083,6 +1058,36 @@
         <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.SubCategoryCount">
             <summary>
             تعداد رکورد
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.SqlMessageCheckForeignKeyConstraints.ID">
+            <summary>
+            شناسه
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.SqlModel.OutputMessageTableType">
+            <summary>
+            پیغام خروجی جدول
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.OutputMessageTableType.Code">
+            <summary>
+            کد خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.OutputMessageTableType.Message">
+            <summary>
+            پیغام خطا
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.OutputMessageTableType.Count">
+            <summary>
+            تعداد
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.SqlModel.OutputMessageTableType.Ids">
+            <summary>
+             شناسه ها
             </summary>
         </member>
         <member name="T:SayehBanTools.Model.Entities.VM_Language">
