@@ -1422,253 +1422,132 @@
         </member>
         <member name="T:SayehBanTools.Service.Redis.Interface.ICache">
             <summary>
-            اینترفیس برای کش کردن
+            اینترفیس برای مدیریت کش Redis یا حافظه
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.TryGetValueAsync``1(System.String)">
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AddOrUpdateAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
             <summary>
-            دریافت اطلاعات از کش
+            افزودن یا به‌روزرسانی یک مقدار در کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cacheKey"></param>
-            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AddOrUpdateBulkAsync``1(System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            افزودن یا به‌روزرسانی چندین مقدار در کش
+            </summary>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SetAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
             <summary>
-            اضافه کردن اطلاعات به کش
+            ذخیره یک مقدار در کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cacheKey"></param>
-            <param name="value"></param>
-            <param name="options"></param>
-            <returns></returns>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String,System.String,System.String)">
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SetBulkAsync``1(System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
             <summary>
-            ریست کش
+            ذخیره چندین مقدار در کش
             </summary>
-            <param name="cacheKeyPattern"></param>
-            <param name="languageCode"></param>
-            <param name="identifier"></param>
-            <returns></returns>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String,System.String)">
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetAsync``1(System.String)">
             <summary>
-            ریست کش
+            بازیابی یک مقدار از کش
             </summary>
-            <param name="cacheKeyPattern"></param>
-            <param name="languageCode"></param>
-            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetBulkAsync``1(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            بازیابی چندین مقدار از کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveAsync(System.String)">
+            <summary>
+            حذف یک مقدار از کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveBulkAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            حذف چندین مقدار از کش
+            </summary>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String)">
             <summary>
-            ریست کش
-            </summary>
-            <param name="cacheKeyPattern"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AddItemToListAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
-            <summary>
-            اضافه کردن یک آیتم به لیست کش‌شده
+            ریست کل کش با پیشوند
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveItemFromListAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SearchAsync``1(System.String,System.Func{``0,System.Boolean})">
             <summary>
-            حذف یک آیتم از لیست کش‌شده
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.UpdateItemInListAsync``1(System.String,System.Func{``0,System.Boolean},``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
-            <summary>
-            به‌روزرسانی یک آیتم در لیست کش‌شده
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SearchInListAsync``1(System.String,System.Func{``0,System.Boolean})">
-            <summary>
-            جستجو در لیست کش‌شده با استفاده از شرط
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.AdvancedSearchInListAsync``1(System.String,System.Collections.Generic.List{System.Func{``0,System.Boolean}})">
-            <summary>
-            جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+            جستجو در لیست کش‌شده
             </summary>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SearchWithPaginationAsync``1(System.String,System.Func{``0,System.Boolean},System.Int32,System.Int32)">
             <summary>
-            جستجو و صفحه‌بندی در لیست کش‌شده
+            جستجو با صفحه‌بندی در لیست کش‌شده
             </summary>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
-            <summary>
-            ثبت به صورت هش همزمانی
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="values"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetHashValueAsync``1(System.String,System.String)">
-            <summary>
-            دریافت مقدار یک فیلد از یک هش
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.GetHashAllAsync``1(System.String)">
-            <summary>
-            دریافت همه مقادیر یک هش
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.DeleteHashFieldAsync(System.String,System.String)">
-            <summary>
-            حذف یک فیلد از یک هش
-            </summary>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.KeyExistsAsync(System.String)">
-            <summary>
-            بررسی وجود یک کلید در کش
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
         </member>
         <member name="T:SayehBanTools.Service.Redis.Repository.RCache">
             <summary>
-            ریاپزیتوری کش
+            ریپازیتوری کش برای مدیریت داده‌ها در Redis یا حافظه
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Microsoft.Extensions.Caching.Memory.IMemoryCache,StackExchange.Redis.IConnectionMultiplexer,System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="T:SayehBanTools.Service.Redis.Repository.RCache"/> class.
+            سازنده کلاس RCache
             </summary>
-            <param name="cache"></param>
-            <exception cref="T:System.ArgumentNullException"></exception>
+            <param name="distributedCache">نمونه کش توزیع‌شده (اختیاری)</param>
+            <param name="memoryCache">نمونه کش حافظه‌ای (اختیاری)</param>
+            <param name="redisConnection">اتصال به Redis برای عملیات پیشرفته (اختیاری)</param>
+            <param name="useDistributedCache">مشخص می‌کند که از کش توزیع‌شده استفاده شود یا حافظه‌ای</param>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String,System.String,System.String)">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AddOrUpdateAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
             <summary>
-            ریست کش برای هر زبان و شناسه
+            افزودن یا به‌روزرسانی یک مقدار در کش
             </summary>
-            <param name="cacheKeyPattern"></param>
-            <param name="languageCode"></param>
-            <param name="identifier"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String,System.String)">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AddOrUpdateBulkAsync``1(System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
             <summary>
-            ریست کش برای هر زبان و شناسه
+            افزودن یا به‌روزرسانی چندین مقدار در کش
             </summary>
-            <param name="cacheKeyPattern"></param>
-            <param name="languageCode"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String)">
-            <summary>
-            ریست کش برای هر زبان و شناسه
-            </summary>
-            <param name="cacheKeyPattern"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SetAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
             <summary>
-            ثبت کش برای هر زبان و شناسه
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cacheKey"></param>
-            <param name="value"></param>
-            <param name="options"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.TryGetValueAsync``1(System.String)">
-            <summary>
-            دریافت مقدار از کش برای هر زبان و شناسه
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="cacheKey"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AddItemToListAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
-            <summary>
-            اضافه کردن یک آیتم به لیست کش‌شده
+            ذخیره یک مقدار در کش
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveItemFromListAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SetBulkAsync``1(System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
             <summary>
-            حذف یک آیتم از لیست کش‌شده
+            ذخیره چندین مقدار در کش
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.UpdateItemInListAsync``1(System.String,System.Func{``0,System.Boolean},``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetAsync``1(System.String)">
             <summary>
-            به‌روزرسانی یک آیتم در لیست کش‌شده
+            بازیابی یک مقدار از کش
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SearchInListAsync``1(System.String,System.Func{``0,System.Boolean})">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetBulkAsync``1(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            جستجو در لیست کش‌شده با استفاده از شرط
+            بازیابی چندین مقدار از کش
             </summary>
         </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.AdvancedSearchInListAsync``1(System.String,System.Collections.Generic.List{System.Func{``0,System.Boolean}})">
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveAsync(System.String)">
             <summary>
-            جستجوی پیشرفته در لیست کش‌شده با چندین شرط
+            حذف یک مقدار از کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveBulkAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            حذف چندین مقدار از کش
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String)">
+            <summary>
+            ریست کل کش با پیشوند
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SearchAsync``1(System.String,System.Func{``0,System.Boolean})">
+            <summary>
+            جستجو در لیست کش‌شده
             </summary>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SearchWithPaginationAsync``1(System.String,System.Func{``0,System.Boolean},System.Int32,System.Int32)">
             <summary>
-            جستجو و صفحه‌بندی در لیست کش‌شده
+            جستجو با صفحه‌بندی در لیست کش‌شده
             </summary>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
-            <summary>
-            ثبت یک مقدار در لیست کش‌شده با توجه به شرط
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="values"></param>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetHashValueAsync``1(System.String,System.String)">
-            <summary>
-            دریافت مقدار از لیست کش‌شده با توجه به شرط
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.GetHashAllAsync``1(System.String)">
-            <summary>
-            دریافت تمام مقادیر از لیست کش‌شده
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.DeleteHashFieldAsync(System.String,System.String)">
-            <summary>
-            حذف مقدار از لیست کش‌شده با توجه به شرط
-            </summary>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-        </member>
-        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.KeyExistsAsync(System.String)">
-            <summary>
-            بررسی وجود یک کلید در لیست کش‌شده
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
         </member>
         <member name="T:SayehBanTools.ShowDateTime.ConvertDateTime">
             <summary>
@@ -1754,119 +1633,84 @@
         </member>
         <member name="T:SayehBanTools.Utilities.Caching.CacheManager">
             <summary>
-            مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه یا کش توزیع‌شده
+            مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه (IMemoryCache) یا Redis (IDistributedCache)
             </summary>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Microsoft.Extensions.Caching.Memory.IMemoryCache,StackExchange.Redis.IConnectionMultiplexer,System.Boolean)">
             <summary>
-            سازنده کلاس برای استفاده از کش حافظه
+            سازنده کلاس CacheManager
             </summary>
-            <param name="memoryCache">نمونه کش حافظه</param>
-            <exception cref="T:System.ArgumentNullException">در صورت null بودن memoryCache</exception>
+            <param name="distributedCache">نمونه کش توزیع‌شده (اختیاری)</param>
+            <param name="memoryCache">نمونه کش حافظه‌ای (اختیاری)</param>
+            <param name="redisConnection">اتصال به Redis برای عملیات پیشرفته (اختیاری)</param>
+            <param name="useDistributedCache">مشخص می‌کند که از کش توزیع‌شده استفاده شود یا حافظه‌ای</param>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.AddOrUpdateAsync``1(System.String,``0,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
             <summary>
-            سازنده کلاس برای استفاده از کش توزیع‌شده
+            افزودن یا به‌روزرسانی یک مقدار در کش
             </summary>
-            <param name="distributedCache">نمونه کش توزیع‌شده</param>
-            <exception cref="T:System.ArgumentNullException">در صورت null بودن distributedCache</exception>
-        </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.TryGetValueAsync``1(System.String)">
-            <summary>
-            دریافت مقدار از کش
-            </summary>
-            <typeparam name="T">نوع داده کش</typeparam>
             <param name="key">کلید کش</param>
-            <returns>مقدار کش‌شده یا null در صورت عدم وجود</returns>
-            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن key</exception>
-            <exception cref="T:System.InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
+            <param name="value">مقدار برای ذخیره</param>
+            <param name="options">تنظیمات کش (برای کش توزیع‌شده)</param>
+            <param name="memoryOptions">تنظیمات کش حافظه‌ای (اختیاری)</param>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetAsync``1(System.String,``0,System.Object)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.AddOrUpdateBulkAsync``1(System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
             <summary>
-            ثبت مقدار در کش
+            افزودن یا به‌روزرسانی چندین مقدار در کش
             </summary>
-            <typeparam name="T">نوع داده کش</typeparam>
+            <param name="keyValuePairs">دیکشنری کلید-مقدار برای ذخیره</param>
+            <param name="options">تنظیمات کش (برای کش توزیع‌شده)</param>
+            <param name="memoryOptions">تنظیمات کش حافظه‌ای (اختیاری)</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetAsync``1(System.String)">
+            <summary>
+            بازیابی یک مقدار از کش
+            </summary>
             <param name="key">کلید کش</param>
-            <param name="value">مقدار برای کش کردن</param>
-            <param name="options">تنظیمات کش (MemoryCacheEntryOptions یا DistributedCacheEntryOptions)</param>
-            <returns>وظیفه ناهمگام</returns>
-            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن key</exception>
-            <exception cref="T:System.InvalidOperationException">در صورت نادرست بودن تنظیمات یا عدم پیکربندی ارائه‌دهنده کش</exception>
+            <returns>مقدار بازیابی‌شده یا null اگر وجود نداشته باشد</returns>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.ResetCacheAsync(System.String,System.String[])">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetBulkAsync``1(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            حذف مقدار از کش
+            بازیابی چندین مقدار از کش
             </summary>
-            <param name="prefix">پیشوند کلید کش</param>
-            <param name="keyParts">بخش‌های اضافی کلید کش (اختیاری)</param>
-            <returns>وظیفه ناهمگام</returns>
-            <exception cref="T:System.ArgumentNullException">در صورت null یا خالی بودن prefix</exception>
-            <exception cref="T:System.InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
+            <param name="keys">لیست کلیدها</param>
+            <returns>دیکشنری کلید-مقدار بازیابی‌شده</returns>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.TryGetListAsync``1(System.String)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.RemoveAsync(System.String)">
             <summary>
-            دریافت مقدار از کش به صورت لیست
+            حذف یک مقدار از کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
+            <param name="key">کلید کش</param>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetListAsync``1(System.String,System.Collections.Generic.List{``0},System.Object)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.RemoveBulkAsync(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
-            ثبت مقدار در کش به صورت لیست
+            حذف چندین مقدار از کش
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="value"></param>
-            <param name="options"></param>
-            <returns></returns>
+            <param name="keys">لیست کلیدها</param>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SetHashAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.ResetCacheAsync(System.String)">
             <summary>
-            ثبت مقدار در کش به صورت هش
+            ریست کل کش با یک پیشوند خاص
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="values"></param>
-            <param name="options"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <param name="prefix">پیشوند کلیدها برای حذف</param>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetHashValueAsync``1(System.String,System.String)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SearchAsync``1(System.String,System.Func{``0,System.Boolean})">
             <summary>
-            دریافت مقدار از کش به صورت هش
+            جستجو در لیست کش‌شده با شرط
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <param name="key">کلید کش</param>
+            <param name="predicate">شرط جستجو</param>
+            <returns>لیست مقادیر فیلترشده</returns>
         </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.GetHashAllAsync``1(System.String)">
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.SearchWithPaginationAsync``1(System.String,System.Func{``0,System.Boolean},System.Int32,System.Int32)">
             <summary>
-            دریافت همه مقادیر به صورت هش
+            جستجو با صفحه‌بندی در لیست کش‌شده
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
-        </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.DeleteHashFieldAsync(System.String,System.String)">
-            <summary>
-            حذف مقدار از کش به صورت هش
-            </summary>
-            <param name="key"></param>
-            <param name="field"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
-        </member>
-        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.KeyExistsAsync(System.String)">
-            <summary>
-            بررسی وجود مقدار کلید در کش به صورت هش
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-            <exception cref="T:System.InvalidOperationException"></exception>
+            <param name="key">کلید کش</param>
+            <param name="predicate">شرط جستجو</param>
+            <param name="pageNumber">شماره صفحه</param>
+            <param name="pageSize">اندازه صفحه</param>
+            <returns>نتایج صفحه‌بندی‌شده و تعداد کل</returns>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>

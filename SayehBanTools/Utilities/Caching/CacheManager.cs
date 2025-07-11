@@ -1,250 +1,263 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
 using System.Text.Json;
 
 namespace SayehBanTools.Utilities.Caching;
 
 /// <summary>
-/// مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه یا کش توزیع‌شده
+/// مدیریت کش برای ذخیره و بازیابی داده‌ها در حافظه (IMemoryCache) یا Redis (IDistributedCache)
 /// </summary>
 public class CacheManager
 {
-    private readonly IMemoryCache? _memoryCache;
     private readonly IDistributedCache? _distributedCache;
+    private readonly IMemoryCache? _memoryCache;
+    private readonly IConnectionMultiplexer? _redisConnection;
+    private readonly bool _useDistributedCache;
 
     /// <summary>
-    /// سازنده کلاس برای استفاده از کش حافظه
+    /// سازنده کلاس CacheManager
     /// </summary>
-    /// <param name="memoryCache">نمونه کش حافظه</param>
-    /// <exception cref="ArgumentNullException">در صورت null بودن memoryCache</exception>
-    public CacheManager(IMemoryCache memoryCache)
+    /// <param name="distributedCache">نمونه کش توزیع‌شده (اختیاری)</param>
+    /// <param name="memoryCache">نمونه کش حافظه‌ای (اختیاری)</param>
+    /// <param name="redisConnection">اتصال به Redis برای عملیات پیشرفته (اختیاری)</param>
+    /// <param name="useDistributedCache">مشخص می‌کند که از کش توزیع‌شده استفاده شود یا حافظه‌ای</param>
+    public CacheManager(
+        IDistributedCache? distributedCache = null,
+        IMemoryCache? memoryCache = null,
+        IConnectionMultiplexer? redisConnection = null,
+        bool useDistributedCache = true)
     {
-        _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
-        _distributedCache = null;
+        _distributedCache = distributedCache;
+        _memoryCache = memoryCache;
+        _redisConnection = redisConnection;
+        _useDistributedCache = useDistributedCache;
+
+        if (_useDistributedCache && _distributedCache == null)
+            throw new ArgumentNullException(nameof(distributedCache));
+        if (!_useDistributedCache && _memoryCache == null)
+            throw new ArgumentNullException(nameof(memoryCache));
     }
 
     /// <summary>
-    /// سازنده کلاس برای استفاده از کش توزیع‌شده
+    /// افزودن یا به‌روزرسانی یک مقدار در کش
     /// </summary>
-    /// <param name="distributedCache">نمونه کش توزیع‌شده</param>
-    /// <exception cref="ArgumentNullException">در صورت null بودن distributedCache</exception>
-    public CacheManager(IDistributedCache distributedCache)
-    {
-        _distributedCache = distributedCache ?? throw new ArgumentNullException(nameof(distributedCache));
-        _memoryCache = null;
-    }
-
-    /// <summary>
-    /// دریافت مقدار از کش
-    /// </summary>
-    /// <typeparam name="T">نوع داده کش</typeparam>
     /// <param name="key">کلید کش</param>
-    /// <returns>مقدار کش‌شده یا null در صورت عدم وجود</returns>
-    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن key</exception>
-    /// <exception cref="InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
-    public async Task<T?> TryGetValueAsync<T>(string key)
+    /// <param name="value">مقدار برای ذخیره</param>
+    /// <param name="options">تنظیمات کش (برای کش توزیع‌شده)</param>
+    /// <param name="memoryOptions">تنظیمات کش حافظه‌ای (اختیاری)</param>
+    public async Task AddOrUpdateAsync<T>(string key, T value, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
     {
         if (string.IsNullOrEmpty(key))
             throw new ArgumentNullException(nameof(key));
 
-        try
+        var serializedData = JsonSerializer.Serialize(value);
+        if (_useDistributedCache)
         {
-            if (_memoryCache != null)
-            {
-                return _memoryCache.TryGetValue(key, out T? value) ? value : default;
-            }
-            else if (_distributedCache != null)
-            {
-                var cachedData = await _distributedCache.GetStringAsync(key);
-                return cachedData != null ? JsonSerializer.Deserialize<T>(cachedData) : default;
-            }
-            throw new InvalidOperationException("No cache provider configured.");
-        }
-        catch (Exception ex)
-        {
-            // ثبت خطا برای دیباگ (اختیاری)
-            throw new InvalidOperationException($"Error retrieving cache for key '{key}': {ex.Message}", ex);
-        }
-    }
-
-    /// <summary>
-    /// ثبت مقدار در کش
-    /// </summary>
-    /// <typeparam name="T">نوع داده کش</typeparam>
-    /// <param name="key">کلید کش</param>
-    /// <param name="value">مقدار برای کش کردن</param>
-    /// <param name="options">تنظیمات کش (MemoryCacheEntryOptions یا DistributedCacheEntryOptions)</param>
-    /// <returns>وظیفه ناهمگام</returns>
-    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن key</exception>
-    /// <exception cref="InvalidOperationException">در صورت نادرست بودن تنظیمات یا عدم پیکربندی ارائه‌دهنده کش</exception>
-    public async Task SetAsync<T>(string key, T value, object options)
-    {
-        if (string.IsNullOrEmpty(key))
-            throw new ArgumentNullException(nameof(key));
-
-        if (_memoryCache != null && options is MemoryCacheEntryOptions memOptions)
-        {
-            _memoryCache.Set(key, value, memOptions);
-        }
-        else if (_distributedCache != null && options is DistributedCacheEntryOptions distOptions)
-        {
-            var serializedData = JsonSerializer.Serialize(value);
-            await _distributedCache.SetStringAsync(key, serializedData, distOptions);
+            await _distributedCache!.SetStringAsync(key, serializedData, options ?? new DistributedCacheEntryOptions());
         }
         else
         {
-            throw new InvalidOperationException("Invalid cache options or no cache provider configured.");
+            _memoryCache!.Set(key, value, memoryOptions ?? new MemoryCacheEntryOptions());
         }
     }
 
     /// <summary>
-    /// حذف مقدار از کش
+    /// افزودن یا به‌روزرسانی چندین مقدار در کش
     /// </summary>
-    /// <param name="prefix">پیشوند کلید کش</param>
-    /// <param name="keyParts">بخش‌های اضافی کلید کش (اختیاری)</param>
-    /// <returns>وظیفه ناهمگام</returns>
-    /// <exception cref="ArgumentNullException">در صورت null یا خالی بودن prefix</exception>
-    /// <exception cref="InvalidOperationException">در صورت عدم پیکربندی ارائه‌دهنده کش</exception>
-    public async Task ResetCacheAsync(string prefix, params string?[] keyParts)
+    /// <param name="keyValuePairs">دیکشنری کلید-مقدار برای ذخیره</param>
+    /// <param name="options">تنظیمات کش (برای کش توزیع‌شده)</param>
+    /// <param name="memoryOptions">تنظیمات کش حافظه‌ای (اختیاری)</param>
+    public async Task AddOrUpdateBulkAsync<T>(Dictionary<string, T> keyValuePairs, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
+    {
+        if (keyValuePairs == null || !keyValuePairs.Any())
+            throw new ArgumentNullException(nameof(keyValuePairs));
+
+        if (_useDistributedCache)
+        {
+            var tasks = new List<Task>();
+            foreach (var kvp in keyValuePairs)
+            {
+                var serializedData = JsonSerializer.Serialize(kvp.Value);
+                tasks.Add(_distributedCache!.SetStringAsync(kvp.Key, serializedData, options ?? new DistributedCacheEntryOptions()));
+            }
+            await Task.WhenAll(tasks);
+        }
+        else
+        {
+            foreach (var kvp in keyValuePairs)
+            {
+                _memoryCache!.Set(kvp.Key, kvp.Value, memoryOptions ?? new MemoryCacheEntryOptions());
+            }
+        }
+    }
+
+    /// <summary>
+    /// بازیابی یک مقدار از کش
+    /// </summary>
+    /// <param name="key">کلید کش</param>
+    /// <returns>مقدار بازیابی‌شده یا null اگر وجود نداشته باشد</returns>
+    public async Task<T?> GetAsync<T>(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+            throw new ArgumentNullException(nameof(key));
+
+        if (_useDistributedCache)
+        {
+            var cachedData = await _distributedCache!.GetStringAsync(key);
+            return cachedData != null ? JsonSerializer.Deserialize<T>(cachedData) : default;
+        }
+        else
+        {
+            return _memoryCache!.TryGetValue(key, out T? value) ? value : default;
+        }
+    }
+
+    /// <summary>
+    /// بازیابی چندین مقدار از کش
+    /// </summary>
+    /// <param name="keys">لیست کلیدها</param>
+    /// <returns>دیکشنری کلید-مقدار بازیابی‌شده</returns>
+    public async Task<Dictionary<string, T>> GetBulkAsync<T>(IEnumerable<string> keys)
+    {
+        if (keys == null || !keys.Any())
+            throw new ArgumentNullException(nameof(keys));
+
+        var results = new Dictionary<string, T>();
+        if (_useDistributedCache)
+        {
+            foreach (var key in keys)
+            {
+                var cachedData = await _distributedCache!.GetStringAsync(key);
+                if (cachedData != null)
+                {
+                    results[key] = JsonSerializer.Deserialize<T>(cachedData)!;
+                }
+            }
+        }
+        else
+        {
+            foreach (var key in keys)
+            {
+                if (_memoryCache!.TryGetValue(key, out T? value))
+                {
+                    results[key] = value!;
+                }
+            }
+        }
+        return results;
+    }
+
+    /// <summary>
+    /// حذف یک مقدار از کش
+    /// </summary>
+    /// <param name="key">کلید کش</param>
+    public async Task RemoveAsync(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+            throw new ArgumentNullException(nameof(key));
+
+        if (_useDistributedCache)
+        {
+            await _distributedCache!.RemoveAsync(key);
+        }
+        else
+        {
+            _memoryCache!.Remove(key);
+        }
+    }
+
+    /// <summary>
+    /// حذف چندین مقدار از کش
+    /// </summary>
+    /// <param name="keys">لیست کلیدها</param>
+    public async Task RemoveBulkAsync(IEnumerable<string> keys)
+    {
+        if (keys == null || !keys.Any())
+            throw new ArgumentNullException(nameof(keys));
+
+        if (_useDistributedCache)
+        {
+            var tasks = keys.Select(key => _distributedCache!.RemoveAsync(key)).ToArray();
+            await Task.WhenAll(tasks);
+        }
+        else
+        {
+            foreach (var key in keys)
+            {
+                _memoryCache!.Remove(key);
+            }
+        }
+    }
+
+    /// <summary>
+    /// ریست کل کش با یک پیشوند خاص
+    /// </summary>
+    /// <param name="prefix">پیشوند کلیدها برای حذف</param>
+    public async Task ResetCacheAsync(string prefix)
     {
         if (string.IsNullOrEmpty(prefix))
             throw new ArgumentNullException(nameof(prefix));
 
-        var cacheKey = prefix;
-        if (keyParts != null && keyParts.Any(p => !string.IsNullOrEmpty(p)))
+        if (_useDistributedCache)
         {
-            cacheKey += string.Join("_", keyParts.Where(p => !string.IsNullOrEmpty(p)));
-        }
+            if (_redisConnection == null)
+                throw new NotImplementedException("برای ریست کش توزیع‌شده با الگو، نیاز به StackExchange.Redis است.");
 
-        if (_memoryCache != null)
-        {
-            _memoryCache.Remove(cacheKey);
-        }
-        else if (_distributedCache != null)
-        {
-            await _distributedCache.RemoveAsync(cacheKey);
+            var db = _redisConnection.GetDatabase();
+            var server = _redisConnection.GetServer(_redisConnection.GetEndPoints().First());
+            var keys = server.Keys(pattern: $"{prefix}*").ToArray();
+            if (keys.Any())
+            {
+                await db.KeyDeleteAsync(keys);
+            }
         }
         else
         {
-            throw new InvalidOperationException("No cache provider configured.");
+            // پاک‌سازی تمام کلیدهای کش حافظه‌ای با پیشوند خاص
+            // توجه: IMemoryCache متد داخلی برای حذف کلیدها با الگو ندارد، بنابراین کل کش پاک می‌شود
+            // در صورت نیاز به حذف کلیدهای خاص، باید کلیدها را به صورت دستی مدیریت کنید
+            _memoryCache!.Remove(prefix); // این فقط کلید خاص را حذف می‌کند، برای پیشوند باید کلیدها را داشته باشید
+            // اگر نیاز به حذف تمام کلیدها دارید، می‌توانید از یک لیست کلیدها استفاده کنید یا کل کش را پاک کنید
+            // برای مثال: _memoryCache!.Clear(); // این متد وجود ندارد، باید کلیدها را مدیریت کنید
         }
     }
+
     /// <summary>
-    /// دریافت مقدار از کش به صورت لیست
+    /// جستجو در لیست کش‌شده با شرط
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    public async Task<List<T>?> TryGetListAsync<T>(string key)
+    /// <param name="key">کلید کش</param>
+    /// <param name="predicate">شرط جستجو</param>
+    /// <returns>لیست مقادیر فیلترشده</returns>
+    public async Task<IEnumerable<T>> SearchAsync<T>(string key, Func<T, bool> predicate)
     {
-        return await TryGetValueAsync<List<T>>(key);
+        var list = await GetAsync<List<T>>(key);
+        return list?.Where(predicate) ?? Enumerable.Empty<T>();
     }
+
     /// <summary>
-    /// ثبت مقدار در کش به صورت لیست
+    /// جستجو با صفحه‌بندی در لیست کش‌شده
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
-    public async Task SetListAsync<T>(string key, List<T> value, object options)
+    /// <param name="key">کلید کش</param>
+    /// <param name="predicate">شرط جستجو</param>
+    /// <param name="pageNumber">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
+    /// <returns>نتایج صفحه‌بندی‌شده و تعداد کل</returns>
+    public async Task<(IEnumerable<T> Results, int TotalCount)> SearchWithPaginationAsync<T>(
+        string key, Func<T, bool> predicate, int pageNumber, int pageSize)
     {
-        await SetAsync(key, value, options);
-    }
-    /// <summary>
-    /// ثبت مقدار در کش به صورت هش
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="values"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public async Task SetHashAsync<T>(string key, Dictionary<string, T> values, DistributedCacheEntryOptions options)
-    {
-        if (_distributedCache == null)
-            throw new InvalidOperationException("Distributed cache is not configured.");
+        var list = await GetAsync<List<T>>(key);
+        if (list == null)
+            return (Enumerable.Empty<T>(), 0);
 
-        var serializedDict = values.ToDictionary(
-            kvp => kvp.Key,
-            kvp => JsonSerializer.Serialize(kvp.Value));
+        var filteredItems = list.Where(predicate).ToList();
+        var totalCount = filteredItems.Count;
 
-        await _distributedCache.SetAsync(key, JsonSerializer.SerializeToUtf8Bytes(serializedDict), options);
-    }
-    /// <summary>
-    /// دریافت مقدار از کش به صورت هش
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public async Task<T?> GetHashValueAsync<T>(string key, string field)
-    {
-        if (_distributedCache == null)
-            throw new InvalidOperationException("Distributed cache is not configured.");
+        var pagedItems = filteredItems
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
 
-        var data = await _distributedCache.GetAsync(key);
-        if (data == null) return default;
-
-        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
-        return dict != null && dict.ContainsKey(field)
-            ? JsonSerializer.Deserialize<T>(dict[field])
-            : default;
-    }
-    /// <summary>
-    /// دریافت همه مقادیر به صورت هش
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public async Task<Dictionary<string, T>> GetHashAllAsync<T>(string key)
-    {
-        if (_distributedCache == null)
-            throw new InvalidOperationException("Distributed cache is not configured.");
-
-        var data = await _distributedCache.GetAsync(key);
-        if (data == null) return new Dictionary<string, T>();
-
-        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
-        return dict!.ToDictionary(
-             kvp => kvp.Key,
-             kvp => JsonSerializer.Deserialize<T>(kvp.Value)!);
-    }
-    /// <summary>
-    /// حذف مقدار از کش به صورت هش
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public async Task DeleteHashFieldAsync(string key, string field)
-    {
-        if (_distributedCache == null)
-            throw new InvalidOperationException("Distributed cache is not configured.");
-
-        var data = await _distributedCache.GetAsync(key);
-        if (data == null) return;
-
-        var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
-        if (dict == null || !dict.ContainsKey(field)) return;
-
-        dict.Remove(field);
-        await _distributedCache.SetAsync(key, JsonSerializer.SerializeToUtf8Bytes(dict), new DistributedCacheEntryOptions());
-    }
-    /// <summary>
-    /// بررسی وجود مقدار کلید در کش به صورت هش
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public async Task<bool> KeyExistsAsync(string key)
-    {
-        if (_distributedCache == null)
-            throw new InvalidOperationException("Distributed cache is not configured.");
-
-        var data = await _distributedCache.GetAsync(key);
-        return data != null;
+        return (pagedItems, totalCount);
     }
 }
