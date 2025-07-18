@@ -260,4 +260,49 @@ public class CacheManager
 
         return (pagedItems, totalCount);
     }
+    /// <summary>
+    /// حذف یک آیتم خاص از لیست کش‌شده
+    /// </summary>
+    public async Task RemoveItemAsync<T>(string key, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
+    {
+        if (string.IsNullOrEmpty(key))
+            throw new ArgumentNullException(nameof(key));
+
+        if (_useDistributedCache)
+        {
+            var cachedData = await _distributedCache!.GetStringAsync(key);
+            if (cachedData != null)
+            {
+                var list = JsonSerializer.Deserialize<List<T>>(cachedData);
+                if (list != null)
+                {
+                    var updatedList = list.Where(item => !predicate(item)).ToList();
+                    if (updatedList.Count != list.Count)
+                    {
+                        var serializedData = JsonSerializer.Serialize(updatedList);
+                        await _distributedCache!.SetStringAsync(key, serializedData, options ?? new DistributedCacheEntryOptions());
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (_memoryCache!.TryGetValue(key, out List<T>? list) && list != null)
+            {
+                var updatedList = list.Where(item => !predicate(item)).ToList();
+                if (updatedList.Count != list.Count)
+                {
+                    _memoryCache!.Set(key, updatedList, memoryOptions ?? new MemoryCacheEntryOptions());
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// حذف مجموعه‌ای از آیتم‌ها از لیست کش‌شده
+    /// </summary>
+    public async Task RemoveItemArrayAsync<T>(string key, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
+    {
+        await RemoveItemAsync(key, predicate, options, memoryOptions); // منطق مشابه RemoveItemAsync
+    }
 }

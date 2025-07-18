@@ -1465,6 +1465,16 @@
             حذف چندین مقدار از کش
             </summary>
         </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveItemAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف یک آیتم خاص از لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Interface.ICache.RemoveItemArrayAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف مجموعه‌ای از آیتم‌ها از لیست کش‌شده
+            </summary>
+        </member>
         <member name="M:SayehBanTools.Service.Redis.Interface.ICache.ResetCacheAsync(System.String)">
             <summary>
             ریست کل کش با پیشوند
@@ -1533,6 +1543,28 @@
             <summary>
             حذف چندین مقدار از کش
             </summary>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveItemAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف آیتم تک
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <param name="predicate"></param>
+            <param name="options"></param>
+            <param name="memoryOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Redis.Repository.RCache.RemoveItemArrayAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف آیتم به صورت آرایه ای
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="cacheKey"></param>
+            <param name="predicate"></param>
+            <param name="options"></param>
+            <param name="memoryOptions"></param>
+            <returns></returns>
         </member>
         <member name="M:SayehBanTools.Service.Redis.Repository.RCache.ResetCacheAsync(System.String)">
             <summary>
@@ -1711,6 +1743,16 @@
             <param name="pageNumber">شماره صفحه</param>
             <param name="pageSize">اندازه صفحه</param>
             <returns>نتایج صفحه‌بندی‌شده و تعداد کل</returns>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.RemoveItemAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف یک آیتم خاص از لیست کش‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Caching.CacheManager.RemoveItemArrayAsync``1(System.String,System.Func{``0,System.Boolean},Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions)">
+            <summary>
+            حذف مجموعه‌ای از آیتم‌ها از لیست کش‌شده
+            </summary>
         </member>
         <member name="T:SayehBanTools.Utilities.Constants.ApiConstants">
             <summary>

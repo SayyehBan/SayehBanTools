@@ -47,7 +47,15 @@ public interface ICache
     /// حذف چندین مقدار از کش
     /// </summary>
     Task RemoveBulkAsync(IEnumerable<string> keys);
+    /// <summary>
+    /// حذف یک آیتم خاص از لیست کش‌شده
+    /// </summary>
+    Task RemoveItemAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null);
 
+    /// <summary>
+    /// حذف مجموعه‌ای از آیتم‌ها از لیست کش‌شده
+    /// </summary>
+    Task RemoveItemArrayAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null);
     /// <summary>
     /// ریست کل کش با پیشوند
     /// </summary>

@@ -92,7 +92,32 @@ public class RCache : ICache
     {
         await _cacheManager.RemoveBulkAsync(keys);
     }
-
+    /// <summary>
+    /// حذف آیتم تک
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="cacheKey"></param>
+    /// <param name="predicate"></param>
+    /// <param name="options"></param>
+    /// <param name="memoryOptions"></param>
+    /// <returns></returns>
+    public async Task RemoveItemAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
+    {
+        await _cacheManager.RemoveItemAsync(cacheKey, predicate, options, memoryOptions);
+    }
+    /// <summary>
+    /// حذف آیتم به صورت آرایه ای
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="cacheKey"></param>
+    /// <param name="predicate"></param>
+    /// <param name="options"></param>
+    /// <param name="memoryOptions"></param>
+    /// <returns></returns>
+    public async Task RemoveItemArrayAsync<T>(string cacheKey, Func<T, bool> predicate, DistributedCacheEntryOptions? options = null, MemoryCacheEntryOptions? memoryOptions = null)
+    {
+        await _cacheManager.RemoveItemArrayAsync(cacheKey, predicate, options, memoryOptions);
+    }
     /// <summary>
     /// ریست کل کش با پیشوند
     /// </summary>
@@ -117,4 +142,5 @@ public class RCache : ICache
     {
         return await _cacheManager.SearchWithPaginationAsync(cacheKey, predicate, pageNumber, pageSize);
     }
+
 }
