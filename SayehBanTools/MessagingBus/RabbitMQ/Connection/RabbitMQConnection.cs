@@ -2,8 +2,6 @@
 using RabbitMQ.Client;
 using SayehBanTools.Encryptor;
 using SayehBanTools.MessagingBus.RabbitMQ.Model;
-using System;
-using System.Threading.Tasks;
 namespace SayehBanTools.MessagingBus.RabbitMQ.Connection;
 /// <summary>
 /// کلاس مدیریت اتصال به RabbitMQ با تنظیمات رمزنگاری‌شده
