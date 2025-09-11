@@ -1015,6 +1015,31 @@
             
             </summary>
         </member>
+        <member name="T:SayehBanTools.Model.Entities.API_Link_Model">
+            <summary>
+            Model لینک API
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.API_Link_Model.API_Link_Get">
+            <summary>
+            دریافت لینک API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.API_Link_Model.API_Link_Get.API_Link_ID">
+            <summary>
+            شناسه لینک API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.API_Link_Model.API_Link_Get.API_Link">
+            <summary>
+            لینک API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.API_Link_Model.API_Link_Get.API_Name_Link">
+            <summary>
+            نام لینک API
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Model.Entities.SqlModel">
             <summary>
             کلاس پیام خطا
@@ -1797,6 +1822,93 @@
             <summary>
             تعداد کل صفحه
             </summary>
+        </member>
+        <member name="T:SayehBanTools.Validations.HierarchyPathAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی مسیر سلسله مراتب
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Validations.HierarchyPathAttribute.DefaultErrorMessage">
+            <summary>
+            پیام خطای پیش‌فرض برای زمانی که مسیر سلسله مراتب نامعتبر است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor(System.String)">
+            <summary>
+            سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت مسیر سلسله مراتب
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی آرایه‌ای از شناسه‌های عددی مثبت (غیرصفر و غیرمنفی)
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute.DefaultErrorMessage">
+            <summary>
+            پیام خطای پیش‌فرض برای زمانی که آرایه شناسه‌های عددی نامعتبر است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute.#ctor(System.String)">
+            <summary>
+            سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت آرایه شناسه‌های عددی
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.Attributes.PositiveNumberIdAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی شناسه عددی مثبت (غیرصفر و غیرمنفی)
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Validations.Attributes.PositiveNumberIdAttribute.DefaultErrorMessage">
+            <summary>
+            پیام خطای پیش‌فرض برای زمانی که شناسه عددی نامعتبر است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdAttribute.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdAttribute.#ctor(System.String)">
+            <summary>
+            سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.PositiveNumberIdAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت شناسه عددی
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
         </member>
         <member name="T:SayehBanTools.Validations.HierarchyValidator">
             <summary>
