@@ -46,7 +46,7 @@ public class ApiResponseTests
         // Arrange
         var apiResponse = new ApiResponse
         {
-            Message = null
+            Message = null!
         };
 
         // Act & Assert

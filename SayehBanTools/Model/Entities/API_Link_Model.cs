@@ -16,10 +16,10 @@ public class API_Link_Model
         /// <summary>
         /// لینک API
         /// </summary>
-        public string? API_Link {  get; set; }
+        public string API_Link { get; set; } = string.Empty;
         /// <summary>
         /// نام لینک API
         /// </summary>
-        public string? API_Name_Link { get; set; }
+        public string API_Name_Link { get; set; } = string.Empty;
     }
 }

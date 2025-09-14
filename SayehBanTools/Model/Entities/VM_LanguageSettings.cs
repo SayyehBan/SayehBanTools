@@ -16,7 +16,7 @@ public class VM_LanguageSettings
         /// <summary>
         /// کد زبان
         /// </summary>
-        public string? LanguageCode { get; set; }
+        public string LanguageCode { get; set; } = string.Empty;
         /// <summary>
         /// کد زبان منطقه
         /// </summary>
@@ -24,14 +24,14 @@ public class VM_LanguageSettings
         /// <summary>
         /// نام تحلیلگر
         /// </summary>
-        public string? AnalyzerName { get; set; }
+        public string AnalyzerName { get; set; } = string.Empty;
         /// <summary>
         /// نوکن ساز
         /// </summary>
-        public string? Tokenizer { get; set; }
+        public string Tokenizer { get; set; } = string.Empty;
         /// <summary>
         /// فیلترها
         /// </summary>
-        public string? Filters { get; set; }
+        public string Filters { get; set; } = string.Empty;
     }
 }

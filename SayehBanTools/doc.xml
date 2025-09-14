@@ -1910,6 +1910,35 @@
             <param name="validationContext">زمینه اعتبار‌سنجی</param>
             <returns>نتیجه اعتبار‌سنجی</returns>
         </member>
+        <member name="T:SayehBanTools.Validations.Attributes.RowVersionAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی مقدار RowVersion (Timestamp) به صورت رشته Base64
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Validations.Attributes.RowVersionAttribute.DefaultErrorMessage">
+            <summary>
+            پیام خطای پیش‌فرض برای زمانی که مقدار RowVersion نامعتبر است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.#ctor(System.String)">
+            <summary>
+            سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت مقدار RowVersion
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
+        </member>
         <member name="T:SayehBanTools.Validations.HierarchyValidator">
             <summary>
             کلاس بررسی ساختار درختی

@@ -11,11 +11,11 @@ public class SqlModel
     {    /// <summary>
          /// کد خطا
          /// </summary>
-        public int Code { get; set; } = 0;
+        public int Code { get; set; } 
         /// <summary>
         /// پیام خطا
         /// </summary>
-        public string? Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
     /// <summary>
     /// کلاس پیام خطا برای جدول مرتبط
@@ -25,15 +25,15 @@ public class SqlModel
         /// <summary>
         /// کد خطا
         /// </summary>
-        public string? Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         /// <summary>
         /// نام جدول
         /// </summary>
-        public string? RelatedTable { get; set; }
+        public string RelatedTable { get; set; } = string.Empty;
         /// <summary>
         /// نام ارتباط
         /// </summary>
-        public string? ConstraintName { get; set; }
+        public string ConstraintName { get; set; } = string.Empty;
         /// <summary>
         /// تعداد رکورد
         /// </summary>
@@ -63,7 +63,7 @@ public class SqlModel
         /// <summary>
         ///  شناسه ها
         /// </summary>
-        public string? Ids { get; set; }
+        public string Ids { get; set; } = string.Empty;
     }
 
 }
