@@ -1190,6 +1190,283 @@
             فیلترها
             </summary>
         </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS">
+            <summary>
+            مدل پیامک
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters">
+            <summary>
+            مقادیر پیش فرض
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters.BaseUrl">
+            <summary>
+            آدرس پایه https://edge.ippanel.com/v1 API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters.Api">
+            <summary>
+            لینک API
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters.API_Key">
+            <summary>
+            کلید دسترسی
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.Calculate_SMS_Price_Parameters">
+            <summary>
+            محاسبه هزینه پیامک
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.Calculate_SMS_Price_Parameters.number">
+            <summary>
+            شماره پیش فرض ارسال کننده پیام 983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.Calculate_SMS_Price_Parameters.message">
+            <summary>
+            متن پیام که عملیات محاسبه روش انجام میشه
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters">
+            <summary>
+            وب سرویس پارامتر های ارسال
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.SendingType">
+            <summary>
+            نوع ارسال پیامک webservice
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.FromNumber">
+            <summary>
+            ارسال از شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.Message">
+            <summary>
+            متن پیام ارسال
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.SendTime">
+            <summary>
+            زمان ارسال (فرمت: yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.Params">
+            <summary>
+            پارامترهای JSON (داخلی - برای API)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.#ctor">
+            <summary>
+            Constructor برای راحتی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters.SetRecipients(System.Collections.Generic.List{System.String})">
+            <summary>
+             Helper method برای تنظیم Recipients
+            </summary>
+            <param name="recipients"></param>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SMSParams">
+            <summary>
+            پارامتر گیرنده ها
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SMSParams.Recipients">
+            <summary>
+            گیرندگان
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters">
+            <summary>
+            ارسال پیامک به صورت فایل
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.sending_type">
+            <summary>
+            نوع ارسال پیامک file
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.from_number">
+            <summary>
+            ارسال از شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.message">
+            <summary>
+            متن پیام ارسال
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.files">
+            <summary>
+            فایل شماره ها
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.send_time">
+            <summary>
+            زمان ارسال (فرمت: yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters.#ctor">
+            <summary>
+            ارسال پارامترهای پیامک
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters">
+            <summary>
+            ارسال پیامک به صورت کلمات کلیدی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.sending_type">
+            <summary>
+            نوع ارسال پیامک keyword
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.from_number">
+            <summary>
+            ارسال از شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.message">
+            <summary>
+            متن پیام ارسال درود {ex_B} م۱ {ex_C}
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.files">
+            <summary>
+            فایل شماره ها
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.send_time">
+            <summary>
+            زمان ارسال (فرمت: yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters.#ctor">
+            <summary>
+            ارسال پارامترهای پیامک
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters">
+            <summary>
+            ارسال پیامک به صورت پترن
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.SendingType">
+            <summary>
+            نوع ارسال پیامک pattern
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.FromNumber">
+            <summary>
+            ارسال از شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.Code">
+            <summary>
+            کد پترن
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.Recipients">
+            <summary>
+            لیست گیرندگان (آرایه string)
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.Params">
+            <summary>
+            پارامترهای پترن (Dictionary اختیاری)
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.send_time">
+            <summary>
+            زمان ارسال (فرمت: yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.SetParams(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Helper method برای تنظیم Params
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters.AddParam(System.String,System.String)">
+            <summary>
+            Helper method برای اضافه کردن پارامتر
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters">
+            <summary>
+            ارسال پیامک Peer to Peer
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters.SendingType">
+            <summary>
+            نوع ارسال پیامک peer_to_peer
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters.FromNumber">
+            <summary>
+            شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters.Params">
+            <summary>
+            آرایه پیام‌ها و گیرندگان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters.#ctor">
+            <summary>
+            ارسال به صورت نظیر به نظیر
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters.AddMessage(System.Collections.Generic.List{System.String},System.String)">
+            Helper method برای اضافه کردن پیام
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.PeerToPeerMessage">
+            <summary>
+            یک پیام Peer to Peer
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.PeerToPeerMessage.Recipients">
+            <summary>
+            لیست گیرندگان
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.PeerToPeerMessage.Message">
+            <summary>
+            متن پیام
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters">
+            <summary>
+            ارسال نظیر به نظیر توسط فایل
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters.SendingType">
+            <summary>
+            نوع ارسال پیامک peer_to_peer_file
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters.FromNumber">
+            <summary>
+            شماره ارسال کننده +983000505
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters.send_time">
+            <summary>
+            زمان ارسال (فرمت: yyyy-MM-dd HH:mm:ss)
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters.files">
+            <summary>
+            فایل شماره ها
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Password.WorstPasswords">
             <summary>  
             این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
@@ -1218,6 +1495,151 @@
             </summary>  
             <param name="input"></param>  
             <returns></returns>  
+        </member>
+        <member name="T:SayehBanTools.Sender.Service.Interface.I_SMS">
+            <summary>
+            اینترفیس پیامک
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.GetCreditAsync(SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters)">
+            <summary>
+            دریافت موجودی پیامک
+            </summary>
+            <param name="model">تنظیمات API</param>
+            <returns>لیست اطلاعات اعتبارات به صورت string</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.Calculate_SMS_PriceAsync(SayehBanTools.Model.Entities.VM_SMS.Calculate_SMS_Price_Parameters)">
+            <summary>
+            محاسبه هزینه پیامک
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendWebserviceSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters)">
+            <summary>
+            ارسال پیامک به صورت وب سرویس
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendFileSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters)">
+            <summary>
+            ارسال پیامک توسط فایل
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendKeywordSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters)">
+            <summary>
+            ارسال پیامک توسط Keyword
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendPatternSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters)">
+            <summary>
+            ارسال پیامک پترن
+            </summary>
+            <param name="model">پارامترهای ارسال پترن</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendPeerToPeerSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters)">
+            <summary>
+            ارسال پیامک Peer to Peer
+            </summary>
+            <param name="model">پارامترهای ارسال Peer to Peer</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Interface.I_SMS.SendPeertoPeerbyFile(SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters)">
+            <summary>
+            ارسال نظیر به نظیر توسط فایل
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Sender.Service.Repository.R_SMS">
+            <summary>
+            ریپازیتوری پیامک - سورس کمکی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.Calculate_SMS_PriceAsync(SayehBanTools.Model.Entities.VM_SMS.Calculate_SMS_Price_Parameters)">
+            <summary>
+            محاسبه هزینه پیامک
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.GetCreditAsync(SayehBanTools.Model.Entities.VM_SMS.DefaultValueParameters)">
+            <summary>
+            دریافت موجودی پیامک - فقط JSON اصلی
+            </summary>
+            <param name="model">تنظیمات API کامل از درخواست</param>
+            <returns>لیست اطلاعات اعتبارات</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendFileSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendFileSMSParameters)">
+            <summary>
+            ارسال پیامک توسط فایل
+            </summary>
+            <param name="model">پارامترهای ارسال فایل</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendKeywordSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendKeywordSMSParameters)">
+            <summary>
+            ارسال پیامک توسط Keyword
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendWebserviceSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendWebserviceSMSParameters)">
+            <summary>
+            ارسال پیامک از طریق WebService
+            </summary>
+            <param name="model">پارامترهای کامل ارسال</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendPatternSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendPatternSMSParameters)">
+            <summary>
+            ارسال پیامک پترن
+            </summary>
+            <param name="model">پارامترهای ارسال پترن</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendPeerToPeerSMSAsync(SayehBanTools.Model.Entities.VM_SMS.SendPeerToPeerSMSParameters)">
+            <summary>
+            ارسال پیامک Peer to Peer
+            </summary>
+            <param name="model">پارامترهای ارسال Peer to Peer</param>
+            <returns>نتیجه ارسال</returns>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.R_SMS.SendPeertoPeerbyFile(SayehBanTools.Model.Entities.VM_SMS.SendPeertoPeerbyFileParameters)">
+            <summary>
+            ارسال نظیر به نظیر توسط فایل
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Sender.Service.Repository.CustomDateTimeConverter">
+            <summary>
+            سفارشی تبدیل تاریخ
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.CustomDateTimeConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            خواندن
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+            <exception cref="T:System.Text.Json.JsonException"></exception>
+        </member>
+        <member name="M:SayehBanTools.Sender.Service.Repository.CustomDateTimeConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateTime,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            نوشتن
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
         </member>
         <member name="T:SayehBanTools.Sender.SMS_System">
             <summary>
