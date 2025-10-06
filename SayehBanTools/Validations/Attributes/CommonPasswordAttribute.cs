@@ -112,3 +112,51 @@ public class CommonPasswordAttribute : ValidationAttribute
         return ValidationResult.Success;
     }
 }
+/*
+ نحوه استفاده از دستور اول مدل به این صورت تعریف میکنید
+namespace API_Worst_Passwords.Model;
+
+using SayehBanTools.Validations.Attributes;
+/// <summary>
+/// مدل ثبت نام
+/// </summary>
+public class RegisterModel
+{
+    [CommonPassword(
+        filePath: "wwwroot/file/worst-passwords.txt",  // مسیر فایل نسبت به WebRootPath
+        ErrorMessage = "رمز عبور ضعیف است، لطفاً تغییر دهید.")]
+    public string Password { get; set; } = string.Empty;
+}
+
+تو کنترولر به این صورت استفاده میکنید
+using API_Worst_Passwords.Model;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+
+namespace API_Worst_Passwords.Controllers;
+/// <summary>
+/// پیسورد
+/// </summary>
+[Route("api/[controller]/[action]")]
+[ApiController]
+public class WorstPasswordsController : ControllerBase
+{
+    /// <summary>
+    /// ثبت نام
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult Register([FromForm] RegisterModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        // ادامه عملیات ثبت‌نام
+        return Ok("OK");
+    }
+}
+
+
+ */
