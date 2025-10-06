@@ -2245,34 +2245,43 @@
             تعداد کل صفحه
             </summary>
         </member>
-        <member name="T:SayehBanTools.Validations.HierarchyPathAttribute">
+        <member name="T:SayehBanTools.Validations.Attributes.CommonPasswordAttribute">
             <summary>
-            Attribute برای اعتبار‌سنجی مسیر سلسله مراتب
+            Attribute برای اعتبار سنجی رمز عبور ضعیف
             </summary>
         </member>
-        <member name="F:SayehBanTools.Validations.HierarchyPathAttribute.DefaultErrorMessage">
+        <member name="M:SayehBanTools.Validations.Attributes.CommonPasswordAttribute.#ctor(System.String)">
             <summary>
-            پیام خطای پیش‌فرض برای زمانی که مسیر سلسله مراتب نامعتبر است
+            سازنده با مسیر فایل و پیام خطای پیش فرض
             </summary>
+            <param name="filePath">مسیر فایل worst-passwords.txt</param>
         </member>
-        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor">
+        <member name="M:SayehBanTools.Validations.Attributes.CommonPasswordAttribute.#ctor(System.String,System.String)">
             <summary>
-            سازنده پیش‌فرض
+            سازنده با مسیر فایل و پیام خطای سفارشی
             </summary>
-        </member>
-        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor(System.String)">
-            <summary>
-            سازنده با پیام خطای سفارشی
-            </summary>
+            <param name="filePath">مسیر فایل worst-passwords.txt</param>
             <param name="errorMessage">پیام خطای سفارشی</param>
         </member>
-        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+        <member name="M:SayehBanTools.Validations.Attributes.CommonPasswordAttribute.LoadCommonPasswords">
             <summary>
-            بررسی صحت مسیر سلسله مراتب
+            لود لیست هش های پسوردهای ضعیف از فایل (سنکرون)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.CommonPasswordAttribute.ComputeSha256Hash(System.String)">
+            <summary>
+            محاسبه هش SHA256
+            </summary>
+            <param name="input">ورودی</param>
+            <returns>هش SHA256</returns>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.CommonPasswordAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت رمز عبور
             </summary>
             <param name="value">مقداری که باید بررسی شود</param>
-            <param name="validationContext">زمینه اعتبار‌سنجی</param>
-            <returns>نتیجه اعتبار‌سنجی</returns>
+            <param name="validationContext">زمینه اعتبار سنجی</param>
+            <returns>نتیجه اعتبار سنجی</returns>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute">
             <summary>
@@ -2356,6 +2365,35 @@
         <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <summary>
             بررسی صحت مقدار RowVersion
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.HierarchyPathAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی مسیر سلسله مراتب
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Validations.HierarchyPathAttribute.DefaultErrorMessage">
+            <summary>
+            پیام خطای پیش‌فرض برای زمانی که مسیر سلسله مراتب نامعتبر است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor">
+            <summary>
+            سازنده پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.#ctor(System.String)">
+            <summary>
+            سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.HierarchyPathAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی صحت مسیر سلسله مراتب
             </summary>
             <param name="value">مقداری که باید بررسی شود</param>
             <param name="validationContext">زمینه اعتبار‌سنجی</param>
