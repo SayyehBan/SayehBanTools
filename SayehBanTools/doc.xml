@@ -403,6 +403,34 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:SayehBanTools.Converter.IPExtensions">
+            <summary>
+            افزونه‌های مدیریت آدرس‌های IP
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.IPExtensions.IPToNumber(System.String)">
+            <summary>
+            تبدیل آدرس IP به عدد صحیح
+            </summary>
+            <param name="ipAddress">آدرس IP به‌صورت رشته (مثال: "192.168.0.1")</param>
+            <returns>عدد صحیح معادل آدرس IP</returns>
+            <exception cref="T:System.ArgumentException">در صورت نامعتبر بودن آدرس IP</exception>
+        </member>
+        <member name="M:SayehBanTools.Converter.IPExtensions.NumberToIPAddress(System.Int64)">
+            <summary>
+            تبدیل عدد صحیح به آدرس IP
+            </summary>
+            <param name="ipNumber">عدد صحیح معادل آدرس IP</param>
+            <returns>آدرس IP به‌صورت رشته (مثال: "192.168.0.1")</returns>
+            <exception cref="T:System.ArgumentException">در صورت نامعتبر بودن عدد ورودی</exception>
+        </member>
+        <member name="M:SayehBanTools.Converter.IPExtensions.IsValidIPAddress(System.String)">
+            <summary>
+            اعتبارسنجی فرمت آدرس IP
+            </summary>
+            <param name="ipAddress">آدرس IP به‌صورت رشته</param>
+            <returns>در صورت معتبر بودن آدرس IP، مقدار true برمی‌گرداند</returns>
+        </member>
         <member name="T:SayehBanTools.Converter.StringExtensions">
             <summary>
             افزونه مدیریت رشته ها
@@ -1791,6 +1819,11 @@
             <param name="Size"></param>
             <returns>لیست اسناد موجود در ایندکس</returns>
         </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Interface.IElasticsearch.AdvancedSearchAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.SearchRequestDescriptor{``0}})">
+            <summary>
+            جستجوی پیشرفته با دسترسی مستقیم به ElasticsearchClient
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch">
             <summary>
             ریپازیتوری برای مدیریت عملیات Elasticsearch مرتبط با دسته‌بندی‌ها و موقعیت‌های جغرافیایی
@@ -1866,6 +1899,11 @@
             <param name="indexName">نام ایندکس</param>
             <param name="Size"></param>
             <returns>لیست اسناد موجود در ایندکس</returns>
+        </member>
+        <member name="M:SayehBanTools.Service.Elasticsearch.Repository.RElasticsearch.AdvancedSearchAsync``1(System.String,System.Action{Elastic.Clients.Elasticsearch.SearchRequestDescriptor{``0}})">
+            <summary>
+            جستجوی پیشرفته با دسترسی مستقیم به ElasticsearchClient
+            </summary>
         </member>
         <member name="T:SayehBanTools.Service.Redis.Interface.ICache">
             <summary>
@@ -2282,6 +2320,54 @@
             <param name="value">مقداری که باید بررسی شود</param>
             <param name="validationContext">زمینه اعتبار سنجی</param>
             <returns>نتیجه اعتبار سنجی</returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.Attributes.IpAddressV4Attribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی آدرس IPv4
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor">
+            <summary>
+            کلاس سازنده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor(System.String)">
+            <summary>
+            کلاس سازنده
+            </summary>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی اعتبار
+            </summary>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.Attributes.IpAddressV6Attribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی آدرس IPv6
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor">
+            <summary>
+            کلاس سازنده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor(System.String)">
+            <summary>
+            کلاس سازنده با پیام خطای سفارشی
+            </summary>
+            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی اعتبار
+            </summary>
+            <param name="value">مقداری که باید بررسی شود</param>
+            <param name="validationContext">زمینه اعتبار‌سنجی</param>
+            <returns>نتیجه اعتبار‌سنجی</returns>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute">
             <summary>

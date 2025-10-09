@@ -222,4 +222,13 @@ public class RElasticsearch : IElasticsearch
             throw;
         }
     }
+    /// <summary>
+    /// جستجوی پیشرفته با دسترسی مستقیم به ElasticsearchClient
+    /// </summary>
+    public async Task<SearchResponse<T>> AdvancedSearchAsync<T>(string indexName, Action<SearchRequestDescriptor<T>> searchDescriptor) where T : class
+    {
+        var descriptor = new SearchRequestDescriptor<T>().Indices(indexName.ToLower());
+        searchDescriptor?.Invoke(descriptor);
+        return await _elasticClient.SearchAsync<T>(descriptor);
+    }
 }

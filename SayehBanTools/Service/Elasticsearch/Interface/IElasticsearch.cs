@@ -63,5 +63,8 @@ public interface IElasticsearch
     /// <param name="Size"></param>
     /// <returns>لیست اسناد موجود در ایندکس</returns>
     Task<IEnumerable<T>> GetAllDocumentsAsync<T>(string indexName, int Size) where T : class;
-
+    /// <summary>
+    /// جستجوی پیشرفته با دسترسی مستقیم به ElasticsearchClient
+    /// </summary>
+    Task<SearchResponse<T>> AdvancedSearchAsync<T>(string indexName, Action<SearchRequestDescriptor<T>> searchDescriptor) where T : class;
 }
