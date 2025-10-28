@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<AssemblyVersion>1.0.1.1</AssemblyVersion>
 		<FileVersion>1.0.1.1</FileVersion>
-		<Version>1.7.8</Version>
+		<Version>1.7.9</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Company>SayyehBan.ir</Company>
 		<Description>سورس کمکی برای افزایش سرعت کد نویسی</Description>
@@ -29,16 +29,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.1.7" />
+    <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Features" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Features" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.9.17" />
+    <PackageReference Include="StackExchange.Redis" Version="2.9.32" />
     <PackageReference Include="System.IO.Abstractions" Version="22.0.16" />
   </ItemGroup>
 

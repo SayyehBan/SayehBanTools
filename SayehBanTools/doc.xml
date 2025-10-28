@@ -1068,6 +1068,106 @@
             نام لینک API
             </summary>
         </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel">
+            <summary>
+            کلاس مدل های پیش فرض
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.AuditableEntity">
+            <summary>
+            مقادیر پایه و پیش فرض برای تمامی جداول
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.IsApproved">
+            <summary>
+            امکان حذف داره یا نه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.IsVisible">
+            <summary>
+            نمایش یا عدم نمایش رکورد
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.CreatedAtDate">
+            <summary>
+            تاریخ ثبت
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.UpdatedAtDate">
+            <summary>
+            تاریخ بروزرسانی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.UpdateCount">
+            <summary>
+            تعداد بروزرسانی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.Id_IPGeoData">
+            <summary>
+            شناسه IP
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.GlobalCitizenId">
+            <summary>
+            شناسه کاربر ثبت کننده
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.RowVersion">
+            <summary>
+            ردیابی تغییرات
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.AuditableIUTrueEntity">
+            <summary>
+            این کلاس برای عملیات ثبت و ویرایش استفاده می‌شود
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUTrueEntity.ID_IPGeoData">
+            <summary>
+            شناسه IP
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUTrueEntity.GlobalCitizenId">
+            <summary>
+            شناسه کاربر ثبت کننده
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.AuditableIUFalseEntity">
+            <summary>
+            این کلاس برای عملیات ثبت و ویرایش استفاده می‌شود
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUFalseEntity.ID_IPGeoData">
+            <summary>
+            شناسه IP
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUFalseEntity.GlobalCitizenId">
+            <summary>
+            شناسه کاربر ثبت کننده
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.ID_Delete_Int_Parameters">
+            <summary>
+            پارامتر شناسه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.ID_Delete_Int_Parameters.id">
+             <summary>
+            شناسه
+             </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.IDs_Delete_Int_Parameters">
+            <summary>
+            پارامتر شناسه ها
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.IDs_Delete_Int_Parameters.ids">
+             <summary>
+            شناسه ها
+             </summary>
+        </member>
         <member name="T:SayehBanTools.Model.Entities.SqlModel">
             <summary>
             کلاس پیام خطا
@@ -2320,6 +2420,44 @@
             <param name="value">مقداری که باید بررسی شود</param>
             <param name="validationContext">زمینه اعتبار سنجی</param>
             <returns>نتیجه اعتبار سنجی</returns>
+        </member>
+        <member name="T:SayehBanTools.Validations.Attributes.GuidAttribute">
+            <summary>
+            Attribute برای اعتبار‌سنجی GUID با کنترل اجباری بودن (بدون تداخل با [Required])
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Validations.Attributes.GuidAttribute.Required">
+             <summary>
+            بررسی اجباری بودن یا نبودن اگر مقدار true  باید guid داده بشه اگر false نیاز نیست ولی داده شد بررسی میشه اشتباه نباشه
+             </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.GuidAttribute.#ctor(System.Boolean)">
+            <summary>
+            کلاس سازنده
+            </summary>
+            <param name="required"></param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.GuidAttribute.#ctor(System.Boolean,System.String)">
+            <summary>
+            کلاس سازنده
+            </summary>
+            <param name="required"></param>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.GuidAttribute.IsValid(System.Object)">
+            <summary>
+            مهم: این پراپرتی باعث می‌شه ASP.NET Core فکر نکنه این Attribute خودش [Required] هست
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.GuidAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            بررسی اعتبار ستجی GUID
+            </summary>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns></returns>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.IpAddressV4Attribute">
             <summary>
