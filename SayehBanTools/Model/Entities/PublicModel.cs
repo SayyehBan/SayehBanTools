@@ -41,7 +41,7 @@ public class PublicModel
         /// <summary>
         /// شناسه IP
         /// </summary>
-        public int Id_IPGeoData { get; set; }
+        public int id_IPGeoData { get; set; }
 
         /// <summary>
         /// شناسه کاربر ثبت کننده
@@ -64,7 +64,7 @@ public class PublicModel
         /// </summary>
         [DisplayName("شناسه IP")]
         [PositiveNumberId(ErrorMessage = "شناسه IP نمی‌تواند خالی، صفر یا منفی باشد.")]
-        public int ID_IPGeoData { get; set; }
+        public int id_IPGeoData { get; set; }
         /// <summary>
         /// شناسه کاربر ثبت کننده
         /// </summary>
@@ -81,7 +81,7 @@ public class PublicModel
         /// </summary>
         [DisplayName("شناسه IP")]
         [PositiveNumberId(ErrorMessage = "شناسه IP نمی‌تواند خالی، صفر یا منفی باشد.")]
-        public int ID_IPGeoData { get; set; }
+        public int id_IPGeoData { get; set; }
         /// <summary>
         /// شناسه کاربر ثبت کننده
         /// </summary>

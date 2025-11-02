@@ -1103,7 +1103,7 @@
             تعداد بروزرسانی
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.Id_IPGeoData">
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableEntity.id_IPGeoData">
             <summary>
             شناسه IP
             </summary>
@@ -1123,7 +1123,7 @@
             این کلاس برای عملیات ثبت و ویرایش استفاده می‌شود
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUTrueEntity.ID_IPGeoData">
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUTrueEntity.id_IPGeoData">
             <summary>
             شناسه IP
             </summary>
@@ -1138,7 +1138,7 @@
             این کلاس برای عملیات ثبت و ویرایش استفاده می‌شود
             </summary>
         </member>
-        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUFalseEntity.ID_IPGeoData">
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.AuditableIUFalseEntity.id_IPGeoData">
             <summary>
             شناسه IP
             </summary>
@@ -2357,6 +2357,17 @@
         <member name="F:SayehBanTools.Utilities.Constants.ApiConstants.ApiAddressLanguageSettingsGetAll">
             <summary>
             آدرس API دریافت تمام تنظیمات زبان
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.Mapper.DynamicMapper">
+            <summary>
+            پویا کردن mapper
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapper.MapTo``1(System.Object)">
+            <summary>
+            تبدیل dynamic (از Dapper) به DTO با پشتیبانی از ستون‌های داینامیک
+            بدون هیچ نام دستی (کاملاً Generic)
             </summary>
         </member>
         <member name="T:SayehBanTools.Utilities.Pager">
