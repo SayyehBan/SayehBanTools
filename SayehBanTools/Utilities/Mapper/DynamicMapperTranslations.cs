@@ -7,7 +7,7 @@ namespace SayehBanTools.Utilities.Mapper;
 /// <summary>
 /// پویا کردن mapper
 /// </summary>
-public static class DynamicMapper
+public static class DynamicMapperTranslations
 {
     private static readonly ConcurrentDictionary<Type, PropertyInfo> _idPropertyCache = new();
     private static readonly ConcurrentDictionary<Type, HashSet<string>> _auditablePropsCache = new();
@@ -52,7 +52,12 @@ public static class DynamicMapper
             type.GetProperties()
                 .FirstOrDefault(p =>
                     (p.Name.EndsWith("Id", StringComparison.OrdinalIgnoreCase) ||
-                     p.Name.EndsWith("ID", StringComparison.OrdinalIgnoreCase)) &&
+                     p.Name.EndsWith("ID", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.EndsWith("id", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.StartsWith("Id", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.StartsWith("ID", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.StartsWith("id", StringComparison.OrdinalIgnoreCase) 
+                     ) &&
                     p.PropertyType == typeof(int) &&
                     p.CanWrite)
             ?? throw new InvalidOperationException($"No suitable ID property found for type {type.Name}"));

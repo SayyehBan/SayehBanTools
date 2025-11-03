@@ -2359,12 +2359,12 @@
             آدرس API دریافت تمام تنظیمات زبان
             </summary>
         </member>
-        <member name="T:SayehBanTools.Utilities.Mapper.DynamicMapper">
+        <member name="T:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations">
             <summary>
             پویا کردن mapper
             </summary>
         </member>
-        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapper.MapTo``1(System.Object)">
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.MapTo``1(System.Object)">
             <summary>
             تبدیل dynamic (از Dapper) به DTO با پشتیبانی از ستون‌های داینامیک
             بدون هیچ نام دستی (کاملاً Generic)
