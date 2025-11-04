@@ -2361,13 +2361,36 @@
         </member>
         <member name="T:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations">
             <summary>
-            پویا کردن mapper
+            ابزارهای مپینگ پویا برای تبدیل dynamic به مدل‌های DTO
             </summary>
         </member>
         <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.MapTo``1(System.Object)">
             <summary>
-            تبدیل dynamic (از Dapper) به DTO با پشتیبانی از ستون‌های داینامیک
-            بدون هیچ نام دستی (کاملاً Generic)
+            تبدیل dynamic (از Dapper) به DTO با پشتیبانی از ستون‌های داینامیک و Translations
+            </summary>
+            <typeparam name="T">نوع DTO که باید از AuditableEntity ارث‌بری کند</typeparam>
+            <param name="result">نتیجه dynamic از Dapper</param>
+            <returns>نمونه پر شده از T</returns>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate``1(System.Object,System.String,System.String,System.String)">
+            <summary>
+            تبدیل dynamic به مدل Get برای ذخیره در NoSQL (Redis/Elasticsearch)
+            </summary>
+            <typeparam name="T">نوع مدل خروجی (مثل LocationNamesGet)</typeparam>
+            <param name="insertedData">داده درج شده از دیتابیس</param>
+            <param name="languageCode">کد زبان (مثل fa)</param>
+            <param name="idPropertyName">نام ستون Id (مثل LocationNameId)</param>
+            <param name="namePropertyTemplate">الگوی نام (مثل LocationName → faLocationName)</param>
+            <returns>مدل پر شده یا null در صورت عدم وجود نام ترجمه</returns>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.GetKeyForProperty(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            پیدا کردن کلید مشابه در دیکشنری (Case-Insensitive)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertValue(System.Object,System.Type)">
+            <summary>
+            تبدیل امن نوع داده
             </summary>
         </member>
         <member name="T:SayehBanTools.Utilities.Pager">
