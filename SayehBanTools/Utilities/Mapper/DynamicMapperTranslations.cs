@@ -106,18 +106,18 @@ public static class DynamicMapperTranslations
     /// <param name="idPropertyName">نام ستون Id (مثل LocationNameId)</param>
     /// <param name="namePropertyTemplate">الگوی نام (مثل LocationName → faLocationName)</param>
     /// <returns>مدل پر شده یا null در صورت عدم وجود نام ترجمه</returns>
-    public static T ConvertToGetModelInsertOrUpdate<T>(
+    public static T? ConvertToGetModelInsertOrUpdate<T>(
         dynamic insertedData,
         string languageCode,
         string idPropertyName,
         string namePropertyTemplate) where T : class, new()
     {
         if (insertedData is not IDictionary<string, object> dict)
-            return null!;
+            return null;
 
         var namePropertyKey = $"{languageCode}{namePropertyTemplate}";
         if (!dict.ContainsKey(namePropertyKey))
-            return null!;
+            return null;
 
         var result = new T();
         var type = typeof(T);
@@ -128,6 +128,7 @@ public static class DynamicMapperTranslations
 
             object? value = null;
 
+            // 1. RowVersion
             if (string.Equals(prop.Name, "RowVersion", StringComparison.OrdinalIgnoreCase))
             {
                 if (dict.TryGetValue("RowVersion", out var rowVersionObj))
@@ -140,23 +141,29 @@ public static class DynamicMapperTranslations
                     };
                 }
             }
+            // 2. Id (مثل LocationNameId)
+            else if (string.Equals(prop.Name, idPropertyName, StringComparison.OrdinalIgnoreCase) && prop.PropertyType == typeof(int))
+            {
+                if (dict.TryGetValue(idPropertyName, out var idValue))
+                {
+                    value = Convert.ToInt32(idValue);
+                }
+            }
+            // 3. Name (مثل LocationName) → از faLocationName
+            else if (string.Equals(prop.Name, namePropertyTemplate, StringComparison.OrdinalIgnoreCase))
+            {
+                if (dict.TryGetValue(namePropertyKey, out var nameValue))
+                {
+                    value = nameValue?.ToString() ?? string.Empty;
+                }
+            }
+            // 4. سایر پراپرتی‌ها (IsApproved, CreatedAtDate, ...)
             else
             {
                 var key = GetKeyForProperty(prop.Name, dict.Keys);
                 if (key != null && dict.TryGetValue(key, out var rawValue))
                 {
-                    if (string.Equals(key, namePropertyKey, StringComparison.OrdinalIgnoreCase))
-                    {
-                        value = rawValue?.ToString() ?? string.Empty;
-                    }
-                    else if (string.Equals(key, idPropertyName, StringComparison.OrdinalIgnoreCase) && prop.PropertyType == typeof(int))
-                    {
-                        value = Convert.ToInt32(rawValue);
-                    }
-                    else
-                    {
-                        value = ConvertValue(rawValue, prop.PropertyType);
-                    }
+                    value = ConvertValue(rawValue, prop.PropertyType);
                 }
             }
 
@@ -208,11 +215,3 @@ public static class DynamicMapperTranslations
 
     #endregion
 }
-/*
-نحوه استفاده از دستور ذخیره پویا
-                    var categoryData = DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate<LocationNamesGet>(insertedData: result.UpdatedData, languageCode: languageCode, idPropertyName: "LocationNameId", namePropertyTemplate: "LocationName");
-
-نحوه نشان دادن پویا
-   return DynamicMapperTranslations.MapTo<LocationNamesTranslationsDynamicResult>(dynamicResult);
- 
- */
