@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace SayehBanTools.Validations.Attributes;
 
 /// <summary>
-/// Attribute برای اعتبار‌سنجی آدرس IPv6
+/// Attribute برای اعتبار‌سنجی آدرس IPv6 با قابلیت اختیاری/اجباری
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
 public class IpAddressV6Attribute : ValidationAttribute
@@ -13,54 +13,80 @@ public class IpAddressV6Attribute : ValidationAttribute
     private const string DefaultErrorMessage = "آدرس IP نامعتبر است. باید یک آدرس IPv6 معتبر (مانند 2001:0db8:85a3:0000:0000:8a2e:0370:7334) باشد.";
 
     /// <summary>
-    /// کلاس سازنده
+    /// آیا فیلد اجباری است؟
     /// </summary>
-    public IpAddressV6Attribute() : base(DefaultErrorMessage)
+    public bool Required { get; }
+
+    /// <summary>
+    /// سازنده پیش‌فرض: اجباری (Required = true)
+    /// </summary>
+    public IpAddressV6Attribute() : this(true)
     {
     }
 
     /// <summary>
-    /// کلاس سازنده با پیام خطای سفارشی
+    /// سازنده با کنترل اجباری بودن
     /// </summary>
-    /// <param name="errorMessage">پیام خطای سفارشی</param>
+    /// <param name="required">اگر true باشد، IPv6 اجباری است</param>
+    public IpAddressV6Attribute(bool required) : base(DefaultErrorMessage)
+    {
+        Required = required;
+    }
+
+    /// <summary>
+    /// سازنده با پیام خطای سفارشی (اجباری)
+    /// </summary>
     public IpAddressV6Attribute(string errorMessage) : base(errorMessage)
     {
+        Required = true;
     }
 
     /// <summary>
-    /// بررسی اعتبار
+    /// سازنده با کنترل اجباری بودن + پیام خطای سفارشی
     /// </summary>
-    /// <param name="value">مقداری که باید بررسی شود</param>
-    /// <param name="validationContext">زمینه اعتبار‌سنجی</param>
-    /// <returns>نتیجه اعتبار‌سنجی</returns>
+    public IpAddressV6Attribute(bool required, string errorMessage) : base(errorMessage)
+    {
+        Required = required;
+    }
+    /// <summary>
+    /// اعتبار سنجی آدرس IPv6
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="validationContext"></param>
+    /// <returns></returns>
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        // بررسی null بودن
+        // اگر مقدار null باشد
         if (value == null)
         {
-            return new ValidationResult(ErrorMessage ?? DefaultErrorMessage);
+            return Required
+                ? new ValidationResult(ErrorMessage ?? DefaultErrorMessage)
+                : ValidationResult.Success;
         }
 
-        // بررسی نوع مقدار (باید رشته باشد)
+        // اگر string نباشد
         if (value is not string ipAddress)
         {
             return new ValidationResult("آدرس IP باید یک رشته باشد.");
         }
 
-        // بررسی خالی بودن
+        // اگر خالی یا فقط فاصله باشد
         if (string.IsNullOrWhiteSpace(ipAddress))
         {
-            return new ValidationResult(ErrorMessage ?? DefaultErrorMessage);
+            return Required
+                ? new ValidationResult(ErrorMessage ?? DefaultErrorMessage)
+                : ValidationResult.Success;
         }
 
-        // بررسی فرمت IPv6 با regex
-        // پشتیبانی از فرمت کامل (8 گروه) و فشرده (با ::)
-        if (!Regex.IsMatch(ipAddress, @"^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(:[0-9a-fA-F]{1,4}){1,6}|:((:[0-9a-fA-F]{1,4}){1,7}|:))$"))
+        // حالا که مقدار داریم، حتماً باید معتبر باشد (حتی اگر Required=false)
+
+        // بررسی فرمت IPv6 با regex (پشتیبانی از :: و فرمت کامل)
+        if (!Regex.IsMatch(ipAddress, @"^(([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:(:[0-9a-fA-F]{1,4}){1,6}|:((:[0-9a-fA-F]{1,4}){1,7}|:))$", RegexOptions.IgnoreCase))
         {
             return new ValidationResult($"{ErrorMessage ?? DefaultErrorMessage} مقدار واردشده: '{ipAddress}'");
         }
 
-        // بررسی معتبر بودن IPv6 با TryParse و AddressFamily
+        // بررسی با IPAddress.TryParse
         if (!IPAddress.TryParse(ipAddress, out IPAddress? parsedIp) ||
             parsedIp.AddressFamily != System.Net.Sockets.AddressFamily.InterNetworkV6)
         {

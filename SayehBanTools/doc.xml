@@ -2495,23 +2495,38 @@
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.IpAddressV4Attribute">
             <summary>
-            Attribute برای اعتبار‌سنجی آدرس IPv4
+            Attribute برای اعتبار‌سنجی آدرس IPv4 با قابلیت اختیاری/اجباری
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.Required">
+            <summary>
+            آیا فیلد اجباری است؟
             </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor">
             <summary>
-            کلاس سازنده
+            سازنده پیش‌فرض: اجباری (Required = true)
             </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor(System.Boolean)">
+            <summary>
+            سازنده با کنترل اجباری بودن
+            </summary>
+            <param name="required">اگر true باشد، IP اجباری است</param>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor(System.String)">
             <summary>
-            کلاس سازنده
+            سازنده با پیام خطای سفارشی (اجباری)
             </summary>
-            <param name="errorMessage"></param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.#ctor(System.Boolean,System.String)">
+            <summary>
+            سازنده با کنترل اجباری بودن + پیام خطای سفارشی
+            </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV4Attribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <summary>
-            بررسی اعتبار
+            اعتبار سنجی آدرس IPv4
             </summary>
             <param name="value"></param>
             <param name="validationContext"></param>
@@ -2519,27 +2534,42 @@
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.IpAddressV6Attribute">
             <summary>
-            Attribute برای اعتبار‌سنجی آدرس IPv6
+            Attribute برای اعتبار‌سنجی آدرس IPv6 با قابلیت اختیاری/اجباری
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.Required">
+            <summary>
+            آیا فیلد اجباری است؟
             </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor">
             <summary>
-            کلاس سازنده
+            سازنده پیش‌فرض: اجباری (Required = true)
             </summary>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor(System.Boolean)">
+            <summary>
+            سازنده با کنترل اجباری بودن
+            </summary>
+            <param name="required">اگر true باشد، IPv6 اجباری است</param>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor(System.String)">
             <summary>
-            کلاس سازنده با پیام خطای سفارشی
+            سازنده با پیام خطای سفارشی (اجباری)
             </summary>
-            <param name="errorMessage">پیام خطای سفارشی</param>
+        </member>
+        <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.#ctor(System.Boolean,System.String)">
+            <summary>
+            سازنده با کنترل اجباری بودن + پیام خطای سفارشی
+            </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.IpAddressV6Attribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <summary>
-            بررسی اعتبار
+            اعتبار سنجی آدرس IPv6
             </summary>
-            <param name="value">مقداری که باید بررسی شود</param>
-            <param name="validationContext">زمینه اعتبار‌سنجی</param>
-            <returns>نتیجه اعتبار‌سنجی</returns>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns></returns>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.PositiveNumberIdArrayAttribute">
             <summary>
