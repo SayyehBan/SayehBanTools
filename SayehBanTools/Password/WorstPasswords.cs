@@ -28,14 +28,10 @@ public class WorstPasswords
         {
             using (StreamReader reader = new StreamReader(directFile))
             {
-                while (!reader.EndOfStream)
+                while (await reader.ReadLineAsync() is string line)
                 {
-                    string? line = await reader.ReadLineAsync();
-                    if (line != null)
-                    {
-                        string hashedLine = ComputeSha256Hash(line);
-                        CommonPassword.Add(hashedLine);
-                    }
+                    string hashedLine = ComputeSha256Hash(line);
+                    CommonPassword.Add(hashedLine);
                 }
             }
         }

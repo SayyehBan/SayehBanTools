@@ -133,11 +133,13 @@ public static class StringEncryptor
     /// </summary>
     private static byte[] DeriveKeyFromPassPhrase(string passPhrase)
     {
-        // استفاده از PBKDF2 برای تولید کلید
-        using (var pbkdf2 = new Rfc2898DeriveBytes(passPhrase, salt: Array.Empty<byte>(), iterations: 100000, HashAlgorithmName.SHA256))
-        {
-            return pbkdf2.GetBytes(KeySize / 8); // 32 بایت برای کلید 256 بیتی
-        }
+        // استفاده از PBKDF2 با متد جدید
+        return Rfc2898DeriveBytes.Pbkdf2(
+            password: passPhrase,
+            salt: Array.Empty<byte>(),       // اگر salt نداری، خالی بذار
+            iterations: 100_000,
+            hashAlgorithm: HashAlgorithmName.SHA256,
+            outputLength: KeySize / 8);      // 32 بایت برای AES-256
     }
 }
 /*
