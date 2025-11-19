@@ -431,6 +431,52 @@
             <param name="ipAddress">آدرس IP به‌صورت رشته</param>
             <returns>در صورت معتبر بودن آدرس IP، مقدار true برمی‌گرداند</returns>
         </member>
+        <member name="T:SayehBanTools.Converter.ManageDateAndTime">
+            <summary>
+            مدیریتی برای تاریخ و زمان
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Converter.ManageDateAndTime.DateOnlyJsonConverter">
+            <summary>
+            تبدیل تاریخ همیشه به میلادی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.ManageDateAndTime.DateOnlyJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            خواندن فقط تاریخ
+            </summary>
+            <param name="reader"></param>
+            <param name="typeToConvert"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.ManageDateAndTime.DateOnlyJsonConverter.Write(System.Text.Json.Utf8JsonWriter,System.DateOnly,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            نوشتن فقط تاریخ
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:SayehBanTools.Converter.ManageDateAndTime.DateOnlyTypeHandler">
+            <summary>
+            هندل فقط تاریخ
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.ManageDateAndTime.DateOnlyTypeHandler.SetValue(System.Data.IDbDataParameter,System.DateOnly)">
+            <summary>
+            قرار دادن مقدار
+            </summary>
+            <param name="parameter"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:SayehBanTools.Converter.ManageDateAndTime.DateOnlyTypeHandler.Parse(System.Object)">
+            <summary>
+            تلاش برای مقدار
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="T:SayehBanTools.Converter.StringExtensions">
             <summary>
             افزونه مدیریت رشته ها
