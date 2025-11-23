@@ -2439,6 +2439,17 @@
             تبدیل امن نوع داده
             </summary>
         </member>
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.MapToUltraDynamic``1(System.Object)">
+            <summary>
+            تبدیل خروجی SP جدید GetTranslationsByIdUltraDynamic (با ستون‌هایی مثل faGender, enSex, faRawFirstName)
+            به مدل TranslationResult با ساختار تودرتو و کاملاً انعطاف‌پذیر
+            </summary>
+            <summary>
+            تبدیل خروجی SP جدید GetTranslationsByIdUltraDynamic
+            ستون‌ها: faGender, enSex, faRawFirstName, ...
+            فقط پسوندهایی که در @FieldSuffixes داده شده رو برمی‌گردونه
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Utilities.Pager">
             <summary>
             صفحه بندی

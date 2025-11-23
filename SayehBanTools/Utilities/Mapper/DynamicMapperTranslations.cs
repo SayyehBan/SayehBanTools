@@ -1,6 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using SayehBanTools.Model.Entities;
+using System.Collections.Concurrent;
 using System.Reflection;
-using SayehBanTools.Model.Entities;
+using static SayehBanTools.Model.Entities.PublicModel;
 
 namespace SayehBanTools.Utilities.Mapper;
 
@@ -214,4 +215,90 @@ public static class DynamicMapperTranslations
     }
 
     #endregion
+    /// <summary>
+    /// تبدیل خروجی SP جدید GetTranslationsByIdUltraDynamic (با ستون‌هایی مثل faGender, enSex, faRawFirstName)
+    /// به مدل TranslationResult با ساختار تودرتو و کاملاً انعطاف‌پذیر
+    /// </summary>
+    /// <summary>
+    /// تبدیل خروجی SP جدید GetTranslationsByIdUltraDynamic
+    /// ستون‌ها: faGender, enSex, faRawFirstName, ...
+    /// فقط پسوندهایی که در @FieldSuffixes داده شده رو برمی‌گردونه
+    /// </summary>
+    public static T MapToUltraDynamic<T>(dynamic result) where T :  new()
+    {
+        var dto = new T();
+        if (result is not IDictionary<string, object> dict) return dto;
+
+        var dtoType = typeof(T);
+
+        // پراپرتی Translations
+        var translationsProp = dtoType.GetProperty("Translations",
+            BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+        if (translationsProp == null ||
+            translationsProp.PropertyType != typeof(Dictionary<string, Dictionary<string, string>>))
+        {
+            throw new InvalidOperationException("مدل باید پراپرتی Translations از نوع Dictionary<string, Dictionary<string, string>> داشته باشد.");
+        }
+
+        var translations = (Dictionary<string, Dictionary<string, string>>)
+            (translationsProp.GetValue(dto) ?? Activator.CreateInstance(translationsProp.PropertyType)!);
+
+        translationsProp.SetValue(dto, translations);
+
+        // تشخیص خودکار Id
+        var idProp = _idPropertyCache.GetOrAdd(dtoType, type =>
+            type.GetProperties()
+                .FirstOrDefault(p =>
+                    p.PropertyType == typeof(int) &&
+                    p.CanWrite &&
+                    (p.Name.EndsWith("Id", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.EndsWith("ID", StringComparison.OrdinalIgnoreCase)))
+            ?? throw new InvalidOperationException($"پراپرتی Id در نوع {type.Name} پیدا نشد."));
+
+        foreach (var kvp in dict)
+        {
+            var columnName = kvp.Key;
+            var value = kvp.Value;
+
+            // 1. ستون Id
+            if (string.Equals(columnName, idProp.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                if (int.TryParse(value?.ToString(), out var id))
+                    idProp.SetValue(dto, id);
+                continue;
+            }
+
+            // 2. ستون‌های AuditableEntity (IsApproved, RowVersion, ...)
+            var auditableProp = typeof(AuditableEntity)
+                .GetProperty(columnName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+            if (auditableProp != null && auditableProp.CanWrite)
+            {
+                try
+                {
+                    var converted = ConvertValue(value, auditableProp.PropertyType);
+                    auditableProp.SetValue(dto, converted);
+                }
+                catch { }
+                continue;
+            }
+
+            // 3. ستون‌های ترجمه: faGender, enSex, faRawFirstName, ...
+            if (columnName.Length > 2 &&
+                columnName.Substring(0, 2).All(char.IsLetter) &&
+                char.IsUpper(columnName[2]))
+            {
+                var langCode = columnName.Substring(0, 2).ToLower();
+                var fieldName = columnName.Substring(2); // Gender, Sex, RawFirstName, ...
+
+                if (!translations.ContainsKey(langCode))
+                    translations[langCode] = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+                translations[langCode][fieldName] = value?.ToString() ?? string.Empty;
+            }
+        }
+
+        return dto;
+    }
 }
