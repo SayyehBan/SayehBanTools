@@ -224,7 +224,7 @@ public static class DynamicMapperTranslations
     /// ستون‌ها: faGender, enSex, faRawFirstName, ...
     /// فقط پسوندهایی که در @FieldSuffixes داده شده رو برمی‌گردونه
     /// </summary>
-    public static T MapToUltraDynamic<T>(dynamic result) where T :  new()
+    public static T MapToUltraDynamic<T>(dynamic result) where T : new()
     {
         var dto = new T();
         if (result is not IDictionary<string, object> dict) return dto;
@@ -252,7 +252,9 @@ public static class DynamicMapperTranslations
                 .FirstOrDefault(p =>
                     p.PropertyType == typeof(int) &&
                     p.CanWrite &&
-                    (p.Name.EndsWith("Id", StringComparison.OrdinalIgnoreCase) ||
+                    (p.Name.StartsWith("Id", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.StartsWith("ID", StringComparison.OrdinalIgnoreCase) ||
+                     p.Name.EndsWith("Id", StringComparison.OrdinalIgnoreCase) ||
                      p.Name.EndsWith("ID", StringComparison.OrdinalIgnoreCase)))
             ?? throw new InvalidOperationException($"پراپرتی Id در نوع {type.Name} پیدا نشد."));
 
