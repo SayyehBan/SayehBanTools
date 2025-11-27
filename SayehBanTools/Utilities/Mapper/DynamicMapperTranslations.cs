@@ -100,24 +100,28 @@ public static class DynamicMapperTranslations
 
     /// <summary>
     /// تبدیل dynamic به مدل Get برای ذخیره در NoSQL (Redis/Elasticsearch)
+    /// پشتیبانی از چندین فیلد داینامیک (مثلاً RawFirstName + NormalizedFirstName)
     /// </summary>
-    /// <typeparam name="T">نوع مدل خروجی (مثل LocationNamesGet)</typeparam>
-    /// <param name="insertedData">داده درج شده از دیتابیس</param>
-    /// <param name="languageCode">کد زبان (مثل fa)</param>
-    /// <param name="idPropertyName">نام ستون Id (مثل LocationNameId)</param>
-    /// <param name="namePropertyTemplate">الگوی نام (مثل LocationName → faLocationName)</param>
-    /// <returns>مدل پر شده یا null در صورت عدم وجود نام ترجمه</returns>
+    /// <typeparam name="T">نوع مدل خروجی (مثل CategoriesName یا VariantsFirstName)</typeparam>
+    /// <param name="insertedData">داده درج شده از دیتابیس (InsertedData)</param>
+    /// <param name="languageCode">کد زبان (مثل fa, en)</param>
+    /// <param name="idPropertyName">نام ستون Id (مثل CategoryNameId)</param>
+    /// <param name="namePropertyTemplate">یک یا چند الگوی نام (مثل "CategoryName" یا "RawFirstName", "NormalizedFirstName")</param>
+    /// <returns>مدل پر شده</returns>
     public static T? ConvertToGetModelInsertOrUpdate<T>(
         dynamic insertedData,
         string languageCode,
         string idPropertyName,
-        string namePropertyTemplate) where T : class, new()
+        params string[] namePropertyTemplate) where T : class, new()
     {
         if (insertedData is not IDictionary<string, object> dict)
             return null;
 
-        var namePropertyKey = $"{languageCode}{namePropertyTemplate}";
-        if (!dict.ContainsKey(namePropertyKey))
+        // حداقل یکی از فیلدهای ترجمه باید وجود داشته باشه
+        bool hasAnyField = namePropertyTemplate.Any(template =>
+            dict.ContainsKey($"{languageCode}{template}"));
+
+        if (!hasAnyField)
             return null;
 
         var result = new T();
@@ -142,23 +146,25 @@ public static class DynamicMapperTranslations
                     };
                 }
             }
-            // 2. Id (مثل LocationNameId)
-            else if (string.Equals(prop.Name, idPropertyName, StringComparison.OrdinalIgnoreCase) && prop.PropertyType == typeof(int))
+            // 2. Id (مثل CategoryNameId, VariantFirstNameId)
+            else if (string.Equals(prop.Name, idPropertyName, StringComparison.OrdinalIgnoreCase) &&
+                     prop.PropertyType == typeof(int))
             {
                 if (dict.TryGetValue(idPropertyName, out var idValue))
                 {
                     value = Convert.ToInt32(idValue);
                 }
             }
-            // 3. Name (مثل LocationName) → از faLocationName
-            else if (string.Equals(prop.Name, namePropertyTemplate, StringComparison.OrdinalIgnoreCase))
+            // 3. فیلدهای داینامیک (CategoryName, RawFirstName, NormalizedFirstName, ...)
+            else if (namePropertyTemplate.Contains(prop.Name, StringComparer.OrdinalIgnoreCase))
             {
-                if (dict.TryGetValue(namePropertyKey, out var nameValue))
+                var key = $"{languageCode}{prop.Name}";
+                if (dict.TryGetValue(key, out var fieldValue))
                 {
-                    value = nameValue?.ToString() ?? string.Empty;
+                    value = fieldValue?.ToString() ?? string.Empty;
                 }
             }
-            // 4. سایر پراپرتی‌ها (IsApproved, CreatedAtDate, ...)
+            // 4. سایر پراپرتی‌ها (IsApproved, CreatedAtDate, GlobalCitizenId, ...)
             else
             {
                 var key = GetKeyForProperty(prop.Name, dict.Keys);

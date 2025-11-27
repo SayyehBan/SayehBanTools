@@ -2418,16 +2418,17 @@
             <param name="result">نتیجه dynamic از Dapper</param>
             <returns>نمونه پر شده از T</returns>
         </member>
-        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate``1(System.Object,System.String,System.String,System.String)">
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate``1(System.Object,System.String,System.String,System.String[])">
             <summary>
             تبدیل dynamic به مدل Get برای ذخیره در NoSQL (Redis/Elasticsearch)
+            پشتیبانی از چندین فیلد داینامیک (مثلاً RawFirstName + NormalizedFirstName)
             </summary>
-            <typeparam name="T">نوع مدل خروجی (مثل LocationNamesGet)</typeparam>
-            <param name="insertedData">داده درج شده از دیتابیس</param>
-            <param name="languageCode">کد زبان (مثل fa)</param>
-            <param name="idPropertyName">نام ستون Id (مثل LocationNameId)</param>
-            <param name="namePropertyTemplate">الگوی نام (مثل LocationName → faLocationName)</param>
-            <returns>مدل پر شده یا null در صورت عدم وجود نام ترجمه</returns>
+            <typeparam name="T">نوع مدل خروجی (مثل CategoriesName یا VariantsFirstName)</typeparam>
+            <param name="insertedData">داده درج شده از دیتابیس (InsertedData)</param>
+            <param name="languageCode">کد زبان (مثل fa, en)</param>
+            <param name="idPropertyName">نام ستون Id (مثل CategoryNameId)</param>
+            <param name="namePropertyTemplate">یک یا چند الگوی نام (مثل "CategoryName" یا "RawFirstName", "NormalizedFirstName")</param>
+            <returns>مدل پر شده</returns>
         </member>
         <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.GetKeyForProperty(System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
