@@ -20,6 +20,44 @@
             <exception cref="T:System.ArgumentNullException"></exception>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
+        <member name="T:SayehBanTools.AI.Ollama.LocalAiTranslator">
+            <summary>
+            یک ترجمه‌کننده هوشمند محلی (Local AI Translator) که با مدل‌های Ollama کار می‌کند.
+            قابل تنظیم کامل از بیرون و استفاده مجدد در هر پروژه.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.#ctor(System.String,System.String,System.String)">
+            <summary>
+            سازنده کلاس - تمام تنظیمات از بیرون تزریق می‌شود
+            </summary>
+            <param name="baseUrl">آدرس پایه Ollama (مثال: http://localhost:11434)</param>
+            <param name="modelName">نام مدل (مثال: llama3.1, phi3, mistral و ...)</param>
+            <param name="systemPrompt">پرامپت سیستم برای کنترل رفتار مدل (اختیاری)</param>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.InitializeAsync">
+            <summary>
+            مقداردهی اولیه با پرامپت سیستم (اگر بعداً بخوای تغییر بدی)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.TranslateAsync(System.String,System.String,System.String)">
+            <summary>
+            ترجمه یک متن از زبان مبدا به مقصد
+            </summary>
+            <param name="text">متن برای ترجمه</param>
+            <param name="sourceLang">زبان مبدا (مثال: en, fa, fr)</param>
+            <param name="targetLang">زبان مقصد</param>
+            <returns>متن ترجمه شده</returns>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.AskAsync(System.String)">
+            <summary>
+            ارسال یک پرامپت دلخواه و دریافت پاسخ (برای استفاده‌های عمومی، نه فقط ترجمه)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.Dispose">
+            <summary>
+            پاک‌سازی منابع
+            </summary>
+        </member>
         <member name="T:SayehBanTools.API.Language.LanguagesCode">
             <summary>
             کلاس برای دریافت کدهای زبان از API.
