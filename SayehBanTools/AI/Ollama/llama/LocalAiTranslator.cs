@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using OllamaSharp;
-namespace SayehBanTools.AI.Ollama;
+namespace SayehBanTools.AI.Ollama.llama;
 
 /// <summary>
 /// یک ترجمه‌کننده هوشمند محلی (Local AI Translator) که با مدل‌های Ollama کار می‌کند.
@@ -29,24 +29,33 @@ public class LocalAiTranslator : IDisposable
         _ollamaClient = new OllamaApiClient(new Uri(baseUrl), modelName);
         _chat = new Chat(_ollamaClient);
 
+        // فقط برای مدل‌های متنی پرامپت سیستم رو نگه دار
+        if (!IsVisionModel(modelName))
+        {
+            _pendingSystemPrompt = systemPrompt;
+        }
         // پرامپت سیستم رو ذخیره کن، اما هنوز ارسال نکن
-        _pendingSystemPrompt = systemPrompt;
+        //_pendingSystemPrompt = systemPrompt;
     }
     private readonly string? _pendingSystemPrompt;
+    private static bool IsVisionModel(string modelName)
+    {
+        var visionModels = new[] { "qwen", "llava", "moondream", "bakllava", "phi3-v", "llama3.2-vision" };
+        return visionModels.Any(v => modelName.Contains(v, StringComparison.OrdinalIgnoreCase));
+    }
     /// <summary>
     /// مقداردهی اولیه با پرامپت سیستم (اگر بعداً بخوای تغییر بدی)
     /// </summary>
     public async Task InitializeAsync()
     {
-        if (_pendingSystemPrompt != null)
+if (_pendingSystemPrompt != null && !string.IsNullOrWhiteSpace(_pendingSystemPrompt))
+    {
+        await foreach (var _ in _chat.SendAsAsync(OllamaSharp.Models.Chat.ChatRole.System, _pendingSystemPrompt))
         {
-            await foreach (var _ in _chat.SendAsAsync(OllamaSharp.Models.Chat.ChatRole.System, _pendingSystemPrompt))
-            {
-                // منتظر می‌مونیم تا ارسال بشه
-            }
+            // فقط برای مدل‌های متنی اجرا می‌شه
         }
-
-        _isInitialized = true;
+    }
+    _isInitialized = true;
     }
 
     /// <summary>

@@ -20,13 +20,68 @@
             <exception cref="T:System.ArgumentNullException"></exception>
             <exception cref="T:System.ArgumentException"></exception>
         </member>
-        <member name="T:SayehBanTools.AI.Ollama.LocalAiTranslator">
+        <member name="T:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant">
+            <summary>
+            دستیار هوشمند محلی با قابلیت Vision (تحلیل تصویر) که با مدل‌های Ollama کار می‌کند.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.#ctor(System.String,System.String,System.String)">
+            <summary>
+            سازنده کلاس
+            </summary>
+            <param name="baseUrl">آدرس پایه Ollama (مثال: http://localhost:11434)</param>
+            <param name="modelName">نام مدل vision (مثال: qwen3-vl:8b, llava, llama3.2-vision)</param>
+            <param name="systemPrompt">پرامپت سیستم (اختیاری)</param>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.InitializeAsync">
+            <summary>
+            مقداردهی اولیه (ارسال پرامپت سیستم اگر وجود داشته باشه)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.AskAsync(System.String)">
+            <summary>
+            ارسال یک پرامپت متنی ساده (بدون تصویر)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.AnalyzeImageAutomaticallyAsync(System.String[])">
+            <summary>
+            تحلیل خودکار تصویر - بدون نیاز به سوال کاربر
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.DescribeImageAsync(System.String[])">
+            <summary>
+            توصیف دقیق یک تصویر (با پرامپت پیش‌فرض)
+            </summary>
+            <param name="imagePaths">لیست مسیر فایل‌های تصویر (می‌تونی چندتا بفرستی)</param>
+            <returns>توصیف مدل از تصویر</returns>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.AskAboutImageAsync(System.String,System.String[])">
+            <summary>
+            سوال دلخواه در مورد تصویر (مثلاً OCR، شناسایی اشیا، تحلیل و غیره)
+            </summary>
+            <param name="question">سوال به فارسی یا انگلیسی</param>
+            <param name="imagePaths">مسیر فایل‌های تصویر</param>
+            <returns>پاسخ مدل</returns>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.AskWithImagesAsync(System.String,System.String[])">
+            <summary>
+            متد اصلی برای ارسال پرامپت + تصویر(ها)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.AI.Ollama.gemma.LocalAiVisionAssistant.Dispose">
+            <summary>
+            Releases all resources used by the current instance.
+            </summary>
+            <remarks>Call this method when you are finished using the object to free unmanaged resources and
+            perform other cleanup operations. After calling this method, the object should not be used.</remarks>
+        </member>
+        <member name="T:SayehBanTools.AI.Ollama.llama.LocalAiTranslator">
             <summary>
             یک ترجمه‌کننده هوشمند محلی (Local AI Translator) که با مدل‌های Ollama کار می‌کند.
             قابل تنظیم کامل از بیرون و استفاده مجدد در هر پروژه.
             </summary>
         </member>
-        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.#ctor(System.String,System.String,System.String)">
+        <member name="M:SayehBanTools.AI.Ollama.llama.LocalAiTranslator.#ctor(System.String,System.String,System.String)">
             <summary>
             سازنده کلاس - تمام تنظیمات از بیرون تزریق می‌شود
             </summary>
@@ -34,12 +89,12 @@
             <param name="modelName">نام مدل (مثال: llama3.1, phi3, mistral و ...)</param>
             <param name="systemPrompt">پرامپت سیستم برای کنترل رفتار مدل (اختیاری)</param>
         </member>
-        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.InitializeAsync">
+        <member name="M:SayehBanTools.AI.Ollama.llama.LocalAiTranslator.InitializeAsync">
             <summary>
             مقداردهی اولیه با پرامپت سیستم (اگر بعداً بخوای تغییر بدی)
             </summary>
         </member>
-        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.TranslateAsync(System.String,System.String,System.String)">
+        <member name="M:SayehBanTools.AI.Ollama.llama.LocalAiTranslator.TranslateAsync(System.String,System.String,System.String)">
             <summary>
             ترجمه یک متن از زبان مبدا به مقصد
             </summary>
@@ -48,12 +103,12 @@
             <param name="targetLang">زبان مقصد</param>
             <returns>متن ترجمه شده</returns>
         </member>
-        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.AskAsync(System.String)">
+        <member name="M:SayehBanTools.AI.Ollama.llama.LocalAiTranslator.AskAsync(System.String)">
             <summary>
             ارسال یک پرامپت دلخواه و دریافت پاسخ (برای استفاده‌های عمومی، نه فقط ترجمه)
             </summary>
         </member>
-        <member name="M:SayehBanTools.AI.Ollama.LocalAiTranslator.Dispose">
+        <member name="M:SayehBanTools.AI.Ollama.llama.LocalAiTranslator.Dispose">
             <summary>
             پاک‌سازی منابع
             </summary>
