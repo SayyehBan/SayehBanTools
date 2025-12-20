@@ -260,7 +260,7 @@ public static class StringExtensions
 
             var cleanedTranslations = translations.ToDictionary(
                 kvp => kvp.Key,
-                kvp => kvp.Value.CleanString(kvp.Key) // استفاده از کد زبان به عنوان پارامتر
+                kvp => kvp.Value.CleanString(kvp.Key).CleanForSql() // استفاده از کد زبان به عنوان پارامتر
             );
 
             return JsonConvert.SerializeObject(cleanedTranslations);
@@ -571,6 +571,24 @@ public static class StringExtensions
         if (LanguageRules.TryGetValue(languageCode?.ToLower() ?? "en", out var rules))
             return rules.DefaultDigit;
         return "0";
+    }
+    /// <summary>
+    /// حذف کامل تگ‌های HTML و entityهای رایج
+    /// </summary>
+    public static string StripHtml(this string? input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        string text = Regex.Replace(input, "<.*?>", string.Empty);  // حذف تگ‌ها
+        text = Regex.Replace(text, @"&[a-zA-Z]+;", " ");           // حذف entityها (ساده)
+        text = Regex.Replace(text, @"&laquo;", "«");
+        text = Regex.Replace(text, @"&raquo;", "»");
+        text = Regex.Replace(text, @"&zwnj;", "‌");
+        text = Regex.Replace(text, @"&nbsp;", " ");
+        text = Regex.Replace(text, @"&amp;", "&");
+
+        return text.Trim();
     }
 }
 

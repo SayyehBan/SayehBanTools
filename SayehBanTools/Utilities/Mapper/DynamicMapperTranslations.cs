@@ -101,31 +101,32 @@ public static class DynamicMapperTranslations
     /// <summary>
     /// تبدیل dynamic به مدل Get برای ذخیره در NoSQL (Redis/Elasticsearch)
     /// پشتیبانی از چندین فیلد داینامیک (مثلاً RawFirstName + NormalizedFirstName)
-    /// </summary>
     /// <typeparam name="T">نوع مدل خروجی (مثل CategoriesName یا VariantsFirstName)</typeparam>
     /// <param name="insertedData">داده درج شده از دیتابیس (InsertedData)</param>
     /// <param name="languageCode">کد زبان (مثل fa, en)</param>
-    /// <param name="idPropertyName">نام ستون Id (مثل CategoryNameId)</param>
+    /// <param name="idPropertyNames">نام ستون Id (مثل CategoryNameId)</param>
     /// <param name="namePropertyTemplate">یک یا چند الگوی نام (مثل "CategoryName" یا "RawFirstName", "NormalizedFirstName")</param>
     /// <returns>مدل پر شده</returns>
+    /// نسخه جدید با پشتیبانی از چندین ID کامپوزیت (مثل FirstNameId + FirstNameMeaningId)
+    /// نسخه جدید با پشتیبانی از چندین ID کامپوزیت (int, long, Guid, string و ...) 
+    /// </summary>
     public static T? ConvertToGetModelInsertOrUpdate<T>(
         dynamic insertedData,
         string languageCode,
-        string idPropertyName,
+        string[] idPropertyNames,                   // بدون params هم می‌تونی بذاری، یا با params
         params string[] namePropertyTemplate) where T : class, new()
     {
         if (insertedData is not IDictionary<string, object> dict)
             return null;
 
-        // حداقل یکی از فیلدهای ترجمه باید وجود داشته باشه
         bool hasAnyField = namePropertyTemplate.Any(template =>
             dict.ContainsKey($"{languageCode}{template}"));
-
         if (!hasAnyField)
             return null;
 
         var result = new T();
         var type = typeof(T);
+        var idPropNameSet = new HashSet<string>(idPropertyNames, StringComparer.OrdinalIgnoreCase);
 
         foreach (var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
@@ -133,7 +134,7 @@ public static class DynamicMapperTranslations
 
             object? value = null;
 
-            // 1. RowVersion
+            // 1. RowVersion (همون قبلی)
             if (string.Equals(prop.Name, "RowVersion", StringComparison.OrdinalIgnoreCase))
             {
                 if (dict.TryGetValue("RowVersion", out var rowVersionObj))
@@ -146,16 +147,16 @@ public static class DynamicMapperTranslations
                     };
                 }
             }
-            // 2. Id (مثل CategoryNameId, VariantFirstNameId)
-            else if (string.Equals(prop.Name, idPropertyName, StringComparison.OrdinalIgnoreCase) &&
-                     prop.PropertyType == typeof(int))
+            // 2. ID یا IDهای کامپوزیت (حالا هر نوعی پشتیبانی می‌شه)
+            else if (idPropNameSet.Count > 0 && idPropNameSet.Contains(prop.Name))
             {
-                if (dict.TryGetValue(idPropertyName, out var idValue))
+                var key = GetKeyForProperty(prop.Name, dict.Keys);
+                if (key != null && dict.TryGetValue(key, out var rawValue))
                 {
-                    value = Convert.ToInt32(idValue);
+                    value = ConvertValue(rawValue, prop.PropertyType);  // اینجا جادو اتفاق می‌افته!
                 }
             }
-            // 3. فیلدهای داینامیک (CategoryName, RawFirstName, NormalizedFirstName, ...)
+            // 3. فیلدهای ترجمه (RawFirstName, NormalizedFirstName, ...)
             else if (namePropertyTemplate.Contains(prop.Name, StringComparer.OrdinalIgnoreCase))
             {
                 var key = $"{languageCode}{prop.Name}";
@@ -164,7 +165,7 @@ public static class DynamicMapperTranslations
                     value = fieldValue?.ToString() ?? string.Empty;
                 }
             }
-            // 4. سایر پراپرتی‌ها (IsApproved, CreatedAtDate, GlobalCitizenId, ...)
+            // 4. سایر پراپرتی‌ها
             else
             {
                 var key = GetKeyForProperty(prop.Name, dict.Keys);
@@ -180,7 +181,6 @@ public static class DynamicMapperTranslations
 
         return result;
     }
-
     #endregion
 
     #region Helper Methods (مشترک)

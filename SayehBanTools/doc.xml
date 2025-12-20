@@ -570,6 +570,30 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="T:SayehBanTools.Converter.SafeSqlTextCleaner">
+            <summary>
+            کلاس جامع برای تمیز کردن و فرار کردن متن‌های ارسالی به Stored Procedure
+            مخصوص متن‌های طولانی مثل معنی نام، توضیحات و ...
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.SafeSqlTextCleaner.CleanForSql(System.String,System.Boolean)">
+            <summary>
+            تمیز کردن کامل متن برای ارسال امن به SP (Dynamic SQL)
+            </summary>
+            <param name="input">متن ورودی (مثل معنی نام)</param>
+            <param name="preserveNewLines">آیا خط جدید حفظ بشه؟ (پیش‌فرض: خیر، به فاصله تبدیل می‌شه)</param>
+            <returns>متن امن و تمیز</returns>
+        </member>
+        <member name="M:SayehBanTools.Converter.SafeSqlTextCleaner.EscapeSingleQuote(System.String)">
+            <summary>
+            نسخه ساده‌تر: فقط فرار تک کوتیشن (کافی برای اکثر موارد)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.SafeSqlTextCleaner.CleanForSqlPreserveLines(System.String)">
+            <summary>
+            اگر می‌خوای خط جدید حفظ بشه (مثل پاراگراف)
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Converter.StringExtensions">
             <summary>
             افزونه مدیریت رشته ها
@@ -707,6 +731,11 @@
         <member name="M:SayehBanTools.Converter.StringExtensions.GetDefaultDigit(System.String)">
             <summary>
             دریافت رقم پیش‌فرض برای زبان
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.StripHtml(System.String)">
+            <summary>
+            حذف کامل تگ‌های HTML و entityهای رایج
             </summary>
         </member>
         <member name="T:SayehBanTools.Encryptor.StringEncryptor">
@@ -2511,17 +2540,19 @@
             <param name="result">نتیجه dynamic از Dapper</param>
             <returns>نمونه پر شده از T</returns>
         </member>
-        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate``1(System.Object,System.String,System.String,System.String[])">
+        <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.ConvertToGetModelInsertOrUpdate``1(System.Object,System.String,System.String[],System.String[])">
             <summary>
             تبدیل dynamic به مدل Get برای ذخیره در NoSQL (Redis/Elasticsearch)
             پشتیبانی از چندین فیلد داینامیک (مثلاً RawFirstName + NormalizedFirstName)
-            </summary>
             <typeparam name="T">نوع مدل خروجی (مثل CategoriesName یا VariantsFirstName)</typeparam>
             <param name="insertedData">داده درج شده از دیتابیس (InsertedData)</param>
             <param name="languageCode">کد زبان (مثل fa, en)</param>
-            <param name="idPropertyName">نام ستون Id (مثل CategoryNameId)</param>
+            <param name="idPropertyNames">نام ستون Id (مثل CategoryNameId)</param>
             <param name="namePropertyTemplate">یک یا چند الگوی نام (مثل "CategoryName" یا "RawFirstName", "NormalizedFirstName")</param>
             <returns>مدل پر شده</returns>
+            نسخه جدید با پشتیبانی از چندین ID کامپوزیت (مثل FirstNameId + FirstNameMeaningId)
+            نسخه جدید با پشتیبانی از چندین ID کامپوزیت (int, long, Guid, string و ...) 
+            </summary>
         </member>
         <member name="M:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations.GetKeyForProperty(System.String,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
@@ -2787,27 +2818,33 @@
         </member>
         <member name="F:SayehBanTools.Validations.Attributes.RowVersionAttribute.DefaultErrorMessage">
             <summary>
-            پیام خطای پیش‌فرض برای زمانی که مقدار RowVersion نامعتبر است
+            پیام خطای پیش‌فرض
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Validations.Attributes.RowVersionAttribute.Required">
+            <summary>
+            آیا فیلد اجباری است یا می‌تواند null باشد؟
+            پیش‌فرض: true (اجباری)
             </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.#ctor">
             <summary>
-            سازنده پیش‌فرض
+            سازنده پیش‌فرض (Required = true)
             </summary>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.#ctor(System.String)">
             <summary>
-            سازنده با پیام خطای سفارشی
+            سازنده با پیام خطای سفارشی (Required = true)
             </summary>
             <param name="errorMessage">پیام خطای سفارشی</param>
         </member>
         <member name="M:SayehBanTools.Validations.Attributes.RowVersionAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
             <summary>
-            بررسی صحت مقدار RowVersion
+            اعتبار‌سنجی مقدار RowVersion
             </summary>
-            <param name="value">مقداری که باید بررسی شود</param>
-            <param name="validationContext">زمینه اعتبار‌سنجی</param>
-            <returns>نتیجه اعتبار‌سنجی</returns>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns></returns>
         </member>
         <member name="T:SayehBanTools.Validations.HierarchyPathAttribute">
             <summary>
