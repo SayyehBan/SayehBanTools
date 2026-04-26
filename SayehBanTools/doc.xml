@@ -1763,6 +1763,23 @@
             فایل شماره ها
             </summary>
         </member>
+        <member name="T:SayehBanTools.NetworkUtilities.NetworkChecker">
+            <summary>
+            بررسی شبکه
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.NetworkUtilities.NetworkChecker.CheckInternetConnection(System.String)">
+            <summary>
+            بررسی اتصال اینترنت با امکان تغییر آدرس تست
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SayehBanTools.NetworkUtilities.NetworkChecker.CheckInternetConnection">
+            <summary>
+            بررسی اتصال اینترنت با امکان تغییر آدرس تست
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:SayehBanTools.Password.WorstPasswords">
             <summary>  
             این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
