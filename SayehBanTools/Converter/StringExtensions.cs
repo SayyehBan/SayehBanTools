@@ -415,6 +415,42 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// تبدیل ارقام هر زبانی (فارسی، عربی، هندی، بنگالی، تایلندی، ...) به ارقام انگلیسی بدون تغییر حروف
+    /// </summary>
+    public static string ToEnglishDigits(this string str)
+    {
+        if (string.IsNullOrEmpty(str))
+            return str ?? "";
+
+        var chars = str.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (char.IsDigit(chars[i]))
+            {
+                int value = CharUnicodeInfo.GetDecimalDigitValue(chars[i]);
+                if (value >= 0)
+                    chars[i] = (char)('0' + value);
+            }
+        }
+        return new string(chars);
+    }
+
+    /// <summary>
+    /// تمیزسازی مقادیر سلول‌ها جهت جلوگیری از به‌هم‌ریختگی فرمت فایل
+    /// </summary>
+    public static string CleanValue(this string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        // حذف Tab، Enter و کاراکترهای کنترل که ساختار فایل TSV را خراب می‌کنند
+        return value.Replace("\t", " ")
+                    .Replace("\r\n", " ")
+                    .Replace("\r", " ")
+                    .Replace("\n", " ");
+    }
+
+    /// <summary>
     /// جایگزینی ::1 با 127.0.0.1
     /// </summary>
     public static string AnonymousIP(this string str)

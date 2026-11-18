@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net11.0</TargetFramework>
+		<TargetFramework>net11.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackable>true</IsPackable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<AssemblyVersion>1.0.1.1</AssemblyVersion>
 		<FileVersion>1.0.1.1</FileVersion>
-		<Version>2.0.7</Version>
+		<Version>2.0.8</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Company>SayyehBan.ir</Company>
 		<Description>سورس کمکی برای افزایش سرعت کد نویسی</Description>
@@ -24,6 +25,8 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>doc.xml</DocumentationFile>
 		<ApplicationIcon>Logo.ico</ApplicationIcon>
+		<!-- هشدارهای ناشی از انتقال کد legacy از net4.8.1 (مستندسازی XML و nullable) -->
+		<NoWarn>$(NoWarn);CS1591;CS8981;CS8618;CS8622;CS8600;CS8602;CS8765;CS0169;CS0419;CS8601;CS8603;CS8604;CS8625;WFO1000</NoWarn>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +36,10 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.89" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.5.3" />
+    <PackageReference Include="LibVLCSharp" Version="3.10.2" />
+    <PackageReference Include="LibVLCSharp.WinForms" Version="3.10.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.14" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.Features" Version="11.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
@@ -42,13 +48,27 @@
     <PackageReference Include="RabbitMQ.Client" Version="7.2.2" />
     <PackageReference Include="RestSharp" Version="114.1.0" />
     <PackageReference Include="StackExchange.Redis" Version="3.4.35" />
+    <PackageReference Include="System.IO.Ports" Version="11.0.0" />
     <PackageReference Include="System.IO.Abstractions" Version="23.0.1" />
+    <PackageReference Include="System.Reactive.Windows.Forms" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Update="README.md">
       <Pack>True</Pack>

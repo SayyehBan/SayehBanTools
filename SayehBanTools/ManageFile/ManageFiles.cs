@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using SayehBanTools.Converter;
+﻿using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO.Abstractions;
+using System.IO.Compression;
+using Microsoft.AspNetCore.Http;
+using SayehBanTools.Converter;
 namespace SayehBanTools.ManageFile;
 /// <summary>
 /// این کلاس برای مدیریت فایل‌ها استفاده می‌شود
@@ -151,5 +156,141 @@ public class ManageFiles(IFileSystem fileSystem = null!)
 
         var newdirect = StringExtensions.RemoveDirectWWWROOT(newFullPath);
         return newdirect ?? string.Empty;
+    }
+
+    /// <summary>
+    /// فشرده‌سازی و تبدیل تصویر به فرمت استاندارد PNG با حفظ کامل شفافیت (Transparency) و بدون تغییر هدر استاندارد
+    /// </summary>
+    public static byte[]? ImageToByteArray(Image image, int maxWidth = 500, int maxHeight = 500)
+    {
+        if (image == null) return null;
+
+        // ۱. محاسبه نسبت ابعاد
+        double ratioX = (double)maxWidth / image.Width;
+        double ratioY = (double)maxHeight / image.Height;
+        double ratio = Math.Min(ratioX, ratioY);
+
+        int newWidth = image.Width;
+        int newHeight = image.Height;
+
+        if (ratio < 1.0)
+        {
+            newWidth = Math.Max(1, (int)(image.Width * ratio));
+            newHeight = Math.Max(1, (int)(image.Height * ratio));
+        }
+
+        // ۲. تولید بیت‌مپ با رزولوشن بهینه برای وب/دسکتاپ (کاهش چشمگیر حجم)
+        using (var newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format32bppArgb))
+        {
+            newImage.SetResolution(72, 72);
+
+            using (var g = Graphics.FromImage(newImage))
+            {
+                g.Clear(Color.Transparent);
+                g.CompositingMode = CompositingMode.SourceOver;
+                g.CompositingQuality = CompositingQuality.HighSpeed;
+                g.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                g.DrawImage(image, new Rectangle(0, 0, newWidth, newHeight));
+            }
+
+            // ۳. ذخیره مستقیم به فرمت معتبر PNG
+            using (var ms = new MemoryStream())
+            {
+                newImage.Save(ms, ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+    }
+
+    /// <summary>
+    /// تغییر سایز دقیق با Interpolation باکیفیت و رزولوشن بهینه
+    /// </summary>
+    private static Bitmap ResizeImagePreserveAlpha(Image original, int maxWidth, int maxHeight)
+    {
+        double ratioX = (double)maxWidth / original.Width;
+        double ratioY = (double)maxHeight / original.Height;
+        double ratio = Math.Min(ratioX, ratioY);
+
+        int newWidth = original.Width;
+        int newHeight = original.Height;
+
+        // اگر ابعاد بزرگتر از حد تعیین شده باشد، کوچک می‌شود
+        if (ratio < 1.0)
+        {
+            newWidth = Math.Max(1, (int)(original.Width * ratio));
+            newHeight = Math.Max(1, (int)(original.Height * ratio));
+        }
+
+        var newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format32bppArgb);
+        newImage.SetResolution(96, 96); // استانداردسازی DPI جهت کاهش سربار حجم تصویر
+
+        using (var g = Graphics.FromImage(newImage))
+        {
+            g.Clear(Color.Transparent);
+            g.CompositingMode = CompositingMode.SourceOver;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+            g.DrawImage(original, new Rectangle(0, 0, newWidth, newHeight));
+        }
+
+        return newImage;
+    }
+
+    /// <summary>
+    /// فشرده‌سازی داخلی برای کاهش بایت‌های اضافی و متادیتاهای PNG
+    /// </summary>
+    private static byte[] OptimizePngBytes(byte[] input)
+    {
+        using (var inputStream = new MemoryStream(input))
+        using (var outputStream = new MemoryStream())
+        {
+            // استفاده از فشرده‌سازی بهینه سازگار با ذخیره‌سازی داده‌های دیتابیس
+            using (var deflate = new DeflateStream(outputStream, CompressionLevel.Optimal, true))
+            {
+                inputStream.CopyTo(deflate);
+            }
+
+            // در صورت موثر بودن فشرده‌سازی، خروجی بهینه برگشت داده می‌شود
+            byte[] compressed = outputStream.ToArray();
+            return compressed.Length < input.Length ? compressed : input;
+        }
+    }
+
+    /// <summary>
+    /// دریافت باینری و ارسال به استیمول برای نمایش عکس
+    /// </summary>
+    public static class ImageConverterHelper
+    {
+        /// <summary>
+        /// تبدیل آرایه بایت به تصویر بدون وابستگی به کامپوننت‌های گزارش‌گیر
+        /// </summary>
+        public static Image? ByteArrayToImage(byte[]? imageBytes)
+        {
+            if (imageBytes == null || imageBytes.Length == 0)
+                return null;
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(imageBytes))
+                {
+                    using (Image img = Image.FromStream(ms))
+                    {
+                        // ساخت کپی جدید باعث می‌شود بتوانیم استریم را ببندیم بدون اینکه تصویر خراب شود
+                        return new Bitmap(img);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("خطا در تبدیل بایت به تصویر: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

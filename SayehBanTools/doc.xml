@@ -699,6 +699,16 @@
             حذف پیشوند wwwroot/
             </summary>
         </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.ToEnglishDigits(System.String)">
+            <summary>
+            تبدیل ارقام هر زبانی (فارسی، عربی، هندی، بنگالی، تایلندی، ...) به ارقام انگلیسی بدون تغییر حروف
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.StringExtensions.CleanValue(System.String)">
+            <summary>
+            تمیزسازی مقادیر سلول‌ها جهت جلوگیری از به‌هم‌ریختگی فرمت فایل
+            </summary>
+        </member>
         <member name="M:SayehBanTools.Converter.StringExtensions.AnonymousIP(System.String)">
             <summary>
             جایگزینی ::1 با 127.0.0.1
@@ -736,6 +746,81 @@
         <member name="M:SayehBanTools.Converter.StringExtensions.StripHtml(System.String)">
             <summary>
             حذف کامل تگ‌های HTML و entityهای رایج
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Converter.LanguageInfo">
+            <summary>
+            اطلاعات یک زبان پشتیبانی‌شده (کد، منطقه، نام بومی، جهت متن و رقم بومی)
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.Id">
+            <summary>شناسه زبان (مطابق جدول Languages)</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.Code">
+            <summary>کد دوحرفی زبان (ISO 639-1) مثل fa</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.RegionCode">
+            <summary>کد زبان به همراه منطقه مثل fa-IR</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.NativeName">
+            <summary>نام زبان به خط و زبان خودش</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.IsRtl">
+            <summary>آیا زبان راست‌به‌چپ است</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.TextDirection">
+            <summary>جهت متن: rtl یا ltr</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.NativeDigitZero">
+            <summary>کاراکتر صفرِ ارقام بومی زبان؛ اگر زبان رقم بومی نداشته باشد null است (ارقام لاتین)</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.HasNativeDigits">
+            <summary>آیا زبان ارقام اختصاصی خودش را دارد</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.DefaultDigit">
+            <summary>رقم صفر پیش‌فرض زبان</summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.PreserveJoiners">
+            <summary>
+            در خط‌هایی مثل هندی، بنگالی، تایلندی و ... کاراکترهای ZWNJ/ZWJ در شکل‌دهی حروف نقش دارند و نباید حذف شوند
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.LanguageInfo.Culture">
+            <summary>
+            CultureInfo متناظر با زبان (در صورت نبود در سیستم‌عامل، InvariantCulture)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.LanguageInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:SayehBanTools.Converter.SupportedLanguages">
+            <summary>
+            فهرست ۹۹ زبان پشتیبانی‌شده در کتابخانه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.SupportedLanguages.List">
+            <summary>
+            همه زبان‌های پشتیبانی‌شده به ترتیب شناسه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Converter.SupportedLanguages.Count">
+            <summary>
+            تعداد زبان‌های پشتیبانی‌شده
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.SupportedLanguages.Find(System.String)">
+            <summary>
+            یافتن زبان با کد (fa) یا کد منطقه‌ای (fa-IR / fa_IR)؛ در صورت نبود null برمی‌گرداند
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.SupportedLanguages.Find(System.Int32)">
+            <summary>
+            یافتن زبان با شناسه جدول (LanguageID)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Converter.SupportedLanguages.IsSupported(System.String)">
+            <summary>
+            آیا کد زبان پشتیبانی می‌شود
             </summary>
         </member>
         <member name="T:SayehBanTools.Encryptor.StringEncryptor">
@@ -857,14 +942,44 @@
             <returns></returns>
         </member>
         <member name="T:SayehBanTools.GenerateValue.NationalCode">
-            <summary>
-            کلاس تولید و بررسی کد ملی
-            </summary>
+             <summary>
+             کلاس تولید و بررسی کد ملی ۱۰ رقمی (الگوریتم ثبت احوال) و کد ملی ۲۰ رقمی
+             </summary>
+             <remarks>
+             <para><b>کد ملی ۱۰ رقمی:</b> [LLL][SSSSSS][K]</para>
+             <para>LLL = کد محل صدور (۳ رقم) / SSSSSS = سریال (۶ رقم) / K = رقم کنترل</para>
+             <para>رقم کنترل: مجموع رقم‌های ۱ تا ۹ ضرب در وزن‌های ۱۰ تا ۲؛ r = مجموع % 11 ؛ اگر r کمتر از ۲ بود K = r وگرنه K = 11 - r</para>
+            
+             <para><b>کد ملی ۲۰ رقمی:</b> [CCC][LLL][SSSSSSS][EEEEE][K1][K2]</para>
+             <para>CCC = کد کشور (ISO 3166-1 عددی، ایران = 364) برای پیوند کشورهای دیگر در آینده</para>
+             <para>LLL = کد محل صدور (همان سه رقم اول کد ۱۰ رقمی)</para>
+             <para>SSSSSSS = سریال ۷ رقمی / EEEEE = پسوند ۵ رقمی</para>
+             <para>K1 = رقم کنترل اول با همان قاعده ثبت احوال روی رقم‌های ۱ تا ۱۸ با وزن‌های چرخشی ۱۰..۲</para>
+             <para>K2 = رقم کنترل دوم با همان قاعده روی رقم‌های ۱ تا ۱۹ با وزن‌های چرخشی ۱..۱۰</para>
+             <para>
+             کد تبدیل‌شده از کد ۱۰ رقمی: LLL+SSSSSSS دقیقاً همان کد ۱۰ رقمی قبلی است و EEEEE = 00000؛
+             مثلاً 0014401509 ← 364 0014401509 00000 K1K2 (برگشت‌پذیر).
+             کدهای جدید همیشه پسوند غیرصفر دارند، پس هیچ‌وقت با کدهای تبدیل‌شده تداخل ندارند.
+             </para>
+             </remarks>
+        </member>
+        <member name="F:SayehBanTools.GenerateValue.NationalCode.IranCountryCode">
+            <summary>کد کشور ایران (ISO 3166-1 عددی)</summary>
+        </member>
+        <member name="F:SayehBanTools.GenerateValue.NationalCode.LegacyExtension">
+            <summary>پسوند کدهای ۲۰ رقمی که از کد ۱۰ رقمی تبدیل شده‌اند</summary>
         </member>
         <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRandom">
             <summary>
             تولید کد ملی تصادفی معتبر
             </summary>
+            <returns>کد ملی 10 رقمی معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRandom(System.String)">
+            <summary>
+            تولید کد ملی تصادفی معتبر برای یک محل صدور مشخص
+            </summary>
+            <param name="locationCode">کد محل صدور ۳ رقمی (مثلاً 001)؛ null یعنی محل تصادفی</param>
             <returns>کد ملی 10 رقمی معتبر</returns>
         </member>
         <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRound">
@@ -873,20 +988,108 @@
             </summary>
             <returns>کد ملی 10 رقمی رند و معتبر</returns>
         </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRound(System.String)">
+            <summary>
+            تولید کد ملی رند و معتبر برای یک محل صدور مشخص
+            </summary>
+            <param name="locationCode">کد محل صدور ۳ رقمی؛ null یعنی محل رند تصادفی</param>
+            <returns>کد ملی 10 رقمی رند و معتبر</returns>
+        </member>
         <member name="M:SayehBanTools.GenerateValue.NationalCode.CalculateControlDigit(System.String)">
             <summary>
-            محاسبه رقم کنترل کد ملی
+            محاسبه رقم کنترل کد ملی ۱۰ رقمی
             </summary>
-            <param name="code">9 رقم اول کد ملی</param>
-            <returns>رقم کنترل (0 تا 9) یا -1 اگر نامعتبر باشد</returns>
+            <param name="first9Digits">9 رقم اول کد ملی</param>
+            <returns>رقم کنترل (0 تا 9)</returns>
         </member>
         <member name="M:SayehBanTools.GenerateValue.NationalCode.IsValidNationalCode(System.String)">
             <summary>
-            بررسی صحت کد ملی
+            بررسی صحت کد ملی ۱۰ رقمی (ارقام فارسی/عربی، فاصله و خط‌تیره هم پذیرفته می‌شود)
             </summary>
             <param name="nationalCode">کد ملی</param>
             <returns>درست یا نادرست</returns>
             <exception cref="T:System.Exception">در صورت ورودی نامعتبر</exception>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRandom20(System.String,System.String)">
+            <summary>
+            تولید کد ملی ۲۰ رقمی تصادفی معتبر
+            </summary>
+            <param name="countryCode">کد کشور ۳ رقمی (پیش‌فرض ایران 364)</param>
+            <param name="locationCode">کد محل صدور ۳ رقمی؛ null یعنی محل تصادفی</param>
+            <returns>کد ملی ۲۰ رقمی معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateRound20(System.String,System.String)">
+            <summary>
+            تولید کد ملی ۲۰ رقمی رند و معتبر
+            </summary>
+            <param name="countryCode">کد کشور ۳ رقمی (پیش‌فرض ایران 364)</param>
+            <param name="locationCode">کد محل صدور ۳ رقمی؛ null یعنی محل رند تصادفی</param>
+            <returns>کد ملی ۲۰ رقمی رند و معتبر</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.ConvertTo20(System.String,System.String)">
+            <summary>
+            تبدیل کد ملی ۱۰ رقمی به کد ملی ۲۰ رقمی نزدیک به آن (برگشت‌پذیر، هر کد ۱۰ رقمی فقط یک کد ۲۰ رقمی دارد).
+            مثال: 0014401509 ← 364 0014401509 00000 + دو رقم کنترل
+            </summary>
+            <param name="nationalCode10">کد ملی ۱۰ رقمی معتبر</param>
+            <param name="countryCode">کد کشور ۳ رقمی (پیش‌فرض ایران 364)</param>
+            <returns>کد ملی ۲۰ رقمی</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GenerateNear20(System.String,System.Boolean,System.String)">
+            <summary>
+            تولید کد ملی ۲۰ رقمی جدید در همان محل صدورِ کد ملی ۱۰ رقمی (با سریال تصادفی و پسوند غیرصفر)
+            </summary>
+            <param name="nationalCode10">کد ملی ۱۰ رقمی معتبر</param>
+            <param name="round">true برای کد رند</param>
+            <param name="countryCode">کد کشور ۳ رقمی (پیش‌فرض ایران 364)</param>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.ConvertTo10(System.String)">
+            <summary>
+            برگرداندن کد ملی ۱۰ رقمی از کد ۲۰ رقمیِ تبدیل‌شده؛ اگر کد ۲۰ رقمی از کد ۱۰ رقمی ساخته نشده باشد null
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.IsConvertedFrom10(System.String)">
+            <summary>
+            آیا کد ۲۰ رقمی از روی یک کد ملی ۱۰ رقمی ساخته شده است
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.CalculateControlDigits20(System.String)">
+            <summary>
+            محاسبه دو رقم کنترل کد ملی ۲۰ رقمی
+            </summary>
+            <param name="first18Digits">۱۸ رقم اول</param>
+            <returns>دو رقم کنترل به صورت رشته</returns>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.IsValidNationalCode20(System.String)">
+            <summary>
+            بررسی صحت کد ملی ۲۰ رقمی (ارقام فارسی/عربی، فاصله و خط‌تیره هم پذیرفته می‌شود)
+            </summary>
+            <exception cref="T:System.Exception">در صورت ورودی نامعتبر</exception>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.IsValid(System.String)">
+            <summary>
+            بررسی صحت کد ملی ۱۰ یا ۲۰ رقمی بدون پرتاب استثنا
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GetLocationCode(System.String)">
+            <summary>
+            کد محل صدور (۳ رقم) از کد ملی ۱۰ یا ۲۰ رقمی؛ برای کد نامعتبر null
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.GetCountryCode(System.String)">
+            <summary>
+            کد کشور از کد ملی ۲۰ رقمی (برای کد ۱۰ رقمی معتبر، کد ایران)؛ برای کد نامعتبر null
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.Format(System.String)">
+            <summary>
+            قالب‌بندی برای نمایش: 001-440150-9 یا 364-001-4401509-00000-82
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.GenerateValue.NationalCode.RoundDigits(System.Int32)">
+            <summary>
+            تولید رشته رند با یکی از الگوهای: تکراری، دوتایی، سه‌تایی، نیمه‌نیمه، متوالی صعودی/نزولی، آینه‌ای
+            </summary>
         </member>
         <member name="T:SayehBanTools.GenerateValue.SayyehBan">
             <summary>
@@ -973,6 +1176,31 @@
             <param name="file">فایل ورودی</param>
             <param name="chunkSize">اندازه هر تکه (بایت)</param>
             <returns>مسیر فایل آپلودشده</returns>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.ImageToByteArray(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            فشرده‌سازی و تبدیل تصویر به فرمت استاندارد PNG با حفظ کامل شفافیت (Transparency) و بدون تغییر هدر استاندارد
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.ResizeImagePreserveAlpha(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            تغییر سایز دقیق با Interpolation باکیفیت و رزولوشن بهینه
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.OptimizePngBytes(System.Byte[])">
+            <summary>
+            فشرده‌سازی داخلی برای کاهش بایت‌های اضافی و متادیتاهای PNG
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.ManageFile.ManageFiles.ImageConverterHelper">
+            <summary>
+            دریافت باینری و ارسال به استیمول برای نمایش عکس
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.ManageFile.ManageFiles.ImageConverterHelper.ByteArrayToImage(System.Byte[])">
+            <summary>
+            تبدیل آرایه بایت به تصویر بدون وابستگی به کامپوننت‌های گزارش‌گیر
+            </summary>
         </member>
         <member name="T:SayehBanTools.MessagingBus.RabbitMQ.Connection.RabbitMQConnection">
             <summary>
@@ -1335,6 +1563,21 @@
              <summary>
             شناسه ها
              </summary>
+        </member>
+        <member name="T:SayehBanTools.Model.Entities.PublicModel.IpResponse">
+            <summary>
+            دریافت IP از شبکه
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.SaveIP.Local_IP">
+            <summary>
+            دریافت IPداخلی
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Model.Entities.PublicModel.SaveIP.Public_IP">
+            <summary>
+            دریافت IP عمومی
+            </summary>
         </member>
         <member name="T:SayehBanTools.Model.Entities.SqlModel">
             <summary>
@@ -1780,6 +2023,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SayehBanTools.NetworkUtilities.NetworkChecker.GetLocalIPAddress">
+            <summary>
+            دریافت آدرس IP محلی سیستم
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.NetworkUtilities.NetworkChecker.GetPublicIPAddressAsync">
+            <summary>
+            دریافت IP عمومی (با متد جایگزین، چون وای‌فای ممکن است مشکل‌ساز باشد)
+            </summary>
+            <remarks>
+            در نسخه net11 به‌جای System.Net.WebClient (که در NET. جدید منسوخ است) از HttpClient استفاده می‌شود.
+            </remarks>
+        </member>
         <member name="T:SayehBanTools.Password.WorstPasswords">
             <summary>  
             این کلاس برای مدیریت کلمات پسورد های ضعیف استفاده میشود  
@@ -1808,6 +2064,175 @@
             </summary>  
             <param name="input"></param>  
             <returns></returns>  
+        </member>
+        <member name="T:SayehBanTools.PCPOS.CpmlPosProtocol">
+            <summary>
+            پیاده‌سازی پروتکل CPML (XML) که پروتکل عمومی اکثر PC-POSهای ایرانی است.
+            پورت‌شده از PosCommander اصلی Aramestan.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.CpmlPosProtocol.Init(SayehBanTools.PCPOS.PosConnectionSettings)">
+            <summary>
+            ساخت کانال مناسب از روی تنظیمات و تست باز/بسته شدن آن.
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.IChannel">
+            <summary>کانال ارتباطی با کارت‌خوان (پورت سریال یا شبکه)</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.IPosProtocol">
+            <summary>
+            قرارداد پروتکل کارت‌خوان. پیاده‌سازی فعلی CpmlPosProtocol است؛ پروتکل‌های دیگر
+            (مثل Sunyard بانک شهر) بعداً با همین interface اضافه می‌شوند.
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosActiveX">
+            <summary>
+            نمای JSON از عملیات کارت‌خوان (معادل ActiveX اصلی)؛ مناسب برای برنامه‌هایی که با رشته کار می‌کنند.
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosBrand">
+            <summary>برندهای کارت‌خوان بانکی (PC-POS). برای بانک‌های جدید این enum گسترش داده می‌شود.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosBrandInfo">
+            <summary>اطلاعات هر برند کارت‌خوان: نام سیستمی، نام نمایشی فارسی و اینکه آیا پروتکل عمومی CPML را پشتیبانی می‌کند.</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosBrandInfo.Supported">
+            <summary>آیا این برند با پروتکل CPML کار می‌کند (در PosProtocolFactory قابل ساخت است).</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosBrandInfo.GetAll">
+            <summary>ثبت‌نام برندها. هر برندی که با CPML کار کند Supported=true می‌گیرد؛ بقیه برای پروتکل‌های اختصاصی (مثل Sunyard بانک شهر) رزرو شده‌اند.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosCommander">
+            <summary>
+            نقطه راحتی Singleton (ترد-سیف) برای کار با کارت‌خوان، هم‌شکل نسخه اصلی Aramestan.
+            استفاده از طریق PosProtocolFactory هم بدون Singleton ممکن است.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosCommander.Init(SayehBanTools.PCPOS.PosConnectionSettings)">
+            <summary>آماده‌سازی پروتکل و تست اتصال، بر اساس تنظیمات.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosConnectionType">
+            <summary>نوع ارتباط با کارت‌خوان.</summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosConnectionType.SerialPort">
+            <summary>پورت سریال (COM)</summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosConnectionType.Lan">
+            <summary>شبکه محلی (TCP)</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosConnectionSettings">
+            <summary>
+            تنظیمات اتصال به کارت‌خوان. کلاس ساده و قابل سریال‌شدن با JSON (بدون وابستگی به Properties.Settings).
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.SerialPort">
+            <summary>نام پورت سریال مثل COM3</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.BaudRate">
+            <summary>نرخ باود پیش‌فرض اکثر PC-POSها</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.SerialTimeout">
+            <summary>تایم‌اوت پورت سریال (ثانیه)</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.LanIp">
+            <summary>آی‌پی کارت‌خوان در حالت شبکه</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.LanPort">
+            <summary>پورت TCP پیش‌فرض پروتکل CPML</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.LanTimeout">
+            <summary>تایم‌اوت شبکه (ثانیه)</summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosConnectionSettings.PrintReceipt">
+            <summary>چاپ رسید توسط خود دستگاه کارت‌خوان</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosProtocolFactory">
+            <summary>
+            کارخانه ساخت پروتکل کارت‌خوان بر اساس برند. برندهای خانواده CPML نمونه CpmlPosProtocol می‌گیرند؛
+            بقیه با NotSupportedException رد می‌شوند تا پروتکل‌های اختصاصی بعداً جایگزین شوند.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosProtocolFactory.Create(SayehBanTools.PCPOS.PosConnectionSettings)">
+            <summary>ساخت پروتکل مستقیماً از تنظیمات (برند از داخل تنظیمات خوانده می‌شود).</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosResponseRule">
+            <summary>
+            یک قاعده در جدول پیام پاسخ: کد پاسخ (+ در صورت نیاز کد عملیات و شرط اضافی) به پیام فارسی.
+            برای بانک‌هایی که پیامشان به ActionCode یا طول RRN بستگی دارد (فن آوا، پرداخت نوین آرین) استفاده می‌شود.
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosResponseRule.Code">
+            <summary>کد پاسخ دستگاه (Result). اگر «""» یا «"*"» باشد به‌عنوان پیش‌فرض (fallback) در نظر گرفته می‌شود.</summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosResponseRule.ActionCode">
+            <summary>کد عملیات (ActionCode)؛ خالی یعنی قاعده به آن وابسته نیست.</summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosResponseRule.ExtraCondition">
+            <summary>شرط اضافی (مثل RRN.Length != 11)؛ نال یعنی بدون شرط.</summary>
+        </member>
+        <member name="F:SayehBanTools.PCPOS.PosResponseRule.Message">
+            <summary>پیام فارسی نتیجه</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosResponseMessageTable">
+            <summary>
+            «تونل پیام پاسخ» کارت‌خوان: تبدیل کد پاسخ هر بانک به پیام فارسی، به‌صورت داده‌محور و
+            باز برای توسعه — بانک/کد جدید با <see cref="M:SayehBanTools.PCPOS.PosResponseMessageTable.Register(System.String,System.String,System.String)"/> در شروع برنامه (یا از دیتابیس) اضافه می‌شود
+            بدون دست زدن به کد کتابخانه. داده‌های داخلی، وفادار از کد قدیمی Aramestan (POS_Message.AlertPost) استخراج شده‌اند
+            و اولویت و ترتیب همان کد قدیمی حفظ شده است (اولین/آخرین تطابق مثل قبل؛ «""» یعنی پیامی یافت نشد).
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.PCPOS.PosResponseMessageTable.KnownCompanies">
+            <summary>نام‌های نمایشی بانک‌های موجود در جدول (برای رابط کاربری یا اعتبارسنجی رجیستری توسعه‌ها)</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.TryGetMessage(System.String,System.String,System.String,System.String,System.String@)">
+            <summary>پیام فارسی کد پاسخ؛ «""» یعنی پیامی برای این ترکیب تعریف نشده (مثل کد قدیمی).</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.GetMessage(System.String,System.String,System.String,System.String)">
+            <summary>پیام فارسی کد پاسخ؛ «""» یعنی پیامی برای این ترکیب تعریف نشده (مثل کد قدیمی).</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.GetMessage(SayehBanTools.PCPOS.PosBrand,System.String,System.String,System.String)">
+            <summary>همان GetMessage ولی با برند کارت‌خوان؛ نام نمایشی برند به کلید جدول ترجمه می‌شود.</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.ResolveCompany(System.String)">
+            <summary>تطبیق نام نمایشی رجیستری برند با کلیدهای قدیمی جدول (سداد/فناوا/سایان‌کارت/نوین آریان)</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.Register(System.String,System.String,System.String)">
+            <summary>
+            ثبت کد ساده برای بانک موجود یا جدید (کلید نام بانک آزاد است؛ بانک‌های شرط‌دار مثل فن آوا را بازنویسی نمی‌کند).
+            اگر برای آن بانک قواعد شرط‌دار باشد، پیام ساده تا زمانی که هیچ قاعده‌ای تطابق نیابد به‌عنوان پیش‌فرض نهایی استفاده می‌شود.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.Register(System.String,SayehBanTools.PCPOS.PosResponseRule)">
+            <summary>ثبت قاعده شرط‌دار (ActionCode/شرط اضافی) برای بانک موجود یا جدید؛ ترتیب ثبت، ترتیب ارزیابی است.</summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.PosResponseMessageTable.Unregister(System.String,System.String)">
+            <summary>کد پاسخ را از قواعد/جدول حذف می‌کند (برای بازنویسی پیش‌فرض‌ها از بالا)</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosMessage">
+            <summary>همان امضای کلاس قدیمی POS_Message؛ برای خوانا ماندن فراخوانی‌های قدیمی، فقط به جدول delegation می‌کند.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.Language">
+            <summary>زبان چاپ روی کارت‌خوان</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.PosInfo">
+            <summary>اطلاعات دستگاه کارت‌خوان</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.Transaction">
+            <summary>جزئیات تراکنش موفق</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.Response">
+            <summary>پاسخ کارت‌خوان. کدهای خطا: 201 عدم اتصال، 202 خطای ارسال، 203 پاسخ خالی، 204 پاسخ نامعتبر.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.SerialPortChannel">
+            <summary>
+            کانال پورت سریال با فریمینگ STX(0x02)/طول دو بایتی/LRC/ETX(0x03) و دریافت ACK(0x05)؛ نرخ باود پیش‌فرض 38400.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.PCPOS.SerialPortChannel.SendCommand(System.String)">
+            <summary>ارسال دستور با حداکثر ۳ بار تلاش تا دریافت ACK (0x05). خروجی 0 یعنی موفق.</summary>
+        </member>
+        <member name="T:SayehBanTools.PCPOS.SocketChannel">
+            <summary>کانال شبکه TCP؛ پورت پیش‌فرض CPML یعنی 16028 و خواندن پاسخ در بافر 20480 بایتی.</summary>
         </member>
         <member name="T:SayehBanTools.Sender.Service.Interface.I_SMS">
             <summary>
@@ -2544,6 +2969,48 @@
             آدرس API دریافت تمام تنظیمات زبان
             </summary>
         </member>
+        <member name="F:SayehBanTools.Utilities.Constants.ExpressionConstants.ExpressionEmail">
+            <summary>
+            Expression بررسی کننده ایمیل
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.Constants.ExpressionConstants.ExpressionSite">
+            <summary>
+            Expression بررسی کننده سایت
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.Constants.StaticConstants.LimitTel">
+            <summary>
+            طول تعداد شماره تلفن
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.Helper.DocumentNumber">
+            <summary>
+            پیشوند شماره اسناد بر اساس تنظیم «شماره‌گذاری اسناد»:
+            1 = سال (1405 + 0001)، 2 = سال و ماه (140508 + 0001، پیش‌فرض)، 3 = سال و ماه و روز (14050820 + 0001).
+            چهار رقم شمارنده را کد فراخواننده (مثلاً SP «DocumentCounters_GenerateNumber») اضافه می‌کند.
+            تاریخ محلی (شمسی) است، نه UTC.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.Helper.DocumentNumber.FormatSelector">
+            <summary>
+            انتخاب فرمت برای فراخواننده (اگر تنظیم نشده باشد سال و ماه استفاده می‌شود).
+            مثال: DocumentNumber.FormatSelector = () => StoreStaticData.DocumentNumberFormat;
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.Helper.DocumentNumber.Sample(System.Byte)">
+            <summary>نمونه شماره سند برای نمایش در تنظیمات</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.Helper.GhahShomar">
+            <summary>
+            تقویم شمسی با نام روزهای هفته، مناسبت‌های رسمی ایران و تاریخ ساده
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.Helper.GhahShomar.WeekName">
+            <summary>
+            دریافت نام روز هفته (مثل: شنبه)
+            </summary>
+        </member>
         <member name="T:SayehBanTools.Utilities.Mapper.DynamicMapperTranslations">
             <summary>
             ابزارهای مپینگ پویا برای تبدیل dynamic به مدل‌های DTO
@@ -2615,6 +3082,689 @@
             <summary>
             تعداد کل صفحه
             </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.toolTip">
+            <summary>
+            The ToolTip of the Control.
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.drawShine">
+            <summary>
+            If false, the shine isn't drawn (-> symbolizes a disabled control).
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.transparencyFactor">
+            <summary>
+            Set the transparency of the special Symbols.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SayehBanTools.Utilities.win.component.CommonControls.Btn" /> class.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.BackColor">
+            <summary>
+            Gets or sets the background color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ForeColor">
+            <summary>
+            Gets or sets the foreground color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.InnerBorderColor">
+            <summary>
+            Gets or sets the inner border color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbolColor">
+            <summary>
+            Gets or sets the color of the special symbol.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.CornerRadius">
+            <summary>
+            Gets or sets the corner radius.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ToolTipText">
+            <summary>
+            Gets or sets the tool tip text.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeForm">
+            <summary>
+            Gets or sets the alternative form.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AnimateGlow">
+            <summary>
+            Gets or sets a value indicating whether the glow is animated.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShowSpecialSymbol">
+            <summary>
+            Gets or sets a value indicating whether a special symbol is drawn.
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbols">
+            <summary>
+            List of all available special symbols.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbol">
+            <summary>
+            Gets or sets the special symbol.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeFormDirection">
+            <summary>
+            Gets or sets the alternative form direction.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShowFocusBorder">
+            <summary>
+            Gets or sets a value indicating whether the focus border is shown.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeFocusBorderColor">
+            <summary>
+            Gets or sets the color of the alternative focus border.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.OuterBorderColor">
+            <summary>
+            Gets or sets the outer border color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShineColor">
+            <summary>
+            Gets or sets the shine color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlowColor">
+            <summary>
+            Gets or sets the glow color of the control.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.State">
+            <summary>
+            Gets the state of the button control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnClick(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.Click" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnEnter(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.Enter" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnLeave(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.Leave" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnKeyUp(System.Windows.Forms.KeyEventArgs)" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnKeyUp(System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnKeyUp(System.Windows.Forms.KeyEventArgs)" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.MouseDown" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.MouseUp" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Raises the <see cref="M:System.Windows.Forms.Control.OnMouseMove(System.Windows.Forms.MouseEventArgs)" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseEnter(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.MouseEnter" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseLeave(System.EventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.Forms.Control.MouseLeave" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnPaint(System.Windows.Forms.PaintEventArgs)" /> event.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawButtonBackground(System.Drawing.Graphics)">
+            <summary>
+            Draws the button background.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawSpecialSymbol(System.Drawing.Graphics)">
+            <summary>
+            Draws the special symbol.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawButtonForeground(System.Drawing.Graphics)">
+            <summary>
+            Draws the button foreground.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawForegroundFromButton(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Draws the foreground from button.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateRoundRectangle(System.Drawing.Rectangle,System.Int32)">
+            <summary>
+            Creates the round rectangle.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateTopRoundRectangle(System.Drawing.Rectangle,System.Int32)">
+            <summary>
+            Creates the top round rectangle.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateBottomRadialPath(System.Drawing.Rectangle)">
+            <summary>
+            Creates the bottom radial path.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_SizeChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SizeChanged event of the GlassButton control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_MouseLeave(System.Object,System.EventArgs)">
+            <summary>
+            Handles the MouseLeave event of the GlassButton control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_MouseEnter(System.Object,System.EventArgs)">
+            <summary>
+            Handles the MouseEnter event of the GlassButton control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_LostFocus(System.Object,System.EventArgs)">
+            <summary>
+            Handles the LostFocus event of the GlassButton control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_GotFocus(System.Object,System.EventArgs)">
+            <summary>
+            Handles the GotFocus event of the GlassButton control.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcRect(System.Single)">
+            <summary>
+            Recalcs the rectangles for drawing.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcShine(System.Drawing.Rectangle)">
+            <summary>
+            Recalcs the shine.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcGlow(System.Single)">
+            <summary>
+            Recalcs the glow.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcContent(System.Drawing.Rectangle,System.Drawing.Rectangle@)">
+            <summary>
+            Recalcs the content.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcOuterBorder">
+            <summary>
+            Recalcs the outer border.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.FlatAppearance">
+            <summary>This property is not relevant for this class.</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.FlatStyle">
+            <summary>This property is not relevant for this class.</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.UseVisualStyleBackColor">
+            <summary>This property is not relevant for this class.</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.cmbbox">
+            <summary>
+            ComboBox سفارشی:
+             - با رفتن موس روی آن (کادر متن، دکمه و لیست) نشانگر دست نمایش داده می‌شود
+             - پس‌زمینه سفید و نوشته سیاه
+             - AutoComplete با جستجوی «شامل» (وسط کلمه هم پیدا می‌شود) و چندکلمه‌ای
+             - سازگار با Items و DataSource (DisplayMember / ValueMember)
+             - نرمال‌سازی حروف فارسی و عربی (ي/ی ، ك/ک ، ارقام ، نیم‌فاصله)
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.cmbbox.HandCursorWindow">
+            <summary>پنجره‌های داخلی ComboBox نشانگر خودشان را (I-Beam / فلش) تنظیم می‌کنند؛ اینجا دست می‌کنیم.</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.cmbbox.RawText">
+            <summary>
+            متن کادر را مستقیم از ویندوز می‌خواند. وقتی لیست خالی است، Text خود ComboBox
+            ممکن است ArgumentOutOfRangeException بدهد (چون داخلش Items[SelectedIndex] را می‌خواند).
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.cmbbox.SafeSelectedItem">
+            <summary>SelectedItem بدون خطا؛ اگر اندیس معتبر نباشد null برمی‌گرداند.</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.cmbbox.Normalize(System.String)">
+            <summary>نرمال‌سازی برای مقایسه: حروف عربی به فارسی، ارقام به لاتین، حذف نیم‌فاصله/اعراب، حروف کوچک.</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.cmbboxDGV">
+            <summary>
+            کامبوباکس اختصاصی با قابلیت نمایش تصویر و متن به صورت یکپارچه (OwnerDraw)
+            رفع مشکل DisplayMember و تبدیل هوشمند آرایه برای جلوگیری از چاپ نام کلاس
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.cmbboxDGV.Text">
+            <summary>
+            باگ WinForms: بعد از عوض شدن DataSource (مثلاً نتیجه جستجوی خالی) ممکن است ایندکس انتخاب در کنترل
+            ویندوز (native) هنوز 0 باشد در حالی که لیست آیتم‌ها خالی است؛ آن‌وقت خواندن Text در پیام‌های ماوس
+            خطای ArgumentOutOfRangeException می‌دهد و برنامه کرش می‌کند. در این حالت متن خام را برمی‌گردانیم.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.cmbboxDGV.SafeSelectedItem">
+            <summary>
+            آیتم انتخاب شده به صورت امن (در صورت ناهماهنگی ایندکس، null برمی‌گرداند)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.cmbboxDGV.HasValidSelection">
+            <summary>
+            انتخاب معتبر است فقط اگر: آیتمی انتخاب شده باشد، مقدار داشته باشد و
+            متن تایپ‌شده دقیقاً با متن همان آیتم یکی باشد.
+            (بعد از جستجو، کنترل خودکار اولین نتیجه را انتخاب می‌کند؛ پس متن ناقص یا اشتباه
+            بدون این بررسی، اولین کالای لیست را به اشتباه ذخیره می‌کرد)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.DGV.SaveColumnOrders">
+            <summary>
+            ذخیره‌سازی ترتیب ستون‌ها در تنظیمات برنامه
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.DGV.RestoreColumnOrders">
+            <summary>
+            بازیابی ترتیب ستون‌ها از تنظیمات برنامه
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.EnableSelectAllCheckbox(System.String)">
+            <summary>
+            با فراخوانی این متد، یک چک‌باکس اصلی در هدر ستون موردنظر برای انتخاب همه قرار می‌گیرد
+            </summary>
+            <param name="checkboxColumnName">نام ستون چک‌باکس در گرید (مثلاً colSelect)</param>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.PicBox.Image">
+            <summary>
+            تصویر کنترل. با هر بار مقداردهی (حتی مستقیم از فرم مثل <c>PicBox.Image = ...</c>)
+            دکمه ضربدر حذف خودکار نمایش داده یا مخفی می‌شود.
+            (قبلاً فقط SetImageFromBytes و دابل‌کلیک ضربدر را نشان می‌دادند)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.PicBoxShow.SetImageFromBytes(System.Byte[])">
+            <summary>
+            مقداردهی و نمایش تصویر مستقیم از آرایه بایتی دیتابیس
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.NodeTypes">
+            <summary>گره درخت دسترسی: منو (Group)، فرم (Form) یا عملیات (Action)</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.Permission_Item">
+            <summary>یک گره دسترسی برای همگام‌سازی با دیتابیس</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.IPermissionService">
+            <summary>
+            سرویس دسترسی که برنامه مصرف‌کننده پیاده‌سازی می‌کند:
+            SyncAsync = همگام‌سازی درخت دسترسی، GetByUserAsync = دسترسی کاربر (مدیر + کلیدهای مجاز)
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.AccessControl">
+            <summary>
+            سطح دسترسی کاربران (RBAC مبتنی بر منو):
+            - درخت دسترسی هنگام اجرا از روی منوی اصلی ساخته و در دیتابیس همگام می‌شود
+            - دسترسی کاربر یک بار بعد از ورود در حافظه (static) بارگذاری می‌شود؛ فرم‌ها برای بررسی دسترسی به سرور درخواست نمی‌دهند
+            - روی هر فرم ثبت‌شده با AddFittedForm خودکار اعمال می‌شود: فرم بدون مجوز باز نمی‌شود، دکمه‌های ذخیره / ویرایش / حذف / چاپ
+              بدون مجوز غیرفعال و منوهای آن‌ها مخفی می‌شوند
+            - مدیر سیستم (IsAdmin) به همه چیز دسترسی دارد
+            قبل از استفاده: <see cref="P:SayehBanTools.Utilities.win.Helper.AccessControl.ServiceFactory"/> را به سرویس خود وصل کنید و جدول <see cref="P:SayehBanTools.Utilities.win.Helper.AccessControl.Map"/> را پر کنید.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.ServiceFactory">
+            <summary>سرویس دسترسی برنامه (دیتابیس / API). قبل از InitializeAsync تنظیم شود.</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.Map">
+            <summary>
+            منوهای باز کننده فرم: نام منو (کلید دسترسی)، نام کلاس فرم (فرمی که فقط از یک منو باز می‌شود) و عملیات‌های دارای مجوز
+            (S ذخیره، E ویرایش، D حذف، P چاپ). فرمی که از چند منو باز می‌شود (گزارش‌ها) با SetFormKey کلید می‌گیرد.
+            این جدول مال خود برنامه مصرف‌کننده است و باید هنگام راه‌اندازی پر شود.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.AlwaysAllowed">
+            <summary>منوهایی که برای همه آزادند (در درخت دسترسی نمی‌آیند)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.AdminOnly">
+            <summary>منوهایی که فقط مدیر سیستم می‌بیند</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.SkipNamePart">
+            <summary>نام‌هایی که شامل این رشته هستند (منوی آموزش و ...) در درخت دسترسی نمی‌آیند</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.IsLoaded">
+            <summary>دسترسی کاربر بارگذاری شده است (قبل از ورود همه چیز آزاد است)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Helper.AccessControl.IsAdmin">
+            <summary>مدیر سیستم</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.Can(System.String)">
+            <summary>دسترسی به کلید (منو / فرم) یا «کلید.عملیات»</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.Can(System.String,System.String)">
+            <summary>دسترسی به عملیات یک فرم؛ عملیاتی که برای آن فرم تعریف نشده آزاد است</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.SetFormKey(System.Windows.Forms.Form,System.String)">
+            <summary>کلید دسترسی فرمی که از چند منو باز می‌شود (قبل از ShowDialog)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.InitializeAsync(System.Windows.Forms.MenuStrip,System.Int32)">
+            <summary>
+            بعد از ورود (فرم اصلی): ساخت درخت دسترسی از روی منو، همگام‌سازی با دیتابیس، بارگذاری دسترسی کاربر و اعمال روی منو
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.RefreshAsync">
+            <summary>
+            همگام‌سازی دوره‌ای (تایمر فرم اصلی): دسترسی کاربر دوباره از دیتابیس خوانده می‌شود تا تغییری که مدیر از رایانه دیگری داده
+            بدون خروج و ورود دوباره اعمال شود. منوی اصلی در هر دو جهت (دادن / گرفتن دسترسی) به‌روز می‌شود؛ در فرم‌های باز فقط
+            دکمه‌ها و منوهای عملیاتی که دسترسی‌شان گرفته شده غیرفعال می‌شوند (دسترسی تازه داده‌شده با باز کردن دوباره فرم اعمال می‌شود).
+            خطای شبکه / دیتابیس دسترسی فعلی را تغییر نمی‌دهد. خروجی: آیا دسترسی تغییر کرد.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.ApplyOpenForms">
+            <summary>اعمال دسترسی‌های گرفته‌شده روی فرم‌های باز (بدون بستن فرم تا داده‌های در حال ورود از دست نرود)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.BuildCatalog(System.Windows.Forms.MenuStrip)">
+            <summary>درخت دسترسی: گروه‌های منو، منوهای باز کننده فرم و عملیات‌های هر فرم</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.ApplyMainMenu(System.Windows.Forms.MenuStrip)">
+            <summary>منوهای بدون مجوز مخفی می‌شوند؛ گروهی که هیچ زیرمنوی مجاز ندارد هم مخفی می‌شود</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.Attach(System.Windows.Forms.Form)">
+            <summary>در AddFittedForm صدا زده می‌شود: هنگام Load دسترسی فرم اعمال می‌شود</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.ToolStripsOf(System.Windows.Forms.Form)">
+            <summary>همه نوارابزارها و منوهای فرم (حتی منوی راست‌کلیکی که به کنترلی وصل نیست)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.AccessControl.RequiredActions(System.String)">
+            <summary>عملیات لازم برای یک دکمه / منو از روی نام آن (BtnSave، MnDelete، BtnSaveAndPrint، ذخیرهToolStripMenuItem ...)</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.DateInput">
+            <summary>
+            ورود تاریخ (انقضا / تولید) به شمسی یا میلادی، مثل فرم فاکتور خرید:
+            چک‌باکس تیک‌دار = «تاریخ شمسی»؛ بدون تیک = «تاریخ میلادی». با ترک کادر، تاریخ میلادی به شمسی تبدیل و چک‌باکس تیک‌دار می‌شود.
+            سال ۱۹۰۰ به بالا همیشه میلادی حساب می‌شود (حتی اگر چک‌باکس شمسی باشد) و سال کمتر از ۱۷۰۰ شمسی.
+            متن کادر بعد از ترک همیشه شمسی است، پس بقیه کد (InventoryUi.ParseShamsi) بدون تغییر کار می‌کند.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.DateInput.Bind(SayehBanTools.Utilities.win.component.CommonControls.SmartTextBox,System.Windows.Forms.CheckBox,System.String)">
+            <summary>اتصال کادر تاریخ و چک‌باکس شمسی/میلادی</summary>
+            <param name="title">نام تاریخ در پیام خطا (مثلاً «تاریخ انقضا»)</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.DateInput.Normalize(SayehBanTools.Utilities.win.component.CommonControls.SmartTextBox,System.Windows.Forms.CheckBox,System.String,System.Boolean)">
+            <summary>
+            تبدیل فوری (برای وقتی Enter در کادر، بدون ترک آن، ردیف را اضافه می‌کند).
+            خروجی false یعنی تاریخ نامعتبر است (پیام داده شده و فوکوس روی کادر رفته).
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.DateInput.NormalizeToShamsi(System.String)">
+            <summary>
+            متن تاریخ ستون جدول (بدون چک‌باکس): سال ۱۷۰۰ به بالا میلادی و تبدیل به شمسی؛ خالی = خالی؛ نامعتبر = null
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.DateInput.TryParts(System.String,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>«1406/3/5»، «1406-03-05» یا ۸ رقم «14060305»</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.EnterNavigation">
+            <summary>
+            حرکت با Enter در همه فرم‌ها (بدون نیاز به Tab یا موس):
+            - کادر متن (تک‌خطی)، چک‌باکس، رادیوباتن، لیست کشویی، تاریخ و عدد: با Enter به کنترل بعدی (به ترتیب TabIndex) می‌رود،
+              فقط برای کنترل‌هایی که خودشان رویداد KeyDown ندارند (کنترل‌هایی که KeyDown دارند، مثل جستجو با Enter، دست نمی‌خورند).
+            - cmbbox سایه‌بان خودش EnterToTab دارد و تغییر نمی‌کند.
+            - DGV سایه‌بان (جدول ویرایشی، ReadOnly نیست): GONextCell روشن می‌شود تا Enter به خانه بعدی برود.
+            - استثنا: اگر Tag کنترل شامل «NoEnterMove» باشد، کاری با آن نمی‌شود.
+            به همه فرم‌هایی که با AddFittedForm ثبت می‌شوند (فرم‌های فعلی و فرم‌های بعدی) خودکار وصل می‌شود.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.EnterNavigation.Apply(System.Windows.Forms.Control)">
+            <summary>همه کنترل‌های فرم (و کنترل‌هایی که بعداً اضافه می‌شوند) را تنظیم می‌کند</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.EnterNavigation.HasKeyDown(System.Windows.Forms.Control)">
+            <summary>آیا کنترل رویداد KeyDown دارد (مثلاً FocuseMoveControl یا جستجو با Enter)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.EnterNavigation.FocuseMoveControl(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            همان FocuseMoveControl فرم‌ها: Enter = رفتن به کنترل بعدی.
+            به جای SendKeys از SelectNextControl استفاده شده (همان کار Tab، بدون وابستگی به فوکوس پنجره).
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.ExportaExcel.Exporta(System.Data.DataTable)">
+            <summary>
+            گرفتن خروجی اکسل سریع از DataTable
+            </summary>
+            <param name="dtexpo">جدول داده ورودی</param>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.FormValidation">
+            <summary>
+            قواعد مشترک اعتبارسنجی فرم‌ها تا همه فرم‌ها یکسان رفتار کنند
+            </summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.win.Helper.FormValidation.MinPasswordLength">
+            <summary>حداقل طول رمز عبور جدید</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.FormValidation.IsValidComboSelection(System.Windows.Forms.ComboBox)">
+            <summary>
+            آیا گزینه کامبوباکس واقعاً از لیست انتخاب شده است؟
+            (متن تایپ‌شده باید دقیقاً متن همان آیتم انتخاب‌شده باشد؛ کامبوهای جستجوی «شامل» با متن اشتباه، ایندکس قبلی را نگه می‌دارند)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.FormValidation.ValidatePassword(System.Text.StringBuilder,System.String,System.String,System.Boolean)">
+            <param name="required">در فرم ویرایش، خالی گذاشتن رمز یعنی «بدون تغییر»</param>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.GridRightAlign">
+            <summary>
+            راست‌چین کردن داده‌های همه جدول‌های فرم (متن، عدد، مبلغ، تاریخ).
+            نکته: در جدول RightToLeft، ویندوز چینش را آینه می‌کند؛ یعنی MiddleRight سمت چپ و MiddleLeft سمت راست رسم می‌شود.
+            به همین دلیل در هنگام رسم هر خانه (CellFormatting، بعد از رویدادهای خود فرم) چینش درست تنظیم می‌شود
+            تا تنظیم‌های قبلی ستون‌ها (MiddleRight / MiddleCenter) اثری نداشته باشند.
+            چک‌باکس، دکمه و تصویر وسط‌چین می‌مانند. برای استثنا: Tag ستون = "NoRightAlign".
+            از طریق EnterNavigation به همه فرم‌های AddFittedForm وصل می‌شود.
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.InventoryUi">
+            <summary>
+            کمکی‌های مشترک فرم‌ها: تاریخ شمسی ↔ روز تقویمی، تبدیل بازه روز محلی به UTC (بالای بازه انحصاری)،
+            پیام‌ها و متن بسته/عدد، مبلغ مالیات و تخفیف و تجزیه اعداد از متن فارسی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.FromDayUtc(System.Nullable{System.DateTime})">
+            <summary>شروع روز محلی (شمسی) به UTC</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.ToDayUtcExclusive(System.Nullable{System.DateTime})">
+            <summary>پایان انحصاری: شروع روز بعد به UTC</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.Packs(System.Double,System.Double,System.String)">
+            <summary>«۳ کارتن + ۴ عدد» برای کالاهای بسته‌ای، وگرنه خود تعداد</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.ApplyTax(System.Decimal,System.Double)">
+            <summary>مبلغ با مالیات درصدی اعشاری (مثلاً 9.5٪)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.ApplyDiscount(System.Decimal,System.Double)">
+            <summary>مبلغ بعد از تخفیف درصدی اعشاری (مثلاً 2.5٪)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.ParsePercent(System.String)">
+            <summary>درصد از متن؛ نقطه اعشار حفظ می‌شود (12.5) و ممیز فارسی هم پذیرفته می‌شود</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.InventoryUi.ParseDecimal(System.String)">
+            <summary>عدد از متن (جداکننده هزارگان و ارقام فارسی مجاز)</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.ScreenFit">
+            <summary>
+            جا شدن فرم‌ها در صفحه‌های کوچک (مثل مانیتور 19 اینچ 1366×768):
+            اگر فرم از ناحیه کاری صفحه (بدون نوار وظیفه) بزرگ‌تر باشد، کوچک می‌شود، اسکرول می‌گیرد و وسط صفحه قرار می‌گیرد.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.ScreenFit.AddFittedForm``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            ثبت فرم در DI به همراه تنظیم خودکار اندازه با صفحه
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.SetAppIcon(System.Windows.Forms.Form,System.Byte[])">
+            <summary>
+            تنظیم لوگوی برنامه روی فرم جاری به‌صورت پویا از طریق آرایه بایتی
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.SetAppTitle(System.Windows.Forms.Form,System.String,System.String)">
+            <summary>
+            تنظیم عنوان فرم به‌صورت پویا و ترکیب با عنوان پیش‌فرض
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.ExitApp">
+            <summary>
+            دکمه خروج کامل از نرم‌افزار (بستن تمام کل برنامه)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.ConfirmExit">
+            <summary>
+            تأیید خروج کامل از نرم‌افزار (مناسب جهت استفاده در FormClosing فرم اصلی)
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.CloseApp(System.Windows.Forms.Form)">
+            <summary>
+            بستن فرم جاری به صورت Extension Method
+            </summary>
+            <param name="form">فرمی که قرار است بسته شود</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.SystemHelper.ConfirmClose">
+            <summary>
+            تأیید بستن فرم جاری (مناسب جهت استفاده در FormClosing فرم‌های زیرمجموعه)
+            </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Helper.TimeInput">
+            <summary>
+            ورود ساعت در کادر متنی (HH:mm). DateTimePicker در فرم راست‌به‌چپ ساعت و دقیقه را جابه‌جا نشان می‌دهد (۱۷:۰۰ ← ۰۰:۱۷)،
+            پس ساعت با کادر متنی چپ‌به‌راست گرفته می‌شود. ورودی‌های مجاز: 8 ، 08 ، 8:30 ، 0830 ، 830 ، 17.30
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.TimeInput.Normalize(System.String)">
+            <summary>ارقام فارسی و فاصله‌ها</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Helper.TimeInput.Bind(System.Windows.Forms.TextBox)">
+            <summary>با خروج از کادر، ساعت به شکل استاندارد (08:30) نوشته می‌شود</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer">
+            <summary>
+            پخش‌کننده سراسری فیلم‌های آموزشی (موتور VLC: تقریباً همه فرمت‌ها).
+            محل توقف هر فیلم ذخیره می‌شود و دفعه بعد از همان‌جا ادامه می‌دهد.
+            از فرم‌ها مستقیم باز نکنید؛ از <see cref="M:SayehBanTools.Utilities.win.Learning.LearningVideo.Show(System.Windows.Forms.Form,System.String)"/> استفاده کنید.
+            موتور VLC به صورت تنبل (Lazy) و فقط هنگام باز شدن پخش‌کننده مقداردهی می‌شود؛ اگر پوشه libvlc
+            کنار برنامه نباشد، پیام مناسب می‌دهد و بقیه کتابخانه بدون مشکل کار می‌کند.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer.AppLogo">
+            <summary>لوگوی برنامه (اختیاری، آرایه بایت تصویر) برای آیکون پنجره</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer.Open(System.String,System.String)">
+            <summary>
+            پخش فیلم. اگر پخش‌کننده‌ای باز باشد بسته می‌شود (محلش ذخیره می‌شود) و پنجره تازه باز می‌شود،
+            تا اگر از داخل یک فرم مودال صدا زده شد، پنجره قابل استفاده باشد.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer.StartMedia(System.Int64)">
+            <summary>شروع (یا شروع دوباره) فیلم از یک نقطه</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer.ShowInfo(System.String,System.Int32)">
+            <param name="ticks">چند تیک تایمر (۲۵۰ میلی‌ثانیه) بماند؛ صفر = بماند</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.FrmLearningPlayer.Ui(System.Action)">
+            <summary>اجرای کد روی نخ فرم (رویدادهای VLC از نخ دیگری می‌آیند)</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Learning.LearningVideo">
+            <summary>
+            پخش فیلم آموزشی هر فرم.
+            فیلم باید در پوشه Learning، با همان مسیرِ فرم در پوشه Forms، و با نام فرم بدون پیشوند Frm باشد.
+            مثال: Forms\BaseInformation\ProductsAndGoods\MeasurementUnitSettings\FrmUnits
+              →  Learning\BaseInformation\ProductsAndGoods\MeasurementUnitSettings\Units.mp4  (هر پسوند ویدیویی)
+            استفاده در فرم: <c>LearningVideo.Show(this);</c>
+            قبل از استفاده، <see cref="P:SayehBanTools.Utilities.win.Learning.LearningVideo.FormsNamespace"/> را با namespace فرم‌های برنامه خود تنظیم کنید.
+            </summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.LearningVideo.FormsNamespace">
+            <summary>پیشوند namespace فرم‌ها (مثال: «MyApp.Forms»). پیش‌فرض پوشه خالی است.</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.LearningVideo.ProductName">
+            <summary>نام پوشه/محصول برای ذخیره محل توقف ویدیوها در LocalApplicationData</summary>
+        </member>
+        <member name="F:SayehBanTools.Utilities.win.Learning.LearningVideo.VideoExtensions">
+            <summary>پسوندهایی که به‌عنوان فیلم شناخته می‌شوند (موتور VLC همه را پخش می‌کند)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.LearningVideo.RootFolder">
+            <summary>پوشه Learning کنار برنامه</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningVideo.Show(System.Windows.Forms.Form,System.String)">
+            <summary>فیلم آموزشی فرم را باز می‌کند؛ اگر فیلم نباشد پیام می‌دهد.</summary>
+            <param name="form">فرمی که منوی آموزشی آن زده شده (معمولاً this)</param>
+            <param name="videoName">اگر نام فیلم با نام فرم فرق دارد (بدون پسوند)</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningVideo.GetRelativeFolder(System.Type)">
+            <summary>MyApp.Forms.A.B → A\B</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningVideo.GetVideoName(System.Type)">
+            <summary>FrmUnits → Units ، Frm_Login → Login</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningVideo.FindVideo(System.String,System.String)">
+            <summary>فایل ویدیویی با این نام (هر پسوند)؛ اگر چند فایل بود، جدیدترین</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Learning.LearningProgress">
+            <summary>
+            ذخیره محل توقف هر فیلم و تنظیمات پخش‌کننده (صدا، سرعت) برای کاربر ویندوز:
+            %LocalAppData%\{ProductName}\LearningProgress.json
+            اگر فیلم عوض شود (حجم یا تاریخ فایل)، از اول پخش می‌شود.
+            </summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningProgress.KeyOf(System.String)">
+            <summary>کلید هر فیلم: مسیر نسبی داخل پوشه Learning (بدون پسوند تا تغییر فرمت هم همان فیلم حساب شود)</summary>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.Learning.LearningProgress.GetResumePosition(System.String)">
+            <summary>محل ادامه پخش (میلی‌ثانیه)؛ صفر یعنی از اول</summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.Learning.PlayerSlider">
+            <summary>
+            نوار باریک پخش‌کننده (مثل نوار زمان یوتیوب) برای زمان فیلم و صدا.
+            با کلیک به هر نقطه می‌پرد و با کشیدن، مقدار را لحظه‌ای گزارش می‌کند.
+            </summary>
+        </member>
+        <member name="E:SayehBanTools.Utilities.win.Learning.PlayerSlider.Scrubbing">
+            <summary>هنگام کشیدن (لحظه‌ای)</summary>
+        </member>
+        <member name="E:SayehBanTools.Utilities.win.Learning.PlayerSlider.ValueCommitted">
+            <summary>رها کردن ماوس یا کلیک: مقدار نهایی انتخاب شد</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.PlayerSlider.IsDragging">
+            <summary>در حال کشیدن توسط کاربر است (در این حالت نباید از بیرون Value را عوض کرد)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.Learning.PlayerSlider.AlwaysShowThumb">
+            <summary>دکمه گرد همیشه دیده شود (برای نوار صدا)</summary>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.CommonPasswordAttribute">
             <summary>

@@ -113,4 +113,24 @@ public class PublicModel
         [PositiveNumberIdArrayAttribute(ErrorMessage = "شناسه ها نمی‌تواند خالی، صفر یا منفی باشد.")]
         public int[] ids { get; set; } = new int[0];
     }
+
+    /// <summary>
+    /// دریافت IP از شبکه
+    /// </summary>
+    public class IpResponse
+    {
+        public string? ip { get; set; }
+    }
+
+    public class SaveIP
+    {
+        /// <summary>
+        /// دریافت IPداخلی
+        /// </summary>
+        public string? Local_IP { get; set; }
+        /// <summary>
+        /// دریافت IP عمومی
+        /// </summary>
+        public string? Public_IP { get; set; }
+    }
 }

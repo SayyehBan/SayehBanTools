@@ -34,7 +34,7 @@ public class ElasticsearchIndexManager
         var allowedLanguages = languageCodes.Select(l => l.ToLower()).ToHashSet();
 
         // تعریف داینامیک پراپرتی‌ها
-        var properties = new Properties();
+        var properties = new global::Elastic.Clients.Elasticsearch.Mapping.Properties();
         foreach (var prop in propertyMappings)
         {
             switch (prop.Value.ToLower())
@@ -95,7 +95,7 @@ public class ElasticsearchIndexManager
         Dictionary<string, string> propertyMappings)
     {
         // تعریف داینامیک پراپرتی‌ها
-        var properties = new Properties();
+        var properties = new global::Elastic.Clients.Elasticsearch.Mapping.Properties();
         foreach (var prop in propertyMappings)
         {
             switch (prop.Value.ToLower())

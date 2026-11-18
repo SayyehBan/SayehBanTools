@@ -4,7 +4,7 @@ namespace SayehBanTools.ShowDateTime;
 /// <summary>
 /// این کلاس برای تبدیل تاریخ به فارسی استفاده میشود
 /// </summary>
-public class ConvertDateTime
+public static class ConvertDateTime
 {    /// <summary>
      /// کد مربوط به تاریخ به صورت ماه و روز
      /// </summary>
@@ -129,5 +129,64 @@ public class ConvertDateTime
             }
         }
         return dt;
+    }
+
+    // متد کمکی برای جلوگیری از تکرار کدهای تبدیل تاریخ
+    public static string ConvertToPersianDateTimeUTC(DateTime dtValue)
+    {
+        DateTime utcDate = DateTime.SpecifyKind(dtValue, DateTimeKind.Utc);
+        DateTime iranTime;
+
+        try
+        {
+            TimeZoneInfo iranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+            iranTime = TimeZoneInfo.ConvertTimeFromUtc(utcDate, iranTimeZone);
+        }
+        catch
+        {
+            iranTime = utcDate.AddHours(3.5);
+        }
+
+        PersianCalendar pc = new PersianCalendar();
+        return $"{pc.GetYear(iranTime):0000}/{pc.GetMonth(iranTime):00}/{pc.GetDayOfMonth(iranTime):00} {iranTime:HH:mm:ss}";
+    }
+    // متد کمکی برای جلوگیری از تکرار کدهای تبدیل تاریخ
+    public static string ConvertToPersianDateUTC(DateTime dtValue)
+    {
+        DateTime utcDate = DateTime.SpecifyKind(dtValue, DateTimeKind.Utc);
+        DateTime iranTime;
+
+        try
+        {
+            TimeZoneInfo iranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+            iranTime = TimeZoneInfo.ConvertTimeFromUtc(utcDate, iranTimeZone);
+        }
+        catch
+        {
+            iranTime = utcDate.AddHours(3.5);
+        }
+
+        PersianCalendar pc = new PersianCalendar();
+        return $"{pc.GetYear(iranTime):0000}/{pc.GetMonth(iranTime):00}/{pc.GetDayOfMonth(iranTime):00}";
+    }
+    public static string GetCurrentYearPersion()
+    {
+        System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+        string currentPrefix = pc.GetYear(DateTime.Now).ToString();
+        return currentPrefix;
+    }
+    public static string GetCurrentYearMonthPersion()
+    {
+        System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+        string currentPrefix = pc.GetYear(DateTime.Now).ToString() + pc.GetMonth(DateTime.Now).ToString("00");
+        return currentPrefix;
+    }
+    public static string GetCurrentFullPersion()
+    {
+        System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+        string currentPrefix = pc.GetYear(DateTime.Now).ToString() +
+                               pc.GetMonth(DateTime.Now).ToString("00") +
+                               pc.GetDayOfMonth(DateTime.Now).ToString("00"); // این بخش اصلاح شد
+        return currentPrefix;
     }
 }
