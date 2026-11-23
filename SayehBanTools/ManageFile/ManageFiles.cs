@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 using System.IO.Abstractions;
 using System.IO.Compression;
 using Microsoft.AspNetCore.Http;
@@ -161,45 +161,27 @@ public class ManageFiles(IFileSystem fileSystem = null!)
     /// <summary>
     /// فشرده‌سازی و تبدیل تصویر به فرمت استاندارد PNG با حفظ کامل شفافیت (Transparency) و بدون تغییر هدر استاندارد
     /// </summary>
-    public static byte[]? ImageToByteArray(Image image, int maxWidth = 500, int maxHeight = 500)
+    public static byte[]? ImageToByteArray(byte[] imageBytes, int maxWidth = 500, int maxHeight = 500)
     {
-        if (image == null) return null;
+        if (imageBytes == null || imageBytes.Length == 0) return null;
 
-        // ۱. محاسبه نسبت ابعاد
-        double ratioX = (double)maxWidth / image.Width;
-        double ratioY = (double)maxHeight / image.Height;
-        double ratio = Math.Min(ratioX, ratioY);
-
-        int newWidth = image.Width;
-        int newHeight = image.Height;
-
-        if (ratio < 1.0)
+        using (var image = Image.Load(imageBytes))
         {
-            newWidth = Math.Max(1, (int)(image.Width * ratio));
-            newHeight = Math.Max(1, (int)(image.Height * ratio));
-        }
+            double ratioX = (double)maxWidth / image.Width;
+            double ratioY = (double)maxHeight / image.Height;
+            double ratio = Math.Min(ratioX, ratioY);
 
-        // ۲. تولید بیت‌مپ با رزولوشن بهینه برای وب/دسکتاپ (کاهش چشمگیر حجم)
-        using (var newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format32bppArgb))
-        {
-            newImage.SetResolution(72, 72);
-
-            using (var g = Graphics.FromImage(newImage))
+            if (ratio < 1.0)
             {
-                g.Clear(Color.Transparent);
-                g.CompositingMode = CompositingMode.SourceOver;
-                g.CompositingQuality = CompositingQuality.HighSpeed;
-                g.InterpolationMode = InterpolationMode.HighQualityBilinear;
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                int newWidth = Math.Max(1, (int)(image.Width * ratio));
+                int newHeight = Math.Max(1, (int)(image.Height * ratio));
 
-                g.DrawImage(image, new Rectangle(0, 0, newWidth, newHeight));
+                image.Mutate(x => x.Resize(newWidth, newHeight, KnownResamplers.Bicubic));
             }
 
-            // ۳. ذخیره مستقیم به فرمت معتبر PNG
             using (var ms = new MemoryStream())
             {
-                newImage.Save(ms, ImageFormat.Png);
+                image.SaveAsPng(ms, new PngEncoder { CompressionLevel = PngCompressionLevel.BestCompression });
                 return ms.ToArray();
             }
         }
@@ -208,38 +190,28 @@ public class ManageFiles(IFileSystem fileSystem = null!)
     /// <summary>
     /// تغییر سایز دقیق با Interpolation باکیفیت و رزولوشن بهینه
     /// </summary>
-    private static Bitmap ResizeImagePreserveAlpha(Image original, int maxWidth, int maxHeight)
+    private static byte[] ResizeImagePreserveAlpha(byte[] imageBytes, int maxWidth, int maxHeight)
     {
-        double ratioX = (double)maxWidth / original.Width;
-        double ratioY = (double)maxHeight / original.Height;
-        double ratio = Math.Min(ratioX, ratioY);
-
-        int newWidth = original.Width;
-        int newHeight = original.Height;
-
-        // اگر ابعاد بزرگتر از حد تعیین شده باشد، کوچک می‌شود
-        if (ratio < 1.0)
+        using (var image = Image.Load(imageBytes))
         {
-            newWidth = Math.Max(1, (int)(original.Width * ratio));
-            newHeight = Math.Max(1, (int)(original.Height * ratio));
+            double ratioX = (double)maxWidth / image.Width;
+            double ratioY = (double)maxHeight / image.Height;
+            double ratio = Math.Min(ratioX, ratioY);
+
+            if (ratio < 1.0)
+            {
+                int newWidth = Math.Max(1, (int)(image.Width * ratio));
+                int newHeight = Math.Max(1, (int)(image.Height * ratio));
+
+                image.Mutate(x => x.Resize(newWidth, newHeight, KnownResamplers.Bicubic));
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                image.SaveAsPng(ms);
+                return ms.ToArray();
+            }
         }
-
-        var newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format32bppArgb);
-        newImage.SetResolution(96, 96); // استانداردسازی DPI جهت کاهش سربار حجم تصویر
-
-        using (var g = Graphics.FromImage(newImage))
-        {
-            g.Clear(Color.Transparent);
-            g.CompositingMode = CompositingMode.SourceOver;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-            g.DrawImage(original, new Rectangle(0, 0, newWidth, newHeight));
-        }
-
-        return newImage;
     }
 
     /// <summary>
@@ -267,9 +239,6 @@ public class ManageFiles(IFileSystem fileSystem = null!)
     /// </summary>
     public static class ImageConverterHelper
     {
-        /// <summary>
-        /// تبدیل آرایه بایت به تصویر بدون وابستگی به کامپوننت‌های گزارش‌گیر
-        /// </summary>
         public static Image? ByteArrayToImage(byte[]? imageBytes)
         {
             if (imageBytes == null || imageBytes.Length == 0)
@@ -277,14 +246,7 @@ public class ManageFiles(IFileSystem fileSystem = null!)
 
             try
             {
-                using (MemoryStream ms = new MemoryStream(imageBytes))
-                {
-                    using (Image img = Image.FromStream(ms))
-                    {
-                        // ساخت کپی جدید باعث می‌شود بتوانیم استریم را ببندیم بدون اینکه تصویر خراب شود
-                        return new Bitmap(img);
-                    }
-                }
+                return Image.Load(imageBytes);
             }
             catch (Exception ex)
             {
