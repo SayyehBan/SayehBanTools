@@ -3083,264 +3083,61 @@
             تعداد کل صفحه
             </summary>
         </member>
-        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.toolTip">
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.Btn">
             <summary>
-            The ToolTip of the Control.
-            </summary>
-        </member>
-        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.drawShine">
-            <summary>
-            If false, the shine isn't drawn (-> symbolizes a disabled control).
-            </summary>
-        </member>
-        <member name="F:SayehBanTools.Utilities.win.component.CommonControls.Btn.transparencyFactor">
-            <summary>
-            Set the transparency of the special Symbols.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:SayehBanTools.Utilities.win.component.CommonControls.Btn" /> class.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.BackColor">
-            <summary>
-            Gets or sets the background color of the control.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ForeColor">
-            <summary>
-            Gets or sets the foreground color of the control.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.InnerBorderColor">
-            <summary>
-            Gets or sets the inner border color of the control.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbolColor">
-            <summary>
-            Gets or sets the color of the special symbol.
+            دکمه پایدار و زیبا — بدون انیمیشن ناقص و بدون چشمک زدن
+            ظاهر ثابت در حالت عادی، هاور، فشرده و غیرفعال + پشتیبانی کامل از آیکون Image
             </summary>
         </member>
         <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.CornerRadius">
             <summary>
-            Gets or sets the corner radius.
+            شعاع گوشه‌های دکمه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ToolTipText">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.BackColor">
             <summary>
-            Gets or sets the tool tip text.
+            رنگ پس‌زمینه دکمه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeForm">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ForeColor">
             <summary>
-            Gets or sets the alternative form.
+            رنگ متن دکمه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AnimateGlow">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.BorderColor">
             <summary>
-            Gets or sets a value indicating whether the glow is animated.
+            رنگ خط دور دکمه
             </summary>
         </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShowSpecialSymbol">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.HoverBackColor">
             <summary>
-            Gets or sets a value indicating whether a special symbol is drawn.
+            رنگ پس‌زمینه در حالت هاور — پیش‌فرض از GlowColor گرفته می‌شود
             </summary>
         </member>
-        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbols">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.PressedBackColor">
             <summary>
-            List of all available special symbols.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.SpecialSymbol">
-            <summary>
-            Gets or sets the special symbol.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeFormDirection">
-            <summary>
-            Gets or sets the alternative form direction.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShowFocusBorder">
-            <summary>
-            Gets or sets a value indicating whether the focus border is shown.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.AlternativeFocusBorderColor">
-            <summary>
-            Gets or sets the color of the alternative focus border.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.OuterBorderColor">
-            <summary>
-            Gets or sets the outer border color of the control.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShineColor">
-            <summary>
-            Gets or sets the shine color of the control.
+            رنگ پس‌زمینه وقتی دکمه فشرده می‌شود
             </summary>
         </member>
         <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlowColor">
             <summary>
-            Gets or sets the glow color of the control.
+            رنگ هاله دکمه (همان رنگ هاور پیش‌فرض)
             </summary>
         </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.State">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.ShineColor">
             <summary>
-            Gets the state of the button control.
+            رنگ لایه شیشه‌ای بالای دکمه
             </summary>
         </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnClick(System.EventArgs)">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.DisabledBackColor">
             <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.Click" /> event.
+            رنگ پس‌زمینه وقتی دکمه غیرفعال است
             </summary>
         </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnEnter(System.EventArgs)">
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.DisabledForeColor">
             <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.Enter" /> event.
+            رنگ متن وقتی دکمه غیرفعال است
             </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnLeave(System.EventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.Leave" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnKeyDown(System.Windows.Forms.KeyEventArgs)">
-            <summary>
-            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnKeyUp(System.Windows.Forms.KeyEventArgs)" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnKeyUp(System.Windows.Forms.KeyEventArgs)">
-            <summary>
-            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnKeyUp(System.Windows.Forms.KeyEventArgs)" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseDown" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseUp" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
-            <summary>
-            Raises the <see cref="M:System.Windows.Forms.Control.OnMouseMove(System.Windows.Forms.MouseEventArgs)" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseEnter(System.EventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseEnter" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnMouseLeave(System.EventArgs)">
-            <summary>
-            Raises the <see cref="E:System.Windows.Forms.Control.MouseLeave" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.OnPaint(System.Windows.Forms.PaintEventArgs)">
-            <summary>
-            Raises the <see cref="M:System.Windows.Forms.ButtonBase.OnPaint(System.Windows.Forms.PaintEventArgs)" /> event.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawButtonBackground(System.Drawing.Graphics)">
-            <summary>
-            Draws the button background.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawSpecialSymbol(System.Drawing.Graphics)">
-            <summary>
-            Draws the special symbol.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawButtonForeground(System.Drawing.Graphics)">
-            <summary>
-            Draws the button foreground.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.DrawForegroundFromButton(System.Windows.Forms.PaintEventArgs)">
-            <summary>
-            Draws the foreground from button.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateRoundRectangle(System.Drawing.Rectangle,System.Int32)">
-            <summary>
-            Creates the round rectangle.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateTopRoundRectangle(System.Drawing.Rectangle,System.Int32)">
-            <summary>
-            Creates the top round rectangle.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.CreateBottomRadialPath(System.Drawing.Rectangle)">
-            <summary>
-            Creates the bottom radial path.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_SizeChanged(System.Object,System.EventArgs)">
-            <summary>
-            Handles the SizeChanged event of the GlassButton control.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_MouseLeave(System.Object,System.EventArgs)">
-            <summary>
-            Handles the MouseLeave event of the GlassButton control.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_MouseEnter(System.Object,System.EventArgs)">
-            <summary>
-            Handles the MouseEnter event of the GlassButton control.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_LostFocus(System.Object,System.EventArgs)">
-            <summary>
-            Handles the LostFocus event of the GlassButton control.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.GlassButton_GotFocus(System.Object,System.EventArgs)">
-            <summary>
-            Handles the GotFocus event of the GlassButton control.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcRect(System.Single)">
-            <summary>
-            Recalcs the rectangles for drawing.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcShine(System.Drawing.Rectangle)">
-            <summary>
-            Recalcs the shine.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcGlow(System.Single)">
-            <summary>
-            Recalcs the glow.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcContent(System.Drawing.Rectangle,System.Drawing.Rectangle@)">
-            <summary>
-            Recalcs the content.
-            </summary>
-        </member>
-        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.Btn.RecalcOuterBorder">
-            <summary>
-            Recalcs the outer border.
-            </summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.FlatAppearance">
-            <summary>This property is not relevant for this class.</summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.FlatStyle">
-            <summary>This property is not relevant for this class.</summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.Btn.UseVisualStyleBackColor">
-            <summary>This property is not relevant for this class.</summary>
         </member>
         <member name="T:SayehBanTools.Utilities.win.component.CommonControls.cmbbox">
             <summary>
@@ -3403,11 +3200,46 @@
             بازیابی ترتیب ستون‌ها از تنظیمات برنامه
             </summary>
         </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.PageButtonBackColor">
+            <summary>رنگ پس‌زمینه دکمه‌های صفحه‌بندی</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.PageButtonForeColor">
+            <summary>رنگ متن دکمه‌های صفحه‌بندی</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.PageButtonBorderColor">
+            <summary>رنگ خط دور دکمه‌های صفحه‌بندی</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.CurrentPageBackColor">
+            <summary>رنگ پس‌زمینه دکمه صفحه جاری</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.CurrentPageForeColor">
+            <summary>رنگ متن دکمه صفحه جاری</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.DisabledButtonBackColor">
+            <summary>رنگ پس‌زمینه دکمه‌های غیرفعال (اول/قبلی/بعدی/آخر وقتی به ابتدا یا انتهای لیست رسیده‌ایم)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.DisabledButtonForeColor">
+            <summary>رنگ متن دکمه‌های غیرفعال</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.PageButtonFont">
+            <summary>فونت دکمه‌های صفحه‌بندی</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.NavButtonBackColor">
+            <summary>رنگ پس‌زمینه دکمه‌های ناوبری (اول/قبلی/بعدی/آخر)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.NavButtonForeColor">
+            <summary>رنگ متن دکمه‌های ناوبری</summary>
+        </member>
         <member name="M:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.EnableSelectAllCheckbox(System.String)">
             <summary>
             با فراخوانی این متد، یک چک‌باکس اصلی در هدر ستون موردنظر برای انتخاب همه قرار می‌گیرد
             </summary>
             <param name="checkboxColumnName">نام ستون چک‌باکس در گرید (مثلاً colSelect)</param>
+        </member>
+        <member name="M:SayehBanTools.Utilities.win.component.CommonControls.DGVPagin.RefreshPageButtonsState">
+            <summary>
+            بروزرسانی رنگ/فونت/فعال‌بودن دکمه‌های موجود بدون rebuild — بدون چشمک زدن
+            </summary>
         </member>
         <member name="P:SayehBanTools.Utilities.win.component.CommonControls.PicBox.Image">
             <summary>
@@ -3420,6 +3252,24 @@
             <summary>
             مقداردهی و نمایش تصویر مستقیم از آرایه بایتی دیتابیس
             </summary>
+        </member>
+        <member name="T:SayehBanTools.Utilities.win.component.CommonControls.PlayerSlider">
+            <summary>
+            نوار باریک پخش‌کننده (مثل نوار زمان یوتیوب) برای زمان فیلم و صدا.
+            با کلیک به هر نقطه می‌پرد و با کشیدن، مقدار را لحظه‌ای گزارش می‌کند.
+            </summary>
+        </member>
+        <member name="E:SayehBanTools.Utilities.win.component.CommonControls.PlayerSlider.Scrubbing">
+            <summary>هنگام کشیدن (لحظه‌ای)</summary>
+        </member>
+        <member name="E:SayehBanTools.Utilities.win.component.CommonControls.PlayerSlider.ValueCommitted">
+            <summary>رها کردن ماوس یا کلیک: مقدار نهایی انتخاب شد</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.PlayerSlider.IsDragging">
+            <summary>در حال کشیدن توسط کاربر است (در این حالت نباید از بیرون Value را عوض کرد)</summary>
+        </member>
+        <member name="P:SayehBanTools.Utilities.win.component.CommonControls.PlayerSlider.AlwaysShowThumb">
+            <summary>دکمه گرد همیشه دیده شود (برای نوار صدا)</summary>
         </member>
         <member name="T:SayehBanTools.Utilities.win.Helper.NodeTypes">
             <summary>گره درخت دسترسی: منو (Group)، فرم (Form) یا عملیات (Action)</summary>
@@ -3747,24 +3597,6 @@
         </member>
         <member name="M:SayehBanTools.Utilities.win.Learning.LearningProgress.GetResumePosition(System.String)">
             <summary>محل ادامه پخش (میلی‌ثانیه)؛ صفر یعنی از اول</summary>
-        </member>
-        <member name="T:SayehBanTools.Utilities.win.Learning.PlayerSlider">
-            <summary>
-            نوار باریک پخش‌کننده (مثل نوار زمان یوتیوب) برای زمان فیلم و صدا.
-            با کلیک به هر نقطه می‌پرد و با کشیدن، مقدار را لحظه‌ای گزارش می‌کند.
-            </summary>
-        </member>
-        <member name="E:SayehBanTools.Utilities.win.Learning.PlayerSlider.Scrubbing">
-            <summary>هنگام کشیدن (لحظه‌ای)</summary>
-        </member>
-        <member name="E:SayehBanTools.Utilities.win.Learning.PlayerSlider.ValueCommitted">
-            <summary>رها کردن ماوس یا کلیک: مقدار نهایی انتخاب شد</summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.Learning.PlayerSlider.IsDragging">
-            <summary>در حال کشیدن توسط کاربر است (در این حالت نباید از بیرون Value را عوض کرد)</summary>
-        </member>
-        <member name="P:SayehBanTools.Utilities.win.Learning.PlayerSlider.AlwaysShowThumb">
-            <summary>دکمه گرد همیشه دیده شود (برای نوار صدا)</summary>
         </member>
         <member name="T:SayehBanTools.Validations.Attributes.CommonPasswordAttribute">
             <summary>

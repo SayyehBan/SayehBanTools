@@ -9,7 +9,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<AssemblyVersion>1.0.1.1</AssemblyVersion>
 		<FileVersion>1.0.1.1</FileVersion>
-		<Version>2.0.8</Version>
+		<Version>2.0.9</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Company>SayyehBan.ir</Company>
 		<Description>سورس کمکی برای افزایش سرعت کد نویسی</Description>
@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.1.89" />
+    <PackageReference Include="Dapper" Version="2.1.100" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.5.3" />
     <PackageReference Include="LibVLCSharp" Version="3.10.2" />
     <PackageReference Include="LibVLCSharp.WinForms" Version="3.10.2" />
@@ -45,11 +45,11 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.12.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="OllamaSharp" Version="5.5.2" />
-    <PackageReference Include="RabbitMQ.Client" Version="7.2.2" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.3.0" />
     <PackageReference Include="RestSharp" Version="114.1.0" />
     <PackageReference Include="StackExchange.Redis" Version="3.4.35" />
     <PackageReference Include="System.IO.Ports" Version="11.0.0" />
-    <PackageReference Include="System.IO.Abstractions" Version="23.0.1" />
+    <PackageReference Include="System.IO.Abstractions" Version="23.1.0" />
     <PackageReference Include="System.Reactive.Windows.Forms" Version="7.0.0" />
   </ItemGroup>
 
